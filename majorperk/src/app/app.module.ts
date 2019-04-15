@@ -12,6 +12,7 @@ import en from '@angular/common/locales/en';
 import { GlobalNavComponent } from './components/global-nav/global-nav.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MarketplaceComponent } from './components/marketplace/marketplace.component';
+import { MarketNavComponent } from './market-nav/market-nav.component';
 
 registerLocaleData(en);
 
@@ -20,7 +21,8 @@ registerLocaleData(en);
     AppComponent,
     GlobalNavComponent,
     DashboardComponent,
-    MarketplaceComponent
+    MarketplaceComponent,
+    MarketNavComponent
   ],
   imports: [
     BrowserModule,
