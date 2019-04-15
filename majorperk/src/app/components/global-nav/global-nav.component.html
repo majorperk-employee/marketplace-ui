@@ -2,8 +2,7 @@
   <div class="logo"></div>
   <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" style="line-height:
     64px;">
-    <li nz-menu-item>nav 1</li>
-    <li nz-menu-item>nav 2</li>
-    <li nz-menu-item>nav 3</li>
+    <li (click)="routeTo('dashboard')" nz-menu-item>Dashboard</li>
+    <li (click)="routeTo('marketplace')" nz-menu-item>Market</li>
   </ul>
 </nz-header>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-global-nav',
@@ -15,4 +16,11 @@ import { Component } from '@angular/core';
     `
   ]
 })
-export class GlobalNavComponent {}
+export class GlobalNavComponent {
+
+  constructor(private router: Router) { }
+  
+  routeTo(destination) {
+    this.router.navigate([destination]);
+  }
+}
