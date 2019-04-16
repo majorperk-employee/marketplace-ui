@@ -8,7 +8,7 @@
     <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }">
       <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 6 }">
 
-        <nz-card nzTitle="Your Points">
+        <nz-card class="dashboard-module" class="dashboard-module" nzTitle="Your Points">
           <div>
             <h5>Available Points</h5>
             <h1>{{userPoints | number}}</h1>
@@ -32,7 +32,7 @@
       <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 12 }">
 
         <!-- REWARDS -->
-        <nz-card nzTitle="Reward Yourself">
+        <nz-card class="dashboard-module" nzTitle="Reward Yourself">
           <nz-list [nzDataSource]="data" [nzItemLayout]="'vertical'"
             [nzRenderItem]="item">
             <ng-template #item let-item>
@@ -54,8 +54,7 @@
 
         <!-- ANNOUNCEMENTS -->
 
-        <nz-card nzTitle="Announcements" style="margin-top:
-          8px;">
+        <nz-card class="dashboard-module" nzTitle="Announcements">
           <div class="column-content"></div>
         </nz-card>
 
@@ -63,7 +62,7 @@
 
       <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 6 }">
 
-        <nz-card nzTitle="Statistics" style="margin-top:8px;">
+        <nz-card class="dashboard-module" nzTitle="Statistics">
           <nz-row [nzGutter]="16">
             <nz-col [nzSpan]="12">
               <nz-statistic [nzValue]="1128 | number" [nzTitle]="'Your Rank'"
@@ -77,16 +76,9 @@
           </nz-row>
         </nz-card>
 
-        <nz-card nzTitle="Refer a friend!" style="margin-top:8px;">
+        <nz-card class="dashboard-module" nzTitle="Refer a friend!">
           <div class="column-content"></div>
         </nz-card>
-      </div>
-    </div>
-
-
-    <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }">
-      <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 6 }">
-        <!-- <div class="column-content"> <h1> One </h1> </div> -->
       </div>
     </div>
 
