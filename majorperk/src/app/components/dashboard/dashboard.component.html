@@ -7,10 +7,8 @@
 
     <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }">
       <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 6 }">
-        <nz-page-header nzTitle="Your Points"></nz-page-header>
 
-        <div class="column-content main-column">
-
+        <nz-card nzTitle="Your Points">
           <div>
             <h5>Available Points</h5>
             <h1>{{userPoints | number}}</h1>
@@ -27,14 +25,14 @@
             <nz-progress nz-tooltip [nzPercent]="60" [nzSuccessPercent]="30"
               [nzShowInfo]="false"></nz-progress>
           </nz-tooltip>
+        </nz-card>
 
-        </div>
       </div>
 
       <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 12 }">
 
         <!-- REWARDS -->
-        <nz-card nzTitle="Reward Yourself" [nzBordered]="false">
+        <nz-card nzTitle="Reward Yourself">
           <nz-list [nzDataSource]="data" [nzItemLayout]="'vertical'"
             [nzRenderItem]="item">
             <ng-template #item let-item>
@@ -56,7 +54,8 @@
 
         <!-- ANNOUNCEMENTS -->
 
-        <nz-card nzTitle="Announcements" [nzBordered]="false" style="margin-top: 8px;">
+        <nz-card nzTitle="Announcements" style="margin-top:
+          8px;">
           <div class="column-content"></div>
         </nz-card>
 
@@ -64,10 +63,7 @@
 
       <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 6 }">
 
-        <nz-page-header nzTitle="Statistics"></nz-page-header>
-
-        <div class="column-content main-column">
-
+        <nz-card nzTitle="Statistics" style="margin-top:8px;">
           <nz-row [nzGutter]="16">
             <nz-col [nzSpan]="12">
               <nz-statistic [nzValue]="1128 | number" [nzTitle]="'Your Rank'"
@@ -79,7 +75,11 @@
                 [nzSuffix]="'/ 563'"></nz-statistic>
             </nz-col>
           </nz-row>
-        </div>
+        </nz-card>
+
+        <nz-card nzTitle="Refer a friend!" style="margin-top:8px;">
+          <div class="column-content"></div>
+        </nz-card>
       </div>
     </div>
 
@@ -88,14 +88,6 @@
       <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 6 }">
         <!-- <div class="column-content"> <h1> One </h1> </div> -->
       </div>
-
-
-
-      <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 6 }">
-        <nz-page-header nzTitle="Refer a friend!"></nz-page-header>
-        <div class="column-content"></div>
-      </div>
-
     </div>
 
   </nz-content>
