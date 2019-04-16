@@ -12,7 +12,7 @@ import en from '@angular/common/locales/en';
 import { GlobalNavComponent } from './components/global-nav/global-nav.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MarketplaceComponent } from './components/marketplace/marketplace.component';
-import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
+import { MarketNavComponent } from './market-nav/market-nav.component';
 
 registerLocaleData(en);
 
@@ -21,7 +21,8 @@ registerLocaleData(en);
     AppComponent,
     GlobalNavComponent,
     DashboardComponent,
-    MarketplaceComponent
+    MarketplaceComponent,
+    MarketNavComponent
   ],
   imports: [
     BrowserModule,
@@ -29,8 +30,7 @@ registerLocaleData(en);
     NgZorroAntdModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
-    NgZorroAntdMobileModule
+    BrowserAnimationsModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
