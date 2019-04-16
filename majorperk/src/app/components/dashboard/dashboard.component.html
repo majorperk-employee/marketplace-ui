@@ -5,20 +5,62 @@
       <nz-breadcrumb-item>Dashboard</nz-breadcrumb-item>
     </nz-breadcrumb>
     <div nz-row [nzGutter]="{ xs: 8, sm: 8, md: 8, lg: 8, xl: 8, xxl: 8 }">
-      <div nz-col nzSpan="8">
-        <div style="background: #ffffff; min-height: 500px;"></div>
-      </div>
-      <div nz-col nzSpan="8">
-        <div style="background: #ffffff; min-height: 500px;">
-          <p>Links</p>
-          <nz-divider></nz-divider>
-          <p>Announcements</p>
+
+      <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 6 }">
+        <div class="column-content">
+          <h1> Your Points </h1>
+
+          <nz-progress [nzPercent]="30"></nz-progress>
+          <nz-progress [nzPercent]="50"></nz-progress>
+
         </div>
       </div>
-      <div nz-col nzSpan="8">
-        <div style="background: #ffffff; min-height: 500px;"></div>
+
+      <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 12 }">
+          <div class="column-content">
+
+          <h1>Reward Yourself</h1>
+
+          <nz-list [nzDataSource]="data" [nzItemLayout]="'vertical'"
+            [nzRenderItem]="item">
+            <ng-template #item let-item>
+              <nz-list-item [nzContent]="item.content">
+                <nz-list-item-meta [nzAvatar]="item.avatar" [nzTitle]="nzTitle"
+                  [nzDescription]="item.description">
+                  <ng-template #nzTitle><a href="{{ item.href }}">{{ item.title }}</a></ng-template>
+                </nz-list-item-meta>
+              </nz-list-item>
+            </ng-template>
+
+            <ng-template #pagination>
+              <nz-pagination [nzPageIndex]="1" [nzTotal]="{ s: 3, md: 5 }"
+                (nzPageIndexChange)="loadData($event)"></nz-pagination>
+            </ng-template>
+          </nz-list>
+
+        </div>
       </div>
+
+      <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 6 }">
+          <div class="column-content">
+          <h1> Rankings </h1>
+
+          <nz-row [nzGutter]="16">
+            <nz-col [nzSpan]="12">
+              <nz-statistic [nzValue]="1128 | number" [nzTitle]="'Your Rank'"
+                [nzSuffix]="'/ 11,452'"></nz-statistic>
+              <!-- <ng-template #prefixTpl><i nz-icon type="like"></i></ng-template> -->
+            </nz-col>
+            <nz-col [nzSpan]="12">
+              <nz-statistic [nzValue]="93 | number" [nzTitle]="'Program Rank'"
+                [nzSuffix]="'/ 563'"></nz-statistic>
+            </nz-col>
+          </nz-row>
+        </div>
+      </div>
+
     </div>
+
   </nz-content>
-  <nz-footer style="text-align: center;">Ant Design ©2019 Implement By Angular</nz-footer>
+  <nz-footer style="text-align: center;">Employee Dashboard ©2018 by MajorPerk</nz-footer>
 </nz-layout>
