@@ -37,13 +37,12 @@
         <nz-breadcrumb-item>List</nz-breadcrumb-item>
         <nz-breadcrumb-item>App</nz-breadcrumb-item>
       </nz-breadcrumb>
-      <nz-content style="background:#fff; padding: 24px; min-height: 280px;">
-        <nz-card class="dashboard-module" nzTitle="Reward Yourself">
+      <nz-content style="background:#fff; padding: 24px; min-height: 280px;">        
           <nz-list [nzDataSource]="data" [nzItemLayout]="'vertical'" [nzRenderItem]="item">
             <ng-template #item let-item>
               <div nz-card-grid [ngStyle]="gridStyle">
                 <nz-card-meta [nzAvatar]="item.avatar" [nzTitle]="nzTitle" [nzDescription]="item.description">
-                  <ng-template #nzTitle><a href="{{ item.href }}">{{ item.title
+                  <ng-template #coverTemplate><a href="{{ item.href }}">{{ item.image
                       }}</a></ng-template>
                 </nz-card-meta>
               </div>
@@ -53,7 +52,6 @@
               </nz-pagination>
             </ng-template>
           </nz-list>
-        </nz-card>
       </nz-content>
     </nz-layout>
   </nz-layout>

@@ -18,52 +18,33 @@ export class MarketplaceComponent implements OnInit {
 
 let marketLinks = [
   {
-    href: "/marketplace/travel",
-    title: `Travel`,
-    avatar: '',
-    description: 'Redeem rewards points towards a vacation',
+    title: `Weekend Getaway - New York`,
+    image: '',
+    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
   },
   {
-    href: "/marketplace/gift card",
-    title: `Gift Cards`,
-    avatar: '',
-    description: 'Turn those rewards points into credit at your favorite store',
+    title: `Weekend Getaway - Minneapolis`,
+    image: '',
+    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
   },
   {
-    href: "/marketplace/fitness",
-    title: `Fitness`,
-    avatar: '',
-    description: 'Reward your body with rewards points',
+    title: `Weekend Getaway - Boston`,
+    image: '',
+    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
   },
   {
-    href: "/marketplace/electronics",
-    title: `Electronics`,
-    avatar: '',
-    description: 'Reward yourself with new gadgets',
+    title: `$5 Amazon`,
+    image: '',
+    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
   },
   {
-    href: "/marketplace/transportation",
-    title: `Transportation`,
-    avatar: '',
-    description: 'Give your rewards some miles',
+    title: `$10 Amazon`,
+    image: '',
+    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
   },
   {
-    href: "/userprofile/redeem",
-    title: `Cash Out`,
-    avatar: '',
-    description: 'Redeem your points for a VISA gift card',
-  }
-]
-
-let resources = [
-  {
-    display: "Affordable Housing Partners",
-    url: "https://www.toronto.ca/community-people/community-partners/affordable-housing-partners/",
-    description: "Toronto affordable housing partners, locate homes and new developments in the area."
-  },
-  {
-    display: "Child Care & Before-After School Program Locator",
-    url: "https://www.toronto.ca/community-people/children-parenting/children-programs-activities/licensed-child-care/child-care-locator/",
-    description: "Search for a licensed child care or a before-after school program in Toronto."
+    title: `$20 Amazon`,
+    image: '',
+    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
   }
 ]
