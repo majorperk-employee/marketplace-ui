@@ -1,7 +1,10 @@
 <nz-header>
-  <div class="logo"></div>
   <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" style="line-height:
     64px;">
+    <li nz-menu-item class="logo">
+        <img src="../../../assets/img/logo/mini-logo.png">
+        <h2 class="logo-name">Major Perk</h2>
+    </li>
     <li (click)="routeTo('dashboard')" nz-menu-item>Dashboard</li>
     <li (click)="routeTo('marketplace')" nz-menu-item>Market</li>
   </ul>

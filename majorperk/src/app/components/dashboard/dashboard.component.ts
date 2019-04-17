@@ -10,12 +10,17 @@ export class DashboardComponent implements OnInit {
   data: any[] = [];
   resources: any[] = [];
 
+  userTier = "Silver"
   userPoints = 5000;
+  
   totalDays = 30;
+  totalDaysTarget = 50;
+  totalDaysTargetCompletion = (this.totalDays / this.totalDaysTarget) * 100;
   onTimePercent = 75;
+  onTimePercentTarget = 80;
+  onTimePercentTargetCompletion = (this.onTimePercent / this.onTimePercentTarget) * 100;
 
-  // totalDaysFormat = (days: number) => `${days} days`;
-  // onTimePercentFormat = (percent: number) => `${percent} %`;
+  array = [1, 2, 3, 4];
 
   ngOnInit() {
     this.data = marketLinks;

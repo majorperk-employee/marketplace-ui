@@ -8,7 +8,54 @@
     <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }">
       <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 6 }">
 
-        <nz-card class="dashboard-module" class="dashboard-module" nzTitle="Your Points">
+        <!-- REWARDS -->
+        <nz-card class="dashboard-module" nzTitle="Reward Yourself">
+          <nz-list [nzDataSource]="data" [nzItemLayout]="'vertical'"
+            [nzRenderItem]="item">
+            <ng-template #item let-item>
+              <nz-list-item [nzContent]="item.content">
+                <nz-list-item-meta [nzAvatar]="item.avatar"
+                  [nzTitle]="nzTitle"
+                  [nzDescription]="item.description">
+                  <ng-template #nzTitle><a href="{{ item.href }}">{{
+                      item.title
+                      }}</a></ng-template>
+                </nz-list-item-meta>
+              </nz-list-item>
+            </ng-template>
+          </nz-list>
+        </nz-card>
+
+      </div>
+
+      <div nz-col [nzXs]="{ span: 8 }" [nzLg]="{ span: 12 }">
+
+        <!-- USER TIER -->
+
+        <nz-card class="dashboard-module" nzTitle="Your Teir">
+          <div nz-row>
+            <div nz-col nzSpan="8">
+              <div>
+                <h1>{{userTier}}</h1>
+              </div>
+            </div>
+
+            <div nz-col nzSpan="16">
+              <div>
+                <h1>Next Teir: Gold</h1>
+              </div>
+
+              <nz-progress [nzWidth]="80" nzPercent="{{totalDaysTargetCompletion}}" nzType="circle" [nzStrokeColor]="lightgreen"></nz-progress>
+              <nz-progress [nzWidth]="80" nzPercent="{{onTimePercentTargetCompletion}}" nzType="circle" [nzStrokeColor]="lightblue"></nz-progress>
+            
+            </div>
+          </div>
+        </nz-card>
+
+        <!-- USER POINTS -->
+
+        <nz-card class="dashboard-module" nzTitle="Your
+          Points">
           <div>
             <h5>Available Points</h5>
             <h1>{{userPoints | number}}</h1>
@@ -20,47 +67,23 @@
             <h3> 4,320 </h3>
 
           </div>
-
-          <nz-tooltip nzTitle='{{totalDays}} days / {{onTimePercent}}% on-time'>
-            <nz-progress nz-tooltip [nzPercent]="60" [nzSuccessPercent]="30"
-              [nzShowInfo]="false"></nz-progress>
-          </nz-tooltip>
-        </nz-card>
-
-      </div>
-
-      <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 12 }">
-
-        <!-- REWARDS -->
-        <nz-card class="dashboard-module" nzTitle="Reward Yourself">
-          <nz-list [nzDataSource]="data" [nzItemLayout]="'vertical'"
-            [nzRenderItem]="item">
-            <ng-template #item let-item>
-              <nz-list-item [nzContent]="item.content">
-                <nz-list-item-meta [nzAvatar]="item.avatar" [nzTitle]="nzTitle"
-                  [nzDescription]="item.description">
-                  <ng-template #nzTitle><a href="{{ item.href }}">{{ item.title
-                      }}</a></ng-template>
-                </nz-list-item-meta>
-              </nz-list-item>
-            </ng-template>
-
-            <ng-template #pagination>
-              <nz-pagination [nzPageIndex]="1" [nzTotal]="{ s: 3, md: 5 }"
-                (nzPageIndexChange)="loadData($event)"></nz-pagination>
-            </ng-template>
-          </nz-list>
         </nz-card>
 
         <!-- ANNOUNCEMENTS -->
 
         <nz-card class="dashboard-module" nzTitle="Announcements">
-          <div class="column-content"></div>
+          <nz-carousel [nzEffect]="fade" [nzEnableSwipe]="true">
+            <div nz-carousel-content *ngFor="let index of array">
+              <h3>{{ index }}</h3>
+            </div>
+          </nz-carousel>
         </nz-card>
 
       </div>
 
       <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 6 }">
+
+        <!-- STATISTICS -->
 
         <nz-card class="dashboard-module" nzTitle="Statistics">
           <nz-row [nzGutter]="16">
@@ -75,6 +98,8 @@
             </nz-col>
           </nz-row>
         </nz-card>
+
+        <!-- REFER A FRIEND -->
 
         <nz-card class="dashboard-module" nzTitle="Refer a friend!">
           <div class="column-content"></div>
