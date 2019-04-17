@@ -9,10 +9,10 @@ import 'hammerjs';
 import { en_US, NgZorroAntdModule, NZ_I18N } from 'ng-zorro-antd';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { GlobalNavComponent } from './components/global-nav/global-nav.component';
-import { MarketplaceComponent } from './components/marketplace/marketplace.component';
-import { MarketNavComponent } from './market-nav/market-nav.component';
+import { MarketplaceComponent } from './pages/marketplace/marketplace.component';
+import { MarketNavComponent } from './components/market-nav/market-nav.component';
 
 registerLocaleData(en);
 
