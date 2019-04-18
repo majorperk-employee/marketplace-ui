@@ -357,112 +357,64 @@ let marketItems = [
     description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
     price: 500
   },
+  
+]
+
+let categories = [
   {
-    title: `Weekend Getaway - New York`,
-    image: 'https://www.folkmanis.com/DSN/wwwfolkmaniscom/Commerce/ProductImages/mn1_000288.jpg',
-    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
-    price: 500
+    icon: "icon",
+    name: "option"
   },
   {
-    title: `Weekend Getaway - Minneapolis`,
-    image: 'http://www.upreshare.com/wp-content/uploads/2014/03/ducklings.jpg',
-    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
-    price: 500
+    icon: "icon",
+    name: "option"
   },
   {
-    title: `Weekend Getaway - Boston`,
-    image: 'https://www.folkmanis.com/DSN/wwwfolkmaniscom/Commerce/ProductImages/mn1_000288.jpg',
-    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
-    price: 500
+    icon: "icon",
+    name: "option"
   },
   {
-    title: `$5 Amazon`,
-    image: 'https://www.folkmanis.com/DSN/wwwfolkmaniscom/Commerce/ProductImages/mn1_000288.jpg',
-    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
-    price: 500
+    icon: "icon",
+    name: "option"
   },
   {
-    title: `$10 Amazon`,
-    image: 'https://www.folkmanis.com/DSN/wwwfolkmaniscom/Commerce/ProductImages/mn1_000288.jpg',
-    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
-    price: 500
+    icon: "icon",
+    name: "option"
   },
   {
-    title: `$20 Amazon`,
-    image: 'https://www.folkmanis.com/DSN/wwwfolkmaniscom/Commerce/ProductImages/mn1_000288.jpg',
-    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
-    price: 500
+    icon: "icon",
+    name: "option"
   },
   {
-    title: `Weekend Getaway - New York`,
-    image: 'https://www.folkmanis.com/DSN/wwwfolkmaniscom/Commerce/ProductImages/mn1_000288.jpg',
-    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
-    price: 500
+    icon: "icon",
+    name: "option"
   },
   {
-    title: `Weekend Getaway - Minneapolis`,
-    image: 'http://www.upreshare.com/wp-content/uploads/2014/03/ducklings.jpg',
-    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
-    price: 500
+    icon: "icon",
+    name: "option"
   },
   {
-    title: `Weekend Getaway - Boston`,
-    image: 'https://www.folkmanis.com/DSN/wwwfolkmaniscom/Commerce/ProductImages/mn1_000288.jpg',
-    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
-    price: 500
+    icon: "icon",
+    name: "option"
   },
   {
-    title: `$5 Amazon`,
-    image: 'https://www.folkmanis.com/DSN/wwwfolkmaniscom/Commerce/ProductImages/mn1_000288.jpg',
-    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
-    price: 500
+    icon: "icon",
+    name: "option"
   },
   {
-    title: `$10 Amazon`,
-    image: 'https://www.folkmanis.com/DSN/wwwfolkmaniscom/Commerce/ProductImages/mn1_000288.jpg',
-    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
-    price: 500
+    icon: "icon",
+    name: "option"
   },
   {
-    title: `$20 Amazon`,
-    image: 'https://www.folkmanis.com/DSN/wwwfolkmaniscom/Commerce/ProductImages/mn1_000288.jpg',
-    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
-    price: 500
+    icon: "icon",
+    name: "option"
   },
   {
-    title: `Weekend Getaway - New York`,
-    image: 'https://www.folkmanis.com/DSN/wwwfolkmaniscom/Commerce/ProductImages/mn1_000288.jpg',
-    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
-    price: 500
+    icon: "icon",
+    name: "option"
   },
   {
-    title: `Weekend Getaway - Minneapolis`,
-    image: 'http://www.upreshare.com/wp-content/uploads/2014/03/ducklings.jpg',
-    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
-    price: 500
-  },
-  {
-    title: `Weekend Getaway - Boston`,
-    image: 'https://www.folkmanis.com/DSN/wwwfolkmaniscom/Commerce/ProductImages/mn1_000288.jpg',
-    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
-    price: 500
-  },
-  {
-    title: `$5 Amazon`,
-    image: 'https://www.folkmanis.com/DSN/wwwfolkmaniscom/Commerce/ProductImages/mn1_000288.jpg',
-    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
-    price: 500
-  },
-  {
-    title: `$10 Amazon`,
-    image: 'https://www.folkmanis.com/DSN/wwwfolkmaniscom/Commerce/ProductImages/mn1_000288.jpg',
-    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
-    price: 500
-  },
-  {
-    title: `$20 Amazon`,
-    image: 'https://www.folkmanis.com/DSN/wwwfolkmaniscom/Commerce/ProductImages/mn1_000288.jpg',
-    description: 'Lorem ipsum dolor sit amet, ne vis quem graeco consetetur, id eam doming admodum epicurei. Mei tritani mandamus scriptorem cu, labore insolens platonem id eam.',
-    price: 500
+    icon: "icon",
+    name: "option"
   }
 ]
