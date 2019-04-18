@@ -52,7 +52,7 @@
           [nzLoadMore]=""
           [nzPagination]="pagination">
           <ng-template #item let-item>
-            <nz-list-item>
+            <nz-list-item *ngIf="item">
               <nz-card nzHoverable style="height: 350px; width:300px; textAlign:'center'"
                 [nzCover]="coverTemplate">
                 <nz-card-meta nzTitle="{{item.price}} points"
@@ -68,7 +68,7 @@
     </nz-content>
 
     <ng-template #pagination>
-        <nz-pagination [nzPageIndex]="1" nzPageSize="{{pageSize}}" nzTotal="{{allRewards.length}}" (nzPageIndexChange)="loadData($event)"></nz-pagination>
+        <nz-pagination [nzPageIndex]="pageIndex" [nzPageSize]="pageSize" [nzTotal]="allRewards.length" (nzPageIndexChange)="loadData($event)"></nz-pagination>
       </ng-template>
   </nz-layout>
 </nz-layout>
