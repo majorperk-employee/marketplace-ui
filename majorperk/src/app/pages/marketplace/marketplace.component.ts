@@ -12,10 +12,11 @@ export class MarketplaceComponent implements OnInit {
   pageIndex = 2;
   allRewards: any[];
   marketItems: any[] = [];
-
+  categories: any[] = [];
   constructor() { }
 
   ngOnInit() {
+    this.categories = categories;
     this.allRewards = marketItems;
     this.loadData(this.pageIndex);
   }
@@ -363,58 +364,32 @@ let marketItems = [
 let categories = [
   {
     icon: "icon",
-    name: "option"
+    name: "Gift Cards",
+    tags: ["Fast Food", "Convinience Store", "Gas"]
   },
   {
     icon: "icon",
-    name: "option"
+    name: "Food and Drink",
+    tags: ["Coffee", "Fast-Casual", "Fast Food", "Restaurant"]
   },
   {
     icon: "icon",
-    name: "option"
+    name: "Fitness",
+    tags: ["Lifetime Fitness", "Anytime Fitness", "YMCA"]
   },
   {
     icon: "icon",
-    name: "option"
+    name: "Travel",
+    tags: ["Delta SkyMiles", "Airline Voucher"]
   },
   {
     icon: "icon",
-    name: "option"
+    name: "Electronics",
+    tags: ["Apple", "Samsung", "Phone", "Tablet", "Smart Devices"]
   },
   {
     icon: "icon",
-    name: "option"
-  },
-  {
-    icon: "icon",
-    name: "option"
-  },
-  {
-    icon: "icon",
-    name: "option"
-  },
-  {
-    icon: "icon",
-    name: "option"
-  },
-  {
-    icon: "icon",
-    name: "option"
-  },
-  {
-    icon: "icon",
-    name: "option"
-  },
-  {
-    icon: "icon",
-    name: "option"
-  },
-  {
-    icon: "icon",
-    name: "option"
-  },
-  {
-    icon: "icon",
-    name: "option"
+    name: "Transportation",
+    tags: ["Metro", "Bus", "Uber", "Lyft"]
   }
 ]

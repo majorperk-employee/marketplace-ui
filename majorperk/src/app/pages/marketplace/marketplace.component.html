@@ -2,38 +2,16 @@
   <nz-sider
     nzCollapsible
     [nzWidth]="200"
-    [(nzCollapsed)]="isCollapsed"
     [nzBreakpoint]="'lg'"
     [nzCollapsedWidth]="0"
     [nzZeroTrigger]="zeroTrigger">
     <ul nz-menu [nzMode]="'inline'" style="height:100%"
-      [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu>
-        <span title><i nz-icon type="user"></i>subnav 1</span>
-        <ul>
-          <li nz-menu-item>option1</li>
-          <li nz-menu-item>option2</li>
-          <li nz-menu-item>option3</li>
-          <li nz-menu-item>option4</li>
-        </ul>
-      </li>
-      <li nz-submenu>
-        <span title><i nz-icon type="laptop"></i>subnav 2</span>
-        <ul>
-          <li nz-menu-item>option5</li>
-          <li nz-menu-item>option6</li>
-          <li nz-menu-item>option7</li>
-          <li nz-menu-item>option8</li>
-        </ul>
-      </li>
-      <li nz-submenu>
-        <span title><i nz-icon type="notification"></i>subnav 3</span>
-        <ul>
-          <li nz-menu-item>option9</li>
-          <li nz-menu-item>option10</li>
-          <li nz-menu-item>option11</li>
-          <li nz-menu-item>option12</li>
-        </ul>
+      [nzInlineCollapsed]="false">
+      <li nz-submenu [nzOpen]="true" *ngFor="let item of categories">
+        <span title><i nz-icon type="user"></i>{{item.name}}</span>
+          <ul *ngFor="let tag of item.tags">
+            <li nz-menu-item>{{tag}}</li>
+          </ul>
       </li>
     </ul>
   </nz-sider>
@@ -53,7 +31,8 @@
           [nzPagination]="pagination">
           <ng-template #item let-item>
             <nz-list-item *ngIf="item">
-              <nz-card nzHoverable style="height: 350px; width:300px; textAlign:'center'"
+              <nz-card nzHoverable style="height: 350px; width:300px;
+                textAlign:'center'"
                 [nzCover]="coverTemplate">
                 <nz-card-meta nzTitle="{{item.price}} points"
                   [nzDescription]="item.title"></nz-card-meta>
@@ -68,7 +47,8 @@
     </nz-content>
 
     <ng-template #pagination>
-        <nz-pagination [nzPageIndex]="pageIndex" [nzPageSize]="pageSize" [nzTotal]="allRewards.length" (nzPageIndexChange)="loadData($event)"></nz-pagination>
-      </ng-template>
+      <nz-pagination [nzPageIndex]="pageIndex" [nzPageSize]="pageSize"
+        [nzTotal]="allRewards.length" (nzPageIndexChange)="loadData($event)"></nz-pagination>
+    </ng-template>
   </nz-layout>
 </nz-layout>
