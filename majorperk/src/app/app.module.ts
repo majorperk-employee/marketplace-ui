@@ -12,7 +12,6 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { GlobalNavComponent } from './components/global-nav/global-nav.component';
 import { MarketplaceComponent } from './pages/marketplace/marketplace.component';
-import { MarketNavComponent } from './components/market-nav/market-nav.component';
 
 registerLocaleData(en);
 
@@ -21,8 +20,7 @@ registerLocaleData(en);
     AppComponent,
     GlobalNavComponent,
     DashboardComponent,
-    MarketplaceComponent,
-    MarketNavComponent
+    MarketplaceComponent
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,11 @@
 <nz-layout class="layout">
+
+  <!-- SIDENAV -->
+
   <nz-sider
     nzCollapsible
     [nzWidth]="200"
-    [nzBreakpoint]="'lg'"
+    [nzBreakpoint]="'sm'"
     [nzCollapsedWidth]="0"
     [nzZeroTrigger]="zeroTrigger">
     <ul nz-menu [nzMode]="'inline'" style="height:100%"
@@ -15,6 +18,9 @@
       </li>
     </ul>
   </nz-sider>
+
+  <!-- MARKET -->
+
   <nz-layout>
     <nz-content style="margin:24px 16px 0;">
       <nz-breadcrumb style="margin:16px 0;">
@@ -27,10 +33,13 @@
           [nzRenderItem]="item"
           [nzGrid]="{ gutter: 16, xs: 24, sm: 12, md: 6, lg: 6, xl: 4 }"
           [nzLoadMore]=""
-          [nzPagination]="pagination">
+          [nzPagination]="pagination"
+          nzzIndex="1">
           <ng-template #item let-item>
-            <nz-list-item *ngIf="item">
-              <nz-card nzHoverable style="height: 350px; width:300px; textAlign:'center'"
+            <nz-list-item *ngIf="item" nzzIndex="1">
+              <nz-card nzHoverable nzzIndex="1" style="height: 350px;
+                width:300px;
+                textAlign:'center'; margin: 0 auto 0 auto;"
                 [nzCover]="coverTemplate">
                 <nz-card-meta nzTitle="{{item.price}} points"
                   [nzDescription]="item.title"></nz-card-meta>
@@ -43,12 +52,20 @@
         </nz-list>
       </div>
     </nz-content>
-
-    <ng-template #pagination>
-      <div nz-row nzType="flex" nzJustify="space-around" nzAlign="middle" style="margin: 20px;">
-        <nz-pagination [nzPageIndex]="pageIndex" [nzPageSize]="pageSize"
-          [nzTotal]="allRewards.length" (nzPageIndexChange)="loadData($event)"></nz-pagination>
-      </div>
-    </ng-template>
   </nz-layout>
+
+  <!-- TEMPLATES -->
+
+  <ng-template #zeroTrigger>
+    <i nz-icon type="menu-fold" theme="outline"></i>
+  </ng-template>
+
+  <ng-template #pagination>
+    <div nz-row nzType="flex" nzJustify="space-around" nzAlign="middle"
+      style="margin: 20px;">
+      <nz-pagination [nzPageIndex]="pageIndex" [nzPageSize]="pageSize"
+        [nzTotal]="allRewards.length" (nzPageIndexChange)="loadData($event)"></nz-pagination>
+    </div>
+  </ng-template>
+
 </nz-layout>
