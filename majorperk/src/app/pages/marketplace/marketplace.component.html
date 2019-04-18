@@ -9,18 +9,17 @@
       [nzInlineCollapsed]="false">
       <li nz-submenu [nzOpen]="true" *ngFor="let item of categories">
         <span title><i nz-icon type="user"></i>{{item.name}}</span>
-          <ul *ngFor="let tag of item.tags">
-            <li nz-menu-item>{{tag}}</li>
-          </ul>
+        <ul *ngFor="let tag of item.tags">
+          <li nz-menu-item>{{tag}}</li>
+        </ul>
       </li>
     </ul>
   </nz-sider>
   <nz-layout>
     <nz-content style="margin:24px 16px 0;">
       <nz-breadcrumb style="margin:16px 0;">
-        <nz-breadcrumb-item>Home</nz-breadcrumb-item>
-        <nz-breadcrumb-item>List</nz-breadcrumb-item>
-        <nz-breadcrumb-item>App</nz-breadcrumb-item>
+        <nz-breadcrumb-item>MajorPerk</nz-breadcrumb-item>
+        <nz-breadcrumb-item>Market</nz-breadcrumb-item>
       </nz-breadcrumb>
       <div>
         <nz-list
@@ -31,8 +30,7 @@
           [nzPagination]="pagination">
           <ng-template #item let-item>
             <nz-list-item *ngIf="item">
-              <nz-card nzHoverable style="height: 350px; width:300px;
-                textAlign:'center'"
+              <nz-card nzHoverable style="height: 350px; width:300px; textAlign:'center'"
                 [nzCover]="coverTemplate">
                 <nz-card-meta nzTitle="{{item.price}} points"
                   [nzDescription]="item.title"></nz-card-meta>
@@ -47,8 +45,10 @@
     </nz-content>
 
     <ng-template #pagination>
-      <nz-pagination [nzPageIndex]="pageIndex" [nzPageSize]="pageSize"
-        [nzTotal]="allRewards.length" (nzPageIndexChange)="loadData($event)"></nz-pagination>
+      <div nz-row nzType="flex" nzJustify="space-around" nzAlign="middle" style="margin: 20px;">
+        <nz-pagination [nzPageIndex]="pageIndex" [nzPageSize]="pageSize"
+          [nzTotal]="allRewards.length" (nzPageIndexChange)="loadData($event)"></nz-pagination>
+      </div>
     </ng-template>
   </nz-layout>
 </nz-layout>
