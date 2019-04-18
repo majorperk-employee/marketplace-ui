@@ -40,50 +40,35 @@
   <nz-layout>
     <nz-content style="margin:24px 16px 0;">
       <nz-breadcrumb style="margin:16px 0;">
-        <nz-breadcrumb-item>MajorPerk</nz-breadcrumb-item>
-        <nz-breadcrumb-item>Market</nz-breadcrumb-item>
+        <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+        <nz-breadcrumb-item>List</nz-breadcrumb-item>
+        <nz-breadcrumb-item>App</nz-breadcrumb-item>
       </nz-breadcrumb>
-
-      <!-- MARKET ITEMS -->
-
-      <nz-list [nzDataSource]="marketItems" [nzRenderItem]="item">
-        <ng-template #item let-item>
-          <div nz-card-grid [ngStyle]="gridStyle">
-            <nz-card [nzCover]="productImage">
-              <nz-card-meta [nzDescription]="item.title"></nz-card-meta>
-            </nz-card>
-            <ng-template #productImage>
-              <img alt="product"
-                [src]="item.image">
-            </ng-template>
-          </div>
-        </ng-template>
-        <ng-template #pagination>
-          <nz-pagination [nzPageIndex]="1" [nzTotal]="{ s: 3, md: 5 }"
-            (nzPageIndexChange)="loadData($event)">
-          </nz-pagination>
-        </ng-template>
-      </nz-list>
+      <div>
+        <nz-list
+          [nzDataSource]="marketItems"
+          [nzRenderItem]="item"
+          [nzGrid]="{ gutter: 16, xs: 24, sm: 12, md: 6, lg: 6, xl: 4 }"
+          [nzLoadMore]=""
+          [nzPagination]="pagination">
+          <ng-template #item let-item>
+            <nz-list-item>
+              <nz-card nzHoverable style="height: 350px; width:300px; textAlign:'center'"
+                [nzCover]="coverTemplate">
+                <nz-card-meta nzTitle="{{item.price}} points"
+                  [nzDescription]="item.title"></nz-card-meta>
+              </nz-card>
+              <ng-template #coverTemplate>
+                <img alt="no image :(" [src]="item.image" />
+              </ng-template>
+            </nz-list-item>
+          </ng-template>
+        </nz-list>
+      </div>
     </nz-content>
 
-
-
-    <!-- <nz-list [nzDataSource]="data" [nzItemLayout]="'vertical'" [nzRenderItem]="item">
-          <ng-template #item let-item>
-            <div nz-card-grid [ngStyle]="gridStyle">
-              <nz-card [nzCover]="productImage">
-                <nz-card-meta [nzDescription]="item.title"></nz-card-meta>
-              </nz-card>
-              <ng-template #productImage>
-                <img alt="product"
-                  [src]="item.image">
-              </ng-template>
-            </div>
-          </ng-template>
-          <ng-template #pagination>
-            <nz-pagination [nzPageIndex]="1" [nzTotal]="{ s: 3, md: 5 }" (nzPageIndexChange)="loadData($event)">
-            </nz-pagination>
-          </ng-template>
-        </nz-list> -->
+    <ng-template #pagination>
+        <nz-pagination [nzPageIndex]="1" nzPageSize="{{pageSize}}" nzTotal="{{allRewards.length}}" (nzPageIndexChange)="loadData($event)"></nz-pagination>
+      </ng-template>
   </nz-layout>
 </nz-layout>
