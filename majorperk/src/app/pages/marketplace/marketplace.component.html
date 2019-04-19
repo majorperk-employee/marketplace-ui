@@ -13,7 +13,7 @@
       <li nz-submenu [nzOpen]="true" *ngFor="let item of categories">
         <span title><i nz-icon type="user"></i>{{item.name}}</span>
         <ul *ngFor="let tag of item.tags">
-          <li nz-menu-item>{{tag}}</li>
+            <li nz-menu-item [nzSelected]="false"><div nz-col nzSpan="8"><label nz-checkbox nzValue="{{tag}}" (click)="selected(tag)">{{tag}}</label></div></li>
         </ul>
       </li>
     </ul>
@@ -27,7 +27,7 @@
         <nz-breadcrumb-item>MajorPerk</nz-breadcrumb-item>
         <nz-breadcrumb-item>Market</nz-breadcrumb-item>
       </nz-breadcrumb>
-
+        
         <nz-form-item>
           <nz-form-control [nzSpan]="18">
             <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton"
@@ -59,8 +59,7 @@
                   [nzAvatar]="avatarTemplate"></nz-card-meta>
               </nz-card>
               <ng-template #avatarTemplate>
-                <nz-avatar
-                  nzSrc="https://ya-webdesign.com/images/shopping-cart-free-png-avatar-12.png"></nz-avatar>
+                <nz-avatar nzSrc="https://ya-webdesign.com/images/shopping-cart-free-png-avatar-12.png"></nz-avatar>
               </ng-template>
               <ng-template #coverTemplate>
                   <img alt="no image :(" [src]="item.image" class="marketImage"/>
@@ -91,7 +90,7 @@
     <div nz-row nzType="flex" nzJustify="space-around" nzAlign="middle"
       style="margin: 20px;">
       <nz-pagination [(nzPageIndex)]="pageIndex" [nzPageSize]="pageSize"
-        [nzTotal]="allRewards.length" (nzPageIndexChange)="loadData($event)"></nz-pagination>
+        [nzTotal]="itemCount" (nzPageIndexChange)="loadData($event)" nzHideOnSinglePage></nz-pagination>
     </div>
   </ng-template>
 

@@ -17,6 +17,17 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@app/*": [
+        "src/app/*"
+      ],
+      "@img/*": [
+        "src/assets/img/*"
+      ],
+      "@environments/*": [
+        "src/environments/*"
+      ]
+    }
   }
 }
