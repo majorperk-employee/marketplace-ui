@@ -152,7 +152,7 @@ let categories = [
   {
     icon: "icon",
     name: "Gift Cards",
-    tags: ["Fast Food", "Convinience Store", "Gas"]
+    tags: ["Fast Food", "Convenience Store", "Gas"]
   },
   {
     icon: "icon",

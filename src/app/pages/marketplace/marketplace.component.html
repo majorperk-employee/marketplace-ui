@@ -57,7 +57,7 @@
           <nz-list-item *ngIf="item">
             <nz-card
               style="width:300px;" [nzCover]="coverTemplate"
-              [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
+              [nzActions]="[actionCart, actionDetails]">
               <nz-card-meta
                 nzTitle="{{item.price}} points"
                 [nzAvatar]="avatarTemplate"></nz-card-meta>
@@ -73,13 +73,13 @@
               <nz-avatar
                 nzSrc="https://ya-webdesign.com/images/shopping-cart-free-png-avatar-12.png"></nz-avatar>
             </ng-template>
-            <ng-template #actionSetting>
-              <i nz-icon type="setting"></i>
+            <!-- <ng-template #actionFavorite>
+              <i nz-icon type="star"></i>
+            </ng-template> -->
+            <ng-template #actionCart>
+              <i nz-icon type="shopping-cart"></i>
             </ng-template>
-            <ng-template #actionEdit>
-              <i nz-icon type="edit"></i>
-            </ng-template>
-            <ng-template #actionEllipsis>
+            <ng-template #actionDetails>
               <i nz-icon type="ellipsis"></i>
             </ng-template>
           </nz-list-item>
