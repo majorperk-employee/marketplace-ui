@@ -13,7 +13,8 @@
       <li nz-submenu [nzOpen]="true" *ngFor="let item of categories">
         <span title><i nz-icon type="user"></i>{{item.name}}</span>
         <ul *ngFor="let tag of item.tags">
-            <li nz-menu-item [nzSelected]="false"><div nz-col nzSpan="8"><label nz-checkbox nzValue="{{tag}}" (click)="selected(tag)">{{tag}}</label></div></li>
+          <li nz-menu-item [nzSelected]="false"><div nz-col nzSpan="8"><label
+                nz-checkbox nzValue="{{tag}}" (click)="selected(tag)">{{tag}}</label></div></li>
         </ul>
       </li>
     </ul>
@@ -27,55 +28,63 @@
         <nz-breadcrumb-item>MajorPerk</nz-breadcrumb-item>
         <nz-breadcrumb-item>Market</nz-breadcrumb-item>
       </nz-breadcrumb>
-        
-        <nz-form-item>
-          <nz-form-control [nzSpan]="18">
-            <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton"
-              style="margin-left: 36px;">
-              <input type="text" nz-input placeholder="search items ..."
-                [nzSize]="large"
-                [(ngModel)]="search" (ngModelChange)="onChange();" />
-            </nz-input-group>
-            <ng-template #suffixIconButton>
-              <button nz-button nzType="primary" nzSearch><i nz-icon
-                  type="search"></i></button>
-            </ng-template>
-          </nz-form-control>
-        </nz-form-item>
 
-        <nz-list
-          [nzDataSource]="marketItems"
-          [nzRenderItem]="item"
-          [nzGrid]="{ gutter: 16, xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }"
-          [nzLoadMore]=""
-          [nzPagination]="pagination">
-          <ng-template #item let-item>
-            <nz-list-item *ngIf="item">
-              <nz-card style="width:300px;" [nzCover]="coverTemplate"
-                [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
-                <nz-card-meta
-                  nzTitle="{{item.price}} points"
-                  nzDescription="{{item.title}}"
-                  [nzAvatar]="avatarTemplate"></nz-card-meta>
-              </nz-card>
-              <ng-template #avatarTemplate>
-                <nz-avatar nzSrc="https://ya-webdesign.com/images/shopping-cart-free-png-avatar-12.png"></nz-avatar>
-              </ng-template>
-              <ng-template #coverTemplate>
-                  <img alt="no image :(" [src]="item.image" class="marketImage"/>
-              </ng-template>
-              <ng-template #actionSetting>
-                <i nz-icon type="setting"></i>
-              </ng-template>
-              <ng-template #actionEdit>
-                <i nz-icon type="edit"></i>
-              </ng-template>
-              <ng-template #actionEllipsis>
-                <i nz-icon type="ellipsis"></i>
-              </ng-template>
-            </nz-list-item>
+      <nz-form-item>
+        <nz-form-control [nzSpan]="18">
+          <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton"
+            style="margin-left: 36px;">
+            <input type="text" nz-input placeholder="search items ..."
+              [nzSize]="large"
+              [(ngModel)]="search" (ngModelChange)="onChange();" />
+          </nz-input-group>
+          <ng-template #suffixIconButton>
+            <button nz-button nzType="primary" nzSearch><i nz-icon
+                type="search"></i></button>
           </ng-template>
-        </nz-list>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-list
+        [nzDataSource]="marketItems"
+        [nzRenderItem]="item"
+        [nzGrid]="{ gutter: 16, xs: 12, sm: 12,
+        md: 12, lg: 8, xl: 4 }"
+        [nzLoadMore]=""
+        [nzPagination]="pagination"
+        [nzItemLayout]="vertical">
+
+        <ng-template #item let-item>
+          <nz-list-item *ngIf="item">
+            <nz-card
+              style="width:300px;" [nzCover]="coverTemplate"
+              [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
+              <nz-card-meta
+                nzTitle="{{item.price}} points"
+                [nzAvatar]="avatarTemplate"></nz-card-meta>
+              <div style="height: 40px; overflow: hidden;">
+                <p>{{item.name}}</p>
+              </div>
+            </nz-card>
+            <ng-template #coverTemplate>
+              <img alt="no image :(" [src]="item.imageURL" style="height: 200px;
+                max-width: 200px; padding: 10px;">
+            </ng-template>
+            <ng-template #avatarTemplate>
+              <nz-avatar
+                nzSrc="https://ya-webdesign.com/images/shopping-cart-free-png-avatar-12.png"></nz-avatar>
+            </ng-template>
+            <ng-template #actionSetting>
+              <i nz-icon type="setting"></i>
+            </ng-template>
+            <ng-template #actionEdit>
+              <i nz-icon type="edit"></i>
+            </ng-template>
+            <ng-template #actionEllipsis>
+              <i nz-icon type="ellipsis"></i>
+            </ng-template>
+          </nz-list-item>
+        </ng-template>
+      </nz-list>
 
     </nz-content>
   </nz-layout>
@@ -90,7 +99,8 @@
     <div nz-row nzType="flex" nzJustify="space-around" nzAlign="middle"
       style="margin: 20px;">
       <nz-pagination [(nzPageIndex)]="pageIndex" [nzPageSize]="pageSize"
-        [nzTotal]="itemCount" (nzPageIndexChange)="loadData($event)" nzHideOnSinglePage></nz-pagination>
+        [nzTotal]="itemCount" (nzPageIndexChange)="loadData($event)"
+        nzHideOnSinglePage></nz-pagination>
     </div>
   </ng-template>
 
