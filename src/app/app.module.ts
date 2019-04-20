@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { GlobalNavComponent } from './components/global-nav/global-nav.component';
 import { MarketplaceComponent } from './pages/marketplace/marketplace.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 registerLocaleData(en);
 
@@ -28,7 +29,8 @@ registerLocaleData(en);
     NgZorroAntdModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FlexLayoutModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

@@ -5,7 +5,7 @@
   <nz-sider
     nzCollapsible
     [nzWidth]="200"
-    [nzBreakpoint]="'sm'"
+    [nzBreakpoint]="'md'"
     [nzCollapsedWidth]="0"
     [nzZeroTrigger]="zeroTrigger">
     <ul nz-menu [nzMode]="'inline'" style="height:100%"
@@ -47,8 +47,7 @@
       <nz-list
         [nzDataSource]="marketItems"
         [nzRenderItem]="item"
-        [nzGrid]="{ gutter: 16, xs: 12, sm: 12,
-        md: 12, lg: 8, xl: 4 }"
+        [nzGrid]="{ gutter: 12, xs:12, sm: 12, md: 12, lg: 8, xl: 6, xxl: 4 }"
         [nzLoadMore]=""
         [nzPagination]="pagination"
         [nzItemLayout]="vertical">
@@ -56,18 +55,18 @@
         <ng-template #item let-item>
           <nz-list-item *ngIf="item">
             <nz-card
-              style="width:300px;" [nzCover]="coverTemplate"
+              [nzCover]="coverTemplate"
               [nzActions]="[actionCart, actionDetails]">
               <nz-card-meta
                 nzTitle="{{item.price}} points"
-                [nzAvatar]="avatarTemplate"></nz-card-meta>
+                [nzAvatar]="avatarTemplate"
+                style="width: 200px;"></nz-card-meta>
               <div style="height: 40px; overflow: hidden;">
                 <p>{{item.name}}</p>
               </div>
             </nz-card>
             <ng-template #coverTemplate>
-              <img alt="no image :(" [src]="item.imageURL" style="height: 200px;
-                max-width: 200px; padding: 10px;">
+              <img alt="no image :(" [src]="item.imageURL" class="marketImage">
             </ng-template>
             <ng-template #avatarTemplate>
               <nz-avatar

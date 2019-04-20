@@ -3,9 +3,59 @@
     <img src="../../../assets/img/logo/mini-logo.png">
     <h4 class="logo-name">Major Perk</h4>
   </div>
-  <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" style="line-height:
-    64px;">
-    <li (click)="routeTo('dashboard')" nz-menu-item>Dashboard</li>
-    <li (click)="routeTo('marketplace')" nz-menu-item>Market</li>
+  <ul nz-menu [nzSelectable]="false" [nzTheme]="'dark'" [nzMode]="'horizontal'" style="padding-top:
+    12px; display: flex;">
+    <li (click)="routeTo('dashboard')" nz-menu-item fxShow="true"
+      fxHide.lt-sm="”true”">
+      Dashboard
+    </li>
+
+    <li (click)="routeTo('dashboard')" nz-menu-item fxShow="true"
+      fxHide.gt-xs="”true”">
+      <i nz-icon nzType="dashboard" style="font-size: 24px;"></i>
+    </li>
+
+
+    <li (click)="routeTo('marketplace')" nz-menu-item fxShow="true"
+      fxHide.lt-sm="”true”">
+      Market
+    </li>
+
+    <li (click)="routeTo('marketplace')" nz-menu-item fxShow="true"
+      fxHide.gt-xs="”true”">
+      <i nz-icon nzType="appstore" style="font-size: 24px;"></i>
+    </li>
+
+    <li style="margin-left: auto">
+      <nz-dropdown *ngIf="user" [nzTrigger]="'click'" [nzPlacement]="'bottomRight'">
+        
+        <a nz-dropdown >
+          <i nz-icon type="user" fxShow="true" fxHide.lt-sm="”true”"></i> 
+            <a fxHide.lt-sm="”true”" style="padding: 4px;">{{user.firstName}}</a>
+          <i nz-icon type="down" fxShow="true" fxHide.lt-sm="”true”"></i>
+          <i nz-icon type="user" fxShow="true" fxHide.gt-xs="”true”" style="font-size: 24px;"></i>
+        </a>
+  
+
+        <ul nz-menu nzSelectable style="margin-top: 15px;">
+          <li nz-menu-item>
+            <i nz-icon nzType="shopping"></i>Cart
+          </li>
+          <li nz-menu-item>
+            <i nz-icon nzType="wallet"></i>500 points
+          </li>
+          <li nz-menu-item>
+            <i nz-icon nzType="gift"></i>Orders
+          </li>
+          <li nz-menu-item>
+            <i nz-icon nzType="setting"></i>Profile
+          </li>
+          <li nz-menu-item>
+            <i nz-icon nzType="logout"></i>Sign Out
+          </li>
+        </ul>
+      </nz-dropdown>
+    </li>
+
   </ul>
 </nz-header>
