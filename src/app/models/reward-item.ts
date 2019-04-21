@@ -7,6 +7,7 @@ export class RewardItem {
     tags: string[];
     imageURL: string;
     meta: any;
+    checked?: boolean;
 }
 
 export interface OrderItem {
