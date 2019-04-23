@@ -16,7 +16,7 @@ export class ShoppingService {
   constructor(private http: HttpClient) { }
 
   getRewards() {
-    return this.http.get<RewardItem[]>(`${environment.apiUrl}/rewards/getRewardList`, httpOptions);
+    return this.http.get<RewardItem[]>(`${environment.apiUrl}/rewards/all`, httpOptions);
   }
 
   getCart() {

@@ -7,63 +7,48 @@ import { RewardItem } from '@app/models/reward-item';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  
-  constructor() { }
-  
-  cart: RewardItem[] = [];
-  displayData: any[] = [];
 
-  bordered = false;
-  loading = false;
-  sizeChanger = false;
-  footer = true;
-  fixHeader = false;
-  expandable = true;
-  checkbox = true;
-  allChecked = false;
-  indeterminate = false;
-  simple = false;
-  noResult = false;
+  isAllDisplayDataChecked = false;
+  isIndeterminate = false;
+  listOfDisplayData: any[] = [];
+  listOfAllData: any[] = [];
+  mapOfCheckedId: { [key: string]: boolean } = {};
 
-  currentPageDataChange($event: Array<RewardItem>): void {
-    this.displayData = $event;
+  currentPageDataChange($event: Array<{ id: number; name: string; age: number; address: string }>): void {
+    this.listOfDisplayData = $event;
     this.refreshStatus();
   }
 
   refreshStatus(): void {
-    const validData = this.displayData.filter(value => !value.disabled);
-    console.log(validData);
-    const allChecked = validData.length > 0 && validData.every(value => value.checked === true);
-    const allUnChecked = validData.every(value => !value.checked);
-    this.allChecked = allChecked;
-    this.indeterminate = !allChecked && !allUnChecked;
-    // console.log(this.cart);
+    this.isAllDisplayDataChecked = this.listOfDisplayData.every(item => this.mapOfCheckedId[item.id]);
+    this.isIndeterminate = this.listOfDisplayData.some(item => this.mapOfCheckedId[item.id]);
   }
 
   checkAll(value: boolean): void {
-    this.displayData.forEach(data => {
-      if (!data.disabled) {
-        data.checked = value;
-      }
-    });
+    this.listOfDisplayData.forEach(item => (this.mapOfCheckedId[item.id] = value));
     this.refreshStatus();
   }
 
   ngOnInit(): void {
-    this.cart = this.getCart();
+    this.listOfAllData = this.getCart();
   }
 
-  noResultChange(status: boolean): void {
-    this.cart = [];
-    if (!status) {
-      this.ngOnInit();
+  deleteItems() {
+    var deleting = "";
+    for (var itemId in this.mapOfCheckedId) {
+      if(this.mapOfCheckedId[itemId]) {
+        deleting += itemId + " "
+      }
     }
+    alert(deleting);
   }
+
 
   getCart(): RewardItem[] {
     return cart;
   }
 }
+
 
 const cart: RewardItem[] =
   [
@@ -75,7 +60,7 @@ const cart: RewardItem[] =
       description: "Cart Item Gift Card",
       tags: ["Food", "Technology", "Gift Card"],
       imageURL: "",
-      meta: { purchased: 10, clicked: 10 }
+      meta: { purchaseCount: 10, cartCount: 10 }
     },
     {
       id: 2,
@@ -85,7 +70,7 @@ const cart: RewardItem[] =
       description: "Cart Item Gift Card",
       tags: ["Food", "Technology", "Gift Card"],
       imageURL: "",
-      meta: { purchased: 10, clicked: 10 }
+      meta: { purchaseCount: 10, cartCount: 10 }
     },
     {
       id: 3,
@@ -95,126 +80,36 @@ const cart: RewardItem[] =
       description: "Cart Item Gift Card",
       tags: ["Food", "Technology", "Gift Card"],
       imageURL: "",
-      meta: { purchased: 10, clicked: 10 }
+      meta: { purchaseCount: 10, cartCount: 10 }
     },
     {
-      id: 1,
+      id: 4,
       name: "Cart Item One",
       price: 500,
       type: "Gift Card",
       description: "Cart Item Gift Card",
       tags: ["Food", "Technology", "Gift Card"],
       imageURL: "",
-      meta: { purchased: 10, clicked: 10 }
+      meta: { purchaseCount: 10, cartCount: 10 }
     },
     {
-      id: 2,
+      id: 5,
       name: "Cart Item One",
       price: 500,
       type: "Gift Card",
       description: "Cart Item Gift Card",
       tags: ["Food", "Technology", "Gift Card"],
       imageURL: "",
-      meta: { purchased: 10, clicked: 10 }
+      meta: { purchaseCount: 10, cartCount: 10 }
     },
     {
-      id: 3,
+      id: 6,
       name: "Cart Item One",
       price: 500,
       type: "Gift Card",
       description: "Cart Item Gift Card",
       tags: ["Food", "Technology", "Gift Card"],
       imageURL: "",
-      meta: { purchased: 10, clicked: 10 }
-    },
-    {
-      id: 1,
-      name: "Cart Item One",
-      price: 500,
-      type: "Gift Card",
-      description: "Cart Item Gift Card",
-      tags: ["Food", "Technology", "Gift Card"],
-      imageURL: "",
-      meta: { purchased: 10, clicked: 10 }
-    },
-    {
-      id: 2,
-      name: "Cart Item One",
-      price: 500,
-      type: "Gift Card",
-      description: "Cart Item Gift Card",
-      tags: ["Food", "Technology", "Gift Card"],
-      imageURL: "",
-      meta: { purchased: 10, clicked: 10 }
-    },
-    {
-      id: 3,
-      name: "Cart Item One",
-      price: 500,
-      type: "Gift Card",
-      description: "Cart Item Gift Card",
-      tags: ["Food", "Technology", "Gift Card"],
-      imageURL: "",
-      meta: { purchased: 10, clicked: 10 }
-    },
-    {
-      id: 1,
-      name: "Cart Item One",
-      price: 500,
-      type: "Gift Card",
-      description: "Cart Item Gift Card",
-      tags: ["Food", "Technology", "Gift Card"],
-      imageURL: "",
-      meta: { purchased: 10, clicked: 10 }
-    },
-    {
-      id: 2,
-      name: "Cart Item One",
-      price: 500,
-      type: "Gift Card",
-      description: "Cart Item Gift Card",
-      tags: ["Food", "Technology", "Gift Card"],
-      imageURL: "",
-      meta: { purchased: 10, clicked: 10 }
-    },
-    {
-      id: 3,
-      name: "Cart Item One",
-      price: 500,
-      type: "Gift Card",
-      description: "Cart Item Gift Card",
-      tags: ["Food", "Technology", "Gift Card"],
-      imageURL: "",
-      meta: { purchased: 10, clicked: 10 }
-    },
-    {
-      id: 1,
-      name: "Cart Item One",
-      price: 500,
-      type: "Gift Card",
-      description: "Cart Item Gift Card",
-      tags: ["Food", "Technology", "Gift Card"],
-      imageURL: "",
-      meta: { purchased: 10, clicked: 10 }
-    },
-    {
-      id: 2,
-      name: "Cart Item One",
-      price: 500,
-      type: "Gift Card",
-      description: "Cart Item Gift Card",
-      tags: ["Food", "Technology", "Gift Card"],
-      imageURL: "",
-      meta: { purchased: 10, clicked: 10 }
-    },
-    {
-      id: 3,
-      name: "Cart Item One",
-      price: 500,
-      type: "Gift Card",
-      description: "Cart Item Gift Card",
-      tags: ["Food", "Technology", "Gift Card"],
-      imageURL: "",
-      meta: { purchased: 10, clicked: 10 }
+      meta: { purchaseCount: 10, cartCount: 10 }
     }
   ]

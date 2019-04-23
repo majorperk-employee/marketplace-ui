@@ -4,7 +4,7 @@
 
   <nz-sider
     nzCollapsible
-    [nzWidth]="200"
+    [nzWidth]="250"
     [nzBreakpoint]="'md'"
     [nzCollapsedWidth]="0"
     [nzZeroTrigger]="zeroTrigger">
@@ -56,11 +56,11 @@
           <nz-list-item *ngIf="item">
             <nz-card
               [nzCover]="coverTemplate"
-              [nzActions]="[actionCart, actionDetails]">
+              [nzActions]="[actionCart, actionDetails]"
+              style="width:250px">
               <nz-card-meta
                 nzTitle="{{item.price}} points"
-                [nzAvatar]="avatarTemplate"
-                style="width: 200px;"></nz-card-meta>
+                [nzAvatar]="avatarTemplate"></nz-card-meta>
               <div style="height: 40px; overflow: hidden;">
                 <p>{{item.name}}</p>
               </div>

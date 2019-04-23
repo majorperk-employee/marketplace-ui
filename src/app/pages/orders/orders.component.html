@@ -1,8 +1,13 @@
 <nz-page-header nzTitle="Your Orders"></nz-page-header>
 
-<nz-table #nzTable [nzData]="listOfDisplayData">
+<nz-table #nzTable 
+  [nzData]="listOfDisplayData"
+  [nzPaginationPosition]="'top'">
   <thead>
     <tr>
+      <th>Id</th>
+      <th>Price</th>
+      <th>Purchased</th>
       <th nzCustomFilter>
         Name
         <nz-dropdown nzTrigger="click" nzPlacement="bottomRight"
@@ -24,16 +29,14 @@
           </div>
         </nz-dropdown>
       </th>
-      <th>Age</th>
-      <th nzShowFilter [nzFilters]="listOfFilterAddress"
-        (nzFilterChange)="filterAddressChange($event)">Address</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of nzTable.data">
+      <td>{{ data.id }}</td>
+      <td>{{ data.price }}</td>
+      <td>{{ data.meta.purchaseDate }}</td>
       <td>{{ data.name }}</td>
-      <td>{{ data.age }}</td>
-      <td>{{ data.address }}</td>
     </tr>
   </tbody>
 </nz-table>

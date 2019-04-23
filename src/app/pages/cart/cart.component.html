@@ -1,47 +1,46 @@
 <nz-page-header nzTitle="Shopping Cart"></nz-page-header>
 
-<div class="components-table-demo-control-bar">
-  <nz-table
-    #dynamicTable
-    [nzScroll]="{ y: '100%' }"
-    [nzData]="cart"
-    [nzBordered]="bordered"
-    [nzSimple]="simple"
-    [nzLoading]="loading"
-    [nzPaginationPosition]="'both'"
-    [nzShowSizeChanger]="sizeChanger"
-    [nzFrontPagination]='true'
-    [nzShowPagination]='true'
-    [nzFooter]="'Footer'"
-    [nzSize]="'small'"
-    (nzCurrentPageDataChange)="currentPageDataChange($event)">
-    <thead>
-      <tr>
-        <th
-          nzWidth="62px"
-          nzShowCheckbox
-          *ngIf="checkbox"
-          [(nzChecked)]="allChecked"
-          [nzIndeterminate]="indeterminate"
-          (nzCheckedChange)="checkAll($event)"></th>
-        <th nzWidth="150px">id</th>
-        <th nzWidth="70px">Cost</th>
-        <th>Name</th>
-        <!-- <th nzWidth="260px">Action</th> -->
-      </tr>
-    </thead>
-    <tbody>
-      <ng-template ngFor let-data [ngForOf]="dynamicTable.data">
-        <tr>
-          <td nzShowCheckbox *ngIf="checkbox" [(nzChecked)]="data.checked"
-            (nzCheckedChange)="refreshStatus()"></td>
-            <td>{{ data.id }}</td>
-            <td>{{ data.price }}</td>
-            <td>{{ data.name }}</td>
-          <td>
-              <i nz-icon nzType="delete"></i>
-          </td>
-        </tr>
-      </ng-template>
-    </tbody>
-  </nz-table>
+<nz-table
+  #rowSelectionTable
+  nzShowSizeChanger
+  [nzData]="listOfAllData"
+  (nzCurrentPageDataChange)="currentPageDataChange($event)"
+  [nzFooter]="footerTemplate"
+  [nzPaginationPosition]="'top'">
+  <thead>
+    <tr>
+      <th
+        nzShowCheckbox
+        [(nzChecked)]="isAllDisplayDataChecked"
+        [nzIndeterminate]="isIndeterminate"
+        (nzCheckedChange)="checkAll($event)"></th>
+      <th>Id</th>
+      <th>Price</th>
+      <th>Name</th>
+      <th nzWidth="70px">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of rowSelectionTable.data">
+      <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]"
+        (nzCheckedChange)="refreshStatus()"></td>
+      <td>{{ data.id }}</td>
+      <td>{{ data.price }}</td>
+      <td>{{ data.name }}</td>
+      <td nzWidth="70px"><i nz-icon nzType="delete"></i></td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<ng-template #footerTemplate>
+
+  <p style="align-items: center">
+      <tbody>
+        <tr><strong>Cart Count:</strong> 6 items</tr>
+        <tr><strong>Cart Total:</strong> 100 points</tr>
+      </tbody>
+  </p>
+
+    <button *ngIf="isIndeterminate" nz-button nzType="danger" nzBlock><i nz-icon type="delete"></i>Delete Selected</button>
+    <button *ngIf="!isIndeterminate" nz-button nzType="default" nzBlock><i nz-icon type="shopping"></i>Complete Checkout</button>
+</ng-template>

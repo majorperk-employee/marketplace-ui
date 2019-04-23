@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RewardItem } from '@app/models/reward-item';
 
 @Component({
   selector: 'app-orders',
@@ -11,28 +12,7 @@ export class OrdersComponent {
   sortValue: string | null = null;
   listOfFilterAddress = [{ text: 'London', value: 'London' }, { text: 'Sidney', value: 'Sidney' }];
   listOfSearchAddress: string[] = [];
-  listOfData: Array<{ name: string; age: number; address: string; [key: string]: string | number }> = [
-    {
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park'
-    },
-    {
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park'
-    },
-    {
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    },
-    {
-      name: 'Jim Red',
-      age: 32,
-      address: 'London No. 2 Lake Park'
-    }
-  ];
+  listOfData: Array<RewardItem> = orders;
   listOfDisplayData = [...this.listOfData];
 
   reset(): void {
@@ -52,14 +32,14 @@ export class OrdersComponent {
   }
 
   search(): void {
-    const filterFunc = (item: { name: string; age: number; address: string }) => {
+    const filterFunc = (item: RewardItem) => {
       return (
         (this.listOfSearchAddress.length
-          ? this.listOfSearchAddress.some(address => item.address.indexOf(address) !== -1)
-          : true) && item.name.indexOf(this.searchValue) !== -1
+          ? this.listOfSearchAddress.some(name => item.name.toLowerCase().indexOf(name.toLowerCase()) !== -1)
+          : true) && item.name.toLowerCase().indexOf(this.searchValue.toLowerCase()) !== -1
       );
     };
-    const data = this.listOfData.filter((item: { name: string; age: number; address: string }) => filterFunc(item));
+    const data = this.listOfData.filter((item: RewardItem) => filterFunc(item));
     this.listOfDisplayData = data.sort((a, b) =>
       this.sortValue === 'ascend'
         ? a[this.sortName!] > b[this.sortName!]
@@ -71,3 +51,156 @@ export class OrdersComponent {
     );
   }
 }
+
+const orders: RewardItem[] = [
+  {
+    id: 1,
+    name: "This is item number one and it has a really long name and still looks pretty good in the table on a mobile device.",
+    price: 500,
+    type: "string",
+    description: "string",
+    tags: [],
+    imageURL: "string",
+    meta: {purchaseDate: "01/01/01"}
+  },
+  {
+    id: 2,
+    name: "Two",
+    price: 500,
+    type: "string",
+    description: "string",
+    tags: [],
+    imageURL: "string",
+    meta: {purchaseDate: "01/01/01"}
+  },
+  {
+    id: 3,
+    name: "Two",
+    price: 500,
+    type: "string",
+    description: "string",
+    tags: [],
+    imageURL: "string",
+    meta: {purchaseDate: "01/01/01"}
+  },
+  {
+    id: 4,
+    name: "Two",
+    price: 500,
+    type: "string",
+    description: "string",
+    tags: [],
+    imageURL: "string",
+    meta: {purchaseDate: "01/01/01"}
+  },
+  {
+    id: 5,
+    name: "Two",
+    price: 500,
+    type: "string",
+    description: "string",
+    tags: [],
+    imageURL: "string",
+    meta: {purchaseDate: "01/01/01"}
+  },
+  {
+    id: 6,
+    name: "Two",
+    price: 500,
+    type: "string",
+    description: "string",
+    tags: [],
+    imageURL: "string",
+    meta: {purchaseDate: "01/01/01"}
+  },
+  {
+    id: 7,
+    name: "Two",
+    price: 500,
+    type: "string",
+    description: "string",
+    tags: [],
+    imageURL: "string",
+    meta: {purchaseDate: "01/01/01"}
+  },
+  {
+    id: 8,
+    name: "Two",
+    price: 500,
+    type: "string",
+    description: "string",
+    tags: [],
+    imageURL: "string",
+    meta: {purchaseDate: "01/01/01"}
+  },
+  {
+    id: 9,
+    name: "Two",
+    price: 500,
+    type: "string",
+    description: "string",
+    tags: [],
+    imageURL: "string",
+    meta: {purchaseDate: "01/01/01"}
+  },
+  {
+    id: 10,
+    name: "Two",
+    price: 500,
+    type: "string",
+    description: "string",
+    tags: [],
+    imageURL: "string",
+    meta: {purchaseDate: "01/01/01"}
+  },
+  {
+    id: 11,
+    name: "Two",
+    price: 500,
+    type: "string",
+    description: "string",
+    tags: [],
+    imageURL: "string",
+    meta: {purchaseDate: "01/01/01"}
+  },
+  {
+    id: 12,
+    name: "Two",
+    price: 500,
+    type: "string",
+    description: "string",
+    tags: [],
+    imageURL: "string",
+    meta: {purchaseDate: "01/01/01"}
+  },
+  {
+    id: 13,
+    name: "Two",
+    price: 500,
+    type: "string",
+    description: "string",
+    tags: [],
+    imageURL: "string",
+    meta: {purchaseDate: "01/01/01"}
+  },
+  {
+    id: 14,
+    name: "Two",
+    price: 500,
+    type: "string",
+    description: "string",
+    tags: [],
+    imageURL: "string",
+    meta: {purchaseDate: "01/01/01"}
+  },
+  {
+    id: 15,
+    name: "Two",
+    price: 500,
+    type: "string",
+    description: "string",
+    tags: [],
+    imageURL: "string",
+    meta: {purchaseDate: "01/01/01"}
+  }
+];

@@ -3,6 +3,8 @@
     <img src="../../../assets/img/logo/mini-logo.png">
     <h4 class="logo-name">Major Perk</h4>
   </div>
+
+  <!-- DASHBOARD LINK -->
   <ul nz-menu [nzSelectable]="false" [nzTheme]="'dark'" [nzMode]="'horizontal'"
     style="padding-top:
     12px; display: flex;">
@@ -11,33 +13,36 @@
       Dashboard
     </li>
 
+    <!-- DASHBOARD BUTTON -->
     <li (click)="routeTo('dashboard')" nz-menu-item fxShow="true"
-      fxHide.gt-xs="”true”">
+      fxHide.gt-xs="”true”" style="margin: auto">
       <i nz-icon nzType="dashboard" style="font-size: 24px;"></i>
     </li>
 
-
+    <!-- MARKET LINK -->
     <li (click)="routeTo('marketplace')" nz-menu-item fxShow="true"
       fxHide.lt-sm="”true”">
       Market
     </li>
 
+    <!-- MARKET BUTTON -->
     <li (click)="routeTo('marketplace')" nz-menu-item fxShow="true"
-      fxHide.gt-xs="”true”">
+      fxHide.gt-xs="”true”" style="margin: auto">
       <i nz-icon nzType="appstore" style="font-size: 24px;"></i>
     </li>
 
+    <!-- PROFILE -->
     <li style="margin-left: auto">
       <nz-dropdown *ngIf="user" [nzTrigger]="'click'"
         [nzPlacement]="'bottomRight'">
 
-        <a nz-dropdown>
+        <span nz-dropdown>
           <i nz-icon type="user" fxShow="true" fxHide.lt-sm="”true”"></i>
-          <a fxHide.lt-sm="”true”" style="padding: 4px;">{{user.firstName}}</a>
+          <span fxHide.lt-sm="”true”" style="margin: auto; cursor: pointer; padding: 4px;">{{user.firstName}}</span>
           <i nz-icon type="down" fxShow="true" fxHide.lt-sm="”true”"></i>
           <i nz-icon type="user" fxShow="true" fxHide.gt-xs="”true”"
             style="font-size: 24px;"></i>
-        </a>
+        </span>
 
 
         <ul nz-menu nzSelectable style="margin-top: 15px;">

@@ -6,8 +6,7 @@ export class RewardItem {
     description: string;
     tags: string[];
     imageURL: string;
-    meta: any;
-    checked?: boolean;
+    meta: Meta;
 }
 
 export interface OrderItem {
@@ -17,4 +16,9 @@ export interface OrderItem {
     date: string;
 }
 
-export interface Meta { purchased: number; clicked: number }
+export interface Meta { 
+    purchaseCount?: number; 
+    cartCount?: number;
+    checked?: boolean;
+    purchaseDate?: string;
+}
