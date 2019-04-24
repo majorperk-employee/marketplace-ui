@@ -1,34 +1,99 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { InfoModalComponent } from '@app/components/info/info.modal';
+import { Account } from '@app/models/account';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   data: any[] = [];
   resources: any[] = [];
+  pointsDisplay: any;
+  statsModel: any;
 
-  userTier = "Silver"
-  userPoints = 5000;
-  
-  totalDays = 30;
-  totalDaysTarget = 50;
-  totalDaysTargetCompletion = (this.totalDays / this.totalDaysTarget) * 100;
-  onTimePercent = 75;
-  onTimePercentTarget = 80;
-  onTimePercentTargetCompletion = (this.onTimePercent / this.onTimePercentTarget) * 100;
+  name: string;
 
-  array = [1, 2, 3, 4];
+  userTier: string;
+  userNextTier: string;
+
+  userPoints: number;
+  totalDays: number;
+  onTimePercent: number;
+
+  totalDaysTarget = 100;
+  totalDaysCompletionPercent: number;
+
+  onTimePercentTarget = 100;
+  onTimePercentCompletionPercent: number;
+
+  array = ["Welcome to MajorPerk!", "KPIs, rewards, resources, and more!"];
+
+  userSubscription: Subscription;
+
+  constructor(private route: ActivatedRoute, private infoModal: InfoModalComponent) { }
 
   ngOnInit() {
+    this.getAccount();
+
     this.data = marketLinks;
     this.resources = resources;
   }
 
-}
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
+  }
 
+  private getAccount() {
+    this.userSubscription = this.route.data.subscribe(data => {
+      let account: Account = data.account;
+      
+      this.name = account.firstName + " " + account.lastName;
+
+      this.userPoints = account.points;
+      
+      this.totalDays = account.totaldays;
+      this.totalDaysCompletionPercent = Math.round(account.totaldays / this.totalDaysTarget * 100) > 100 ? 100 : Math.round(account.totaldays / this.totalDaysTarget * 100);
+
+      this.onTimePercent = Math.round(account.ontimedays / account.totaldays * 100);
+      this.onTimePercentCompletionPercent = (this.onTimePercent / this.onTimePercentTarget * 100);
+
+      this.userTier = account.tier;
+      this.userNextTier = "Gold"
+      this.pointsDisplay = this.generatePointsDisplay(this.userPoints,this.userPoints,this.userPoints);
+      this.statsModel = this.generateStatsModal(account.totaldays,account.ontimedays,this.onTimePercent);
+    });
+  }
+
+  private generatePointsDisplay(pts: number,Ypts: number,Ppts: number) {
+    return [
+      { title: "Available Points", value: pts},
+      { title: "Earned Yesterday", value: Ypts},
+      { title: "Earned this Period", value: Ppts}
+    ]
+  }
+
+  private generateStatsModal(tdw: number,tdot: number,otp: number) {
+    return [
+      { name: "Total Days On Time", value: tdot, needed: null, complete: false},
+      { name: "Total Days Worked", value: tdw, needed: 500,complete: false},
+      { name: "On Time Percentage", value: otp, needed: 85, complete: false}
+    ]
+  }
+
+  openModal(tplTitle: TemplateRef<{}>, tplContent: TemplateRef<{}>, tplFooter: TemplateRef<{}>) {
+    this.infoModal.createTemplatedModal(tplTitle,tplContent,tplFooter);
+  }
+
+  closeModal() {
+    this.infoModal.destroyTemplatedModal();
+  }
+
+}
 
 let marketLinks = [
   {
@@ -36,12 +101,6 @@ let marketLinks = [
     title: `Travel`,
     avatar: '',
     description: 'Redeem rewards points towards a vacation',
-  },
-  {
-    href: "/marketplace/gift card",
-    title: `Gift Cards`,
-    avatar: '',
-    description: 'Turn those rewards points into credit at your favorite store',
   },
   {
     href: "/marketplace/fitness",
@@ -79,92 +138,5 @@ let resources = [
     display: "Child Care & Before-After School Program Locator",
     url: "https://www.toronto.ca/community-people/children-parenting/children-programs-activities/licensed-child-care/child-care-locator/",
     description: "Search for a licensed child care or a before-after school program in Toronto."
-  }
-]
-
-let stats = [
-  {
-    name: "Your Dashboard",
-    items: [
-      {
-        title: "Points",
-        subtitle: "Current Total Points",
-        icon: "local_atm",
-        description: "You currently have this amount of points. Head over to the marketplace to redeem.",
-        value: 75,
-        nextLevelValue: 95,
-        button:
-        {
-          text: "Shop!",
-          info: "This will provide employees with the opportunity to redeem rewards via a marketplace/shopping cart function. \n\n" +
-            "A simple 3 click process! \n\n" +
-            "Click 1: View reward details \n" +
-            "Click 2: Add item to cart \n" +
-            "Click 3: Redeem rewards."
-        }
-      },
-      {
-        title: "Tier Level",
-        chartid: "tier",
-        subtitle: "Current Rewards Levels",
-        icon: "stars",
-        description: "Employees will be categorized into tiers. These tiers motivate employees by providing tangible measures of progress. \n\n" +
-          "A) Silver: After 2 weeks of employment, employees reach Silver status. \n\n" +
-          "B) Gold: After 5 weeks of employment and an 75% on time rate, employees reach Gold status. \n\n" +
-          "C) Platinum: After 9 weeks of employment and an 85% on time rate, employees reach Platinum status. \n",
-        value: "Gold",
-        nextLevelValue: 33,
-        button:
-        {
-          text: "Details",
-          info: "Employees will be categorized into tiers. These tiers motivate employees by providing tangible measures of progress. \n\n" +
-            "A) Silver: After 2 weeks of employment, employees reach Silver status. \n\n" +
-            "B) Gold: After 5 weeks of employment and an 75% on time rate, employees reach Gold status. \n\n" +
-            "C) Platinum: After 9 weeks of employment and an 85% on time rate, employees reach Platinum status. \n"
-        }
-      },
-      {
-        title: "Days On-Time Streak",
-        subtitle: "Consecutive Days with on-time clock in.",
-        icon: "outlined_flag",
-        description: "Number of days you have clocked in at or before your set arrival time.",
-        value: 60,
-        nextLevelValue: 80,
-        button:
-        {
-          text: "Details",
-          info: "On-time percentage goes into calculating tiers. \n\n" +
-            "75% combined with 5 weeks worked will elevate an employee to Gold. \n\n" +
-            "85% combined with 9 weeks worked will elevate an employee to Platinum."
-        }
-      },
-      {
-        title: "% On-Time",
-        subtitle: "Percentage of on-time clock-ins.",
-        icon: "alarm",
-        description: "This will be calculated through the expected clock in time vs. the time card. With custom leway given.",
-        value: 75,
-        nextLevelValue: 90,
-        button:
-        {
-          text: "Details",
-          info: "On-time percentage goes into calculating tiers. \n\n" +
-            "75% combined with 5 weeks worked will elevate an employee to Gold. \n\n" +
-            "85% combined with 9 weeks worked will elevate an employee to Platinum."
-        }
-      },
-      {
-        title: "Referrals Processed",
-        subtitle: "Number of referrals that have been processed successfully.",
-        icon: "assignment_ind",
-        description: "A referral will be awarded when an employee has sent an email and referred employee has sent in an application.",
-        value: 5,
-        button:
-        {
-          text: "Details",
-          info: "A referral will be awarded when an employee has sent an email and referred employee has sent in an application."
-        }
-      }
-    ]
   }
 ]

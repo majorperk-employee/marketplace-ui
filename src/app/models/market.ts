@@ -22,3 +22,9 @@ export interface Meta {
     checked?: boolean;
     purchaseDate?: string;
 }
+
+export class Cart {
+    id: number;
+    items: RewardItem[];
+    total: number;
+}

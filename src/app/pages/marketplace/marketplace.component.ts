@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { RewardItem } from '@app/models/reward-item';
+import { RewardItem } from '@app/models/market';
 
 @Component({
   selector: 'app-marketplace',
@@ -27,7 +27,8 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
 
 
   rewardItemsSubscription: Subscription;
-
+  paramSubscription: Subscription;
+  
   categories: any[] = [];
   constructor(private route: ActivatedRoute) { }
 
@@ -38,7 +39,15 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       this.marketItems = data.items;
     });
 
+    this.paramSubscription = this.route.paramMap.subscribe(params => {
+      var filter = params.keys ? params.get('filter') : '';
+      if (filter) {
+        this.search = filter;
+      }
+    })
+
     this.categories = categories;
+    
     this.loadData(this.pageIndex);
 
     this.loading = false;

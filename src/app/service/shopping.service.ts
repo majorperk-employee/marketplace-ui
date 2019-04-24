@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RewardItem } from '@app/models/reward-item';
+import { RewardItem } from '@app/models/market';
 import { environment } from '@environments/environment';
 import { first } from 'rxjs/operators';
 

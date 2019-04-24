@@ -17,6 +17,7 @@ import { MarketplaceComponent } from './pages/marketplace/marketplace.component'
 import { OrdersComponent } from './pages/orders/orders.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InfoModalComponent } from './components/info/info.modal';
 
 registerLocaleData(en);
 
@@ -28,7 +29,8 @@ registerLocaleData(en);
     MarketplaceComponent,
     CartComponent,
     ProfileComponent,
-    OrdersComponent
+    OrdersComponent,
+    InfoModalComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,7 @@ registerLocaleData(en);
     FlexLayoutModule,
     ReactiveFormsModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [{ provide: NZ_I18N, useValue: en_US }, InfoModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RewardItem } from '@app/models/reward-item';
+import { RewardItem } from '@app/models/market';
 
 @Component({
   selector: 'app-orders',
@@ -42,12 +42,8 @@ export class OrdersComponent {
     const data = this.listOfData.filter((item: RewardItem) => filterFunc(item));
     this.listOfDisplayData = data.sort((a, b) =>
       this.sortValue === 'ascend'
-        ? a[this.sortName!] > b[this.sortName!]
-          ? 1
-          : -1
-        : b[this.sortName!] > a[this.sortName!]
-        ? 1
-        : -1
+        ? a[this.sortName!] > b[this.sortName!] ? 1 : -1
+        : b[this.sortName!] > a[this.sortName!] ? 1 : -1
     );
   }
 }

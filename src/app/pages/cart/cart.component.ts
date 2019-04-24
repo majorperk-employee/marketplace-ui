@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RewardItem } from '@app/models/reward-item';
+import { RewardItem } from '@app/models/market';
 
 @Component({
   selector: 'app-cart',

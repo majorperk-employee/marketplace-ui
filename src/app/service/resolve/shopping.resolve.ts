@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
-import { RewardItem } from "@app/models/reward-item";
+import { RewardItem } from "@app/models/market";
 import { EMPTY, Observable, of } from "rxjs";
 import { switchMap, take } from 'rxjs/operators';
 import { ShoppingService } from "../shopping.service";
