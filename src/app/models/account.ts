@@ -22,3 +22,7 @@ export class Account {
   job?: string;
 }
 
+export class Auth {
+  id: number;
+  points: number;
+}

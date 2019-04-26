@@ -24,12 +24,8 @@ export class ShoppingService {
     return this.http.get<RewardItem[]>(`${environment.apiUrl}/cart/${id}`, httpOptions);
   }
 
-  getOrders() {
-    return this.http.get<RewardItem[]>(`${environment.apiUrl}/orders/all`, httpOptions);
-  }
-
-  getCartCost() {
-
+  getOrders(id:number) {
+    return this.http.get<any>(`${environment.apiUrl}/purchase/${id}`, httpOptions);
   }
 
   addToCart(itemId, userId) {
@@ -47,7 +43,7 @@ export class ShoppingService {
   }
 
   public async redeemCart(userId) {
-    this.http.post<any>(`${environment.apiUrl}/checkout?userId=${userId}`, httpOptions).toPromise().then(
+    this.http.post<any>(`${environment.apiUrl}/purchase/checkout?userId=${userId}`, httpOptions).toPromise().then(
       resp => { this.accountService.currentAccountCart = resp; },
       err => { console.error("Unable to complete purchase. Please refresh.", err ) }
     );

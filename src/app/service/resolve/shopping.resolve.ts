@@ -47,3 +47,24 @@ export class CartItemsResolve implements Resolve<RewardItem[]> {
         );
     }
 }
+
+@Injectable({
+    providedIn: 'root',
+})
+export class OrderItemsResolve implements Resolve<any> {
+    constructor(private shoppingService: ShoppingService, private accountService: AccountService) { }
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Observable<never> {
+        return this.shoppingService.getOrders(this.accountService.currentAccount.id).pipe(
+            take(1),
+            switchMap(items => {
+                if (items) {
+                    return of(items);
+                } else {
+                    console.log("Error getting reward items.");
+                    return EMPTY;
+                }
+            })
+        );
+    }
+}

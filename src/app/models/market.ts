@@ -28,3 +28,10 @@ export class Cart {
     items: RewardItem[];
     cost: number;
 }
+
+export class Purchase {
+    id: number;
+    items: RewardItem[];
+    cost: number;
+    createdAt: string;
+}

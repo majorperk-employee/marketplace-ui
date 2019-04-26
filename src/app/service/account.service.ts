@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Account } from '@app/models/account';
+import { Account, Auth } from '@app/models/account';
 import { environment } from '@environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -17,6 +17,10 @@ export class AccountService {
 
   getAccount(username: string) {
     return this.http.get<Account>(`${environment.apiUrl}/accounts/getByUsername?username=${username}`, httpOptions);
+  }
+
+  getAuth(id:number) {
+    return this.http.get<Auth>(`${environment.apiUrl}/accounts/getAuth/${id}`, httpOptions);
   }
 
   get currentAccount(): Account {

@@ -1,202 +1,67 @@
-import { Component } from '@angular/core';
-import { RewardItem } from '@app/models/market';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AccountService } from '@app/service/account.service';
+import { ShoppingService } from '@app/service/shopping.service';
+import { ActivatedRoute } from '@angular/router';
+import { Purchase, RewardItem } from '@app/models/market';
+import { conditionallyCreateMapObjectLiteral } from '@angular/compiler/src/render3/view/util';
 
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.scss']
 })
-export class OrdersComponent {
+export class OrdersComponent implements OnInit, OnDestroy {
+
+  loading: boolean = true;
+
   searchValue = '';
   sortName: string | null = null;
   sortValue: string | null = null;
-  listOfFilterAddress = [{ text: 'London', value: 'London' }, { text: 'Sidney', value: 'Sidney' }];
-  listOfSearchAddress: string[] = [];
-  listOfData: Array<RewardItem> = orders;
-  listOfDisplayData = [...this.listOfData];
+
+  listOfParentData: Purchase[] = [];
+  filteredData: Purchase[] = [];
+  ordersSubscription: Subscription;
+
+  constructor(private route: ActivatedRoute, private shoppingService: ShoppingService) { }
+
+  ngOnInit(): void {
+
+    this.ordersSubscription = this.route.data.subscribe((data) => {
+      this.listOfParentData = data.orders;
+      this.filteredData = this.listOfParentData;
+    });
+
+    this.loading = false;
+  }
+
+  ngOnDestroy() { this.ordersSubscription.unsubscribe(); }
+
 
   reset(): void {
     this.searchValue = '';
     this.search();
   }
 
-  sort(sortName: string, value: string): void {
-    this.sortName = sortName;
+  sort(value: string): void {
     this.sortValue = value;
     this.search();
   }
 
-  filterAddressChange(value: string[]): void {
-    this.listOfSearchAddress = value;
-    this.search();
-  }
-
   search(): void {
-    const filterFunc = (item: RewardItem) => {
-      return (
-        (this.listOfSearchAddress.length
-          ? this.listOfSearchAddress.some(name => item.name.toLowerCase().indexOf(name.toLowerCase()) !== -1)
-          : true) && item.name.toLowerCase().indexOf(this.searchValue.toLowerCase()) !== -1
-      );
+    const filterFunc = (item: Purchase) => {
+      return (item.id.toString().indexOf(this.searchValue.toString()) !== -1);
     };
-    const data = this.listOfData.filter((item: RewardItem) => filterFunc(item));
-    this.listOfDisplayData = data.sort((a, b) =>
+    const data: Purchase[] = this.listOfParentData.filter((item: Purchase) => filterFunc(item));
+    this.filteredData = data.sort((a, b) =>
       this.sortValue === 'ascend'
-        ? a[this.sortName!] > b[this.sortName!] ? 1 : -1
-        : b[this.sortName!] > a[this.sortName!] ? 1 : -1
+        ? <any>new Date(a.createdAt) > <any>new Date(b.createdAt)
+          ? 1
+          : -1
+        : <any>new Date(b.createdAt) > <any>new Date(a.createdAt)
+          ? 1
+          : -1
     );
   }
-}
 
-const orders: RewardItem[] = [
-  {
-    id: 1,
-    name: "This is item number one and it has a really long name and still looks pretty good in the table on a mobile device.",
-    price: 500,
-    type: "string",
-    description: "string",
-    tags: [],
-    imageURL: "string",
-    meta: {purchaseDate: "01/01/01"}
-  },
-  {
-    id: 2,
-    name: "Two",
-    price: 500,
-    type: "string",
-    description: "string",
-    tags: [],
-    imageURL: "string",
-    meta: {purchaseDate: "01/01/01"}
-  },
-  {
-    id: 3,
-    name: "Two",
-    price: 500,
-    type: "string",
-    description: "string",
-    tags: [],
-    imageURL: "string",
-    meta: {purchaseDate: "01/01/01"}
-  },
-  {
-    id: 4,
-    name: "Two",
-    price: 500,
-    type: "string",
-    description: "string",
-    tags: [],
-    imageURL: "string",
-    meta: {purchaseDate: "01/01/01"}
-  },
-  {
-    id: 5,
-    name: "Two",
-    price: 500,
-    type: "string",
-    description: "string",
-    tags: [],
-    imageURL: "string",
-    meta: {purchaseDate: "01/01/01"}
-  },
-  {
-    id: 6,
-    name: "Two",
-    price: 500,
-    type: "string",
-    description: "string",
-    tags: [],
-    imageURL: "string",
-    meta: {purchaseDate: "01/01/01"}
-  },
-  {
-    id: 7,
-    name: "Two",
-    price: 500,
-    type: "string",
-    description: "string",
-    tags: [],
-    imageURL: "string",
-    meta: {purchaseDate: "01/01/01"}
-  },
-  {
-    id: 8,
-    name: "Two",
-    price: 500,
-    type: "string",
-    description: "string",
-    tags: [],
-    imageURL: "string",
-    meta: {purchaseDate: "01/01/01"}
-  },
-  {
-    id: 9,
-    name: "Two",
-    price: 500,
-    type: "string",
-    description: "string",
-    tags: [],
-    imageURL: "string",
-    meta: {purchaseDate: "01/01/01"}
-  },
-  {
-    id: 10,
-    name: "Two",
-    price: 500,
-    type: "string",
-    description: "string",
-    tags: [],
-    imageURL: "string",
-    meta: {purchaseDate: "01/01/01"}
-  },
-  {
-    id: 11,
-    name: "Two",
-    price: 500,
-    type: "string",
-    description: "string",
-    tags: [],
-    imageURL: "string",
-    meta: {purchaseDate: "01/01/01"}
-  },
-  {
-    id: 12,
-    name: "Two",
-    price: 500,
-    type: "string",
-    description: "string",
-    tags: [],
-    imageURL: "string",
-    meta: {purchaseDate: "01/01/01"}
-  },
-  {
-    id: 13,
-    name: "Two",
-    price: 500,
-    type: "string",
-    description: "string",
-    tags: [],
-    imageURL: "string",
-    meta: {purchaseDate: "01/01/01"}
-  },
-  {
-    id: 14,
-    name: "Two",
-    price: 500,
-    type: "string",
-    description: "string",
-    tags: [],
-    imageURL: "string",
-    meta: {purchaseDate: "01/01/01"}
-  },
-  {
-    id: 15,
-    name: "Two",
-    price: 500,
-    type: "string",
-    description: "string",
-    tags: [],
-    imageURL: "string",
-    meta: {purchaseDate: "01/01/01"}
-  }
-];
+}

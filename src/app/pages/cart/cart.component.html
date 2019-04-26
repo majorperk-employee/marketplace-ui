@@ -51,7 +51,7 @@
     <button *ngIf="isIndeterminate" nz-button nzType="danger"
       (click)="deleteMany()" nzBlock><i nz-icon type="delete"></i>Delete
       Selected</button>
-    <button *ngIf="validCart" nz-button nzType="primary" nzBlock><i
+    <button *ngIf="validCart" nz-button nzType="primary" (click)="checkout()" nzBlock><i
         nz-icon type="shopping"></i>Complete Checkout</button>
     <button *ngIf="insufficientFunds" nz-button nzType="default" nzBlock><i nz-icon nzType="warning" nzTheme="outline"></i>Insufficient Funds</button>
   </ng-template>
