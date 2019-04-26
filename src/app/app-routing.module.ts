@@ -9,13 +9,15 @@ import { OrdersComponent } from './pages/orders/orders.component';
 import { AccountResolve } from './service/resolve/account.resolve';
 
 const routes: Routes = [
-  {path: 'dashboard', component: DashboardComponent, resolve: { account: AccountResolve }  },
-  { path: 'marketplace', component: MarketplaceComponent, resolve: { items: RewardItemsResolve }},
-  { path: 'marketplace/:filter', component: MarketplaceComponent, resolve: { items: RewardItemsResolve }},
-  {path: 'cart', component: CartComponent },
-  {path: 'profile', component: ProfileComponent },
-  {path: 'orders', component: OrdersComponent },
-  {path: '**', redirectTo: 'dashboard' }
+  {path: '', resolve: { account: AccountResolve }, children: [
+    {path: 'dashboard', component: DashboardComponent,   },
+    {path: 'marketplace', component: MarketplaceComponent, resolve: { items: RewardItemsResolve }},
+    {path: 'marketplace/:filter', component: MarketplaceComponent, resolve: { items: RewardItemsResolve }},
+    {path: 'cart', component: CartComponent },
+    {path: 'profile', component: ProfileComponent },
+    {path: 'orders', component: OrdersComponent },
+    {path: '**', redirectTo: 'dashboard' }
+  ]}
 ];
 
 @NgModule({

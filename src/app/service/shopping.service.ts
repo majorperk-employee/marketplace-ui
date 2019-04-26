@@ -31,9 +31,9 @@ export class ShoppingService {
 
   }
 
-  addToCart(itemId) {
-    this.http.post<any>(`${environment.apiUrl}/cart/add`, itemId).pipe(first()).subscribe(
-      resp => { },
+  addToCart(itemId, cartId) {
+    this.http.post<any>(`${environment.apiUrl}/cart/add`, {"itemId": itemId, "cartId" : cartId}, httpOptions).pipe(first()).subscribe(
+      resp => { console.log(resp); },
       error => { console.log("Error in addToCart endpoint"); }
     );
   }

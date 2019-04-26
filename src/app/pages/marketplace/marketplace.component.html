@@ -1,3 +1,5 @@
+<app-global-nav></app-global-nav>
+
 <nz-layout class="layout">
 
   <!-- SIDENAV -->
@@ -72,14 +74,11 @@
               <nz-avatar
                 nzSrc="https://ya-webdesign.com/images/shopping-cart-free-png-avatar-12.png"></nz-avatar>
             </ng-template>
-            <!-- <ng-template #actionFavorite>
-              <i nz-icon type="star"></i>
-            </ng-template> -->
             <ng-template #actionCart>
-              <i nz-icon type="shopping-cart"></i>
+              <i nz-icon type="shopping-cart" (click)="addToCart(item)"></i>
             </ng-template>
             <ng-template #actionDetails>
-              <i nz-icon type="ellipsis"></i>
+              <i nz-icon type="ellipsis" (click)="openModal(rewardItemModalTitle, rewardItemModalContent, rewardItemModalFooter)"></i>
             </ng-template>
           </nz-list-item>
         </ng-template>
@@ -104,3 +103,19 @@
   </ng-template>
 
 </nz-layout>
+
+<!-- REWARD ITEM -->
+
+<ng-template #rewardItemModalTitle>
+  <span>Statistics</span>
+</ng-template>
+
+<ng-template #rewardItemModalContent>
+  <p>Item Info</p>
+</ng-template>
+
+<ng-template #rewardItemModalFooter>
+  <button nz-button nzType="primary" (click)="closeModal()">
+    Nice!
+  </button>
+</ng-template>

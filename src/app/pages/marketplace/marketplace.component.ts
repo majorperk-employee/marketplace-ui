@@ -1,7 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { InfoModalComponent } from '@app/components/info/info.modal';
 import { RewardItem } from '@app/models/market';
+import { Subscription } from 'rxjs';
+import { ShoppingService } from '@app/service/shopping.service';
 
 @Component({
   selector: 'app-marketplace',
@@ -30,7 +32,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   paramSubscription: Subscription;
   
   categories: any[] = [];
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private infoModal: InfoModalComponent, private shoppingService: ShoppingService) { }
 
   ngOnInit() {
 
@@ -153,6 +155,19 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       });
     }
     return tagged;
+  }
+
+  addToCart(item: RewardItem) {
+    this.shoppingService.addToCart(item.id, 1);
+    console.log(item.id + " ordered");
+  }
+
+  openModal(tplTitle: TemplateRef<{}>, tplContent: TemplateRef<{}>, tplFooter: TemplateRef<{}>) {
+    this.infoModal.createTemplatedModal(tplTitle,tplContent,tplFooter);
+  }
+
+  closeModal() {
+    this.infoModal.destroyTemplatedModal();
   }
 
 }

@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/r
 import { EMPTY, Observable, of } from "rxjs";
 import { switchMap, take } from 'rxjs/operators';
 import { AccountService } from '../account.service';
+import { Account } from '@app/models/account';
 
 @Injectable({
     providedIn: 'root',
@@ -15,6 +16,7 @@ export class AccountResolve implements Resolve<Account> {
             take(1),
             switchMap(account => {
                 if (account) {
+                    this.accountService.currentAccount = account;
                     return of(account);
                 } else {
                     console.log("Error getting reward items.");

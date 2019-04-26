@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   name: string;
 
   userTier: string;
-  userNextTier: string;
+  userNextTier: string = "GOLD";
 
   userPoints: number;
   totalDays: number;
@@ -63,7 +63,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.onTimePercentCompletionPercent = (this.onTimePercent / this.onTimePercentTarget * 100);
 
       this.userTier = account.tier;
-      this.userNextTier = "Gold"
       this.pointsDisplay = this.generatePointsDisplay(this.userPoints,this.userPoints,this.userPoints);
       this.statsModel = this.generateStatsModal(account.totaldays,account.ontimedays,this.onTimePercent);
     });
@@ -80,8 +79,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private generateStatsModal(tdw: number,tdot: number,otp: number) {
     return [
       { name: "Total Days On Time", value: tdot, needed: null, complete: false},
-      { name: "Total Days Worked", value: tdw, needed: 500,complete: false},
-      { name: "On Time Percentage", value: otp, needed: 85, complete: false}
+      { name: "Total Days Worked", value: tdw, needed: this.totalDaysTarget,complete: false},
+      { name: "On Time Percentage", value: otp, needed: this.onTimePercentTarget, complete: false}
     ]
   }
 
