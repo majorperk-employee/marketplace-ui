@@ -1,0 +1,159 @@
+<app-global-nav></app-global-nav>
+
+<nz-layout class="layout-fill">
+  <nz-content style="padding:0 50px;">
+    <nz-breadcrumb style="margin:16px 0;">
+      <nz-breadcrumb-item>MajorPerk</nz-breadcrumb-item>
+      <nz-breadcrumb-item>Dashboard</nz-breadcrumb-item>
+    </nz-breadcrumb>
+
+    <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }">
+      <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 6 }" fxShow="true"
+        fxHide.lt-md="”true”">
+
+        <!-- REWARDS -->
+        <nz-card class="dashboard-module" nzTitle="Reward Yourself">
+          <nz-list [nzDataSource]="data" [nzItemLayout]="'vertical'"
+            [nzRenderItem]="item">
+            <ng-template #item let-item>
+              <nz-list-item [nzContent]="item.content">
+                <nz-list-item-meta [nzAvatar]="item.avatar"
+                  [nzTitle]="nzTitle"
+                  [nzDescription]="item.description">
+                  <ng-template #nzTitle>
+                    <a href="{{ item.href }}">
+                      {{item.title}}
+                    </a></ng-template>
+                </nz-list-item-meta>
+              </nz-list-item>
+            </ng-template>
+          </nz-list>
+        </nz-card>
+
+      </div>
+
+      <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 12 }">
+
+        <!-- USER POINTS -->
+
+        <nz-list
+          [nzDataSource]="pointsDisplay"
+          [nzRenderItem]="pointsItem"
+          [nzGrid]="{ gutter: 16, span: 24 }">
+          <ng-template #pointsItem let-item>
+            <nz-list-item [nzContent]="pointsItem">
+              <ng-template #pointsItem>
+                <nz-card [nzTitle]="item.title">
+                  {{item.value}} points
+                </nz-card>
+              </ng-template>
+            </nz-list-item>
+          </ng-template>
+        </nz-list>
+
+        <!-- ANNOUNCEMENTS -->
+
+        <nz-card class="dashboard-module" nzTitle="Announcements" fxShow="true"
+          fxHide.lt-md="”true”">
+          <nz-carousel [nzEffect]="fade" [nzEnableSwipe]="true" [nzDotRender]="dotsTemplate">
+            <div nz-carousel-content *ngFor="let index of array">
+              <h3>{{ index }}</h3>
+              <div class="dot-container"></div>
+            </div>
+          </nz-carousel>
+        </nz-card>
+      </div>
+
+      <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 6 }">
+
+        <!-- USER TIER -->
+
+        <nz-card class="dashboard-module" nzTitle="Your Teir">
+          <div nz-row nzType="flex" nzJustify="center">
+            <div>
+              <h1>{{userTier}}</h1>
+            </div>
+          </div>
+          <div nz-row nzType="flex" nzJustify="center">
+            <div>
+              Next Tier: {{userNextTier}}
+            </div>
+          </div>
+
+          <nz-divider></nz-divider>
+
+          Total Days Worked
+          <nz-progress [nzPercent]="totalDaysCompletionPercent"></nz-progress>
+          On Time Percentage
+          <nz-progress [nzPercent]="onTimePercentCompletionPercent"></nz-progress>
+          <button nz-button nzType="default" style="margin-top: 12px" nzBlock
+            (click)="openModal(userStatsModalTitle, userStatsModalContent,
+            userStatsModalFooter)">
+            More Info
+          </button>
+
+        </nz-card>
+
+        <!-- STATISTICS -->
+
+        <nz-card class="dashboard-module" nzTitle="Statistics">
+          <div nz-row nzType="flex" nzJustify="center">
+            <nz-progress [nzWidth]="80"
+              nzPercent="{{onTimePercentTargetCompletion}}" nzType="circle"
+              [nzStrokeColor]="lightblue"></nz-progress>
+          </div>
+          <div nz-row nzType="flex" nzJustify="center" style="margin: 12px">
+            <h4>Program Rank</h4>
+          </div>
+          <nz-divider></nz-divider>
+          <div nz-row nzType="flex" nzJustify="center">
+            <nz-progress [nzWidth]="80"
+              nzPercent="{{onTimePercentTargetCompletion}}" nzType="circle"
+              [nzStrokeColor]="lightblue"></nz-progress>
+          </div>
+          <div nz-row nzType="flex" nzJustify="center" style="margin: 12px">
+            <h4>Company Rank</h4>
+          </div>
+
+        </nz-card>
+
+        <!-- REFER A FRIEND -->
+
+        <nz-card class="dashboard-module" nzTitle="*Coming soon*">
+          <div class="column-content">Give feedback, recommend a new feature!</div>
+        </nz-card>
+      </div>
+    </div>
+
+  </nz-content>
+  <nz-footer style="text-align: center;">Employee Dashboard ©2018 by MajorPerk</nz-footer>
+</nz-layout>
+
+<ng-template #userStatsModalTitle>
+  <span>Statistics</span>
+</ng-template>
+
+<ng-template #userStatsModalContent>
+  <nz-table nzSize="small" [nzTitle]="name" [nzData]="statsModel" nzHideOnSinglePage>
+    <thead>
+      <tr>
+        <th>Achievement</th>
+        <th>Current</th>
+        <th>Next Tier</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of statsModel">
+        <td>{{ data.name }}</td>
+        <td>{{ data.value }}</td>
+        <td>{{ data.needed }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</ng-template>
+
+<ng-template #userStatsModalFooter>
+  <button nz-button nzType="primary" (click)="closeModal()">
+    Thanks!
+  </button>
+</ng-template>
