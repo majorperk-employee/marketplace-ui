@@ -1,8 +1,8 @@
-import { RewardItem } from "./market";
+import { RewardItem, Cart } from "./market";
 
 export class Account {
   id: number;
-  cart: RewardItem[];
+  cart: Cart;
   username: string;
   password: string;
   firstName: string;

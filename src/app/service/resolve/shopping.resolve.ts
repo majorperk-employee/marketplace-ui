@@ -4,6 +4,7 @@ import { RewardItem } from "@app/models/market";
 import { EMPTY, Observable, of } from "rxjs";
 import { switchMap, take } from 'rxjs/operators';
 import { ShoppingService } from "../shopping.service";
+import { AccountService } from '../account.service';
 
 @Injectable({
     providedIn: 'root',
@@ -13,6 +14,27 @@ export class RewardItemsResolve implements Resolve<RewardItem[]> {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RewardItem[]> | Observable<never> {
         return this.shoppingService.getRewards().pipe(
+            take(1),
+            switchMap(items => {
+                if (items) {
+                    return of(items);
+                } else {
+                    console.log("Error getting reward items.");
+                    return EMPTY;
+                }
+            })
+        );
+    }
+}
+
+@Injectable({
+    providedIn: 'root',
+})
+export class CartItemsResolve implements Resolve<RewardItem[]> {
+    constructor(private shoppingService: ShoppingService, private accountService: AccountService) { }
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RewardItem[]> | Observable<never> {
+        return this.shoppingService.getCart(this.accountService.currentAccount.cart.id).pipe(
             take(1),
             switchMap(items => {
                 if (items) {

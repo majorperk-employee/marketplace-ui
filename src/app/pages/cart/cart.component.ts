@@ -1,20 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-import { RewardItem } from '@app/models/market';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { RewardItem, Cart } from '@app/models/market';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { Account } from '@app/models/account';
+import { ShoppingService } from '@app/service/shopping.service';
+import { AccountService } from '@app/service/account.service';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
+  isLoading: boolean = true;
 
-  isAllDisplayDataChecked = false;
+
+  account: Account;
+  cart: Cart;
+  cartTotal: number;
+  cartCount: number;
+
+  isAllDisplayDataChecked;
   isIndeterminate = false;
   listOfDisplayData: any[] = [];
-  listOfAllData: any[] = [];
+
+  cartItems: any[] = [];
   mapOfCheckedId: { [key: string]: boolean } = {};
 
-  currentPageDataChange($event: Array<{ id: number; name: string; age: number; address: string }>): void {
+  cartItemsSubscription: Subscription;
+
+  constructor(private route: ActivatedRoute,private shoppingService: ShoppingService, private accountService: AccountService) { }
+
+  ngOnInit(): void {
+    this.cartItemsSubscription = this.route.data.subscribe(data => {
+      this.cart = data.items;
+      this.cartItems = this.cart.items;
+      this.cartTotal = this.cart.total;
+      this.account = data.account;
+    });
+    this.isLoading = false;
+  }
+
+  currentPageDataChange($event): void {
     this.listOfDisplayData = $event;
     this.refreshStatus();
   }
@@ -24,28 +51,47 @@ export class CartComponent implements OnInit {
     this.isIndeterminate = this.listOfDisplayData.some(item => this.mapOfCheckedId[item.id]);
   }
 
+  refreshCart(): void {
+    this.cart = this.accountService.currentAccount.cart;
+  }
+
   checkAll(value: boolean): void {
     this.listOfDisplayData.forEach(item => (this.mapOfCheckedId[item.id] = value));
     this.refreshStatus();
   }
 
-  ngOnInit(): void {
-    this.listOfAllData = this.getCart();
-  }
 
-  deleteItems() {
-    var deleting = "";
+  deleteMany() {
+    var deleteReqBody = [];
+    
     for (var itemId in this.mapOfCheckedId) {
-      if(this.mapOfCheckedId[itemId]) {
-        deleting += itemId + " "
+      if (this.mapOfCheckedId[itemId]) {
+        deleteReqBody.push(itemId);
       }
     }
-    alert(deleting);
+
+    this.shoppingService.removeFromCart(deleteReqBody, this.account.cart.id).then(
+      resp => { this.refreshCart(); },
+      err => { console.error("Could not get cart. Please refresh.")}
+    );
+    
   }
 
+  deleteOne(itemId:number) {
+
+    this.shoppingService.removeFromCart([itemId], this.account.cart.id).then(
+      resp => { this.refreshCart(); },
+      err => { console.error("Could not get cart. Please refresh.")}
+    );
+    
+  }
 
   getCart(): RewardItem[] {
     return cart;
+  }
+
+  ngOnDestroy(){
+    this.cartItemsSubscription.unsubscribe();
   }
 }
 

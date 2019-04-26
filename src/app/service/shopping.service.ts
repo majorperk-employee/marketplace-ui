@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RewardItem } from '@app/models/market';
+import { Cart, RewardItem } from '@app/models/market';
 import { environment } from '@environments/environment';
 import { first } from 'rxjs/operators';
+import { AccountService } from './account.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -13,18 +14,18 @@ const httpOptions = {
 export class ShoppingService {
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private accountService: AccountService) { }
 
   getRewards() {
     return this.http.get<RewardItem[]>(`${environment.apiUrl}/rewards/all`, httpOptions);
   }
 
-  getCart() {
-    return this.http.get<string>(`${environment.apiUrl}/cart/all`, httpOptions);
+  getCart(id: number) {
+    return this.http.get<RewardItem[]>(`${environment.apiUrl}/cart/${id}`, httpOptions);
   }
 
   getOrders() {
-    return this.http.get<string>(`${environment.apiUrl}/orders/all`, httpOptions);
+    return this.http.get<RewardItem[]>(`${environment.apiUrl}/orders/all`, httpOptions);
   }
 
   getCartCost() {
@@ -32,23 +33,23 @@ export class ShoppingService {
   }
 
   addToCart(itemId, cartId) {
-    this.http.post<any>(`${environment.apiUrl}/cart/add`, {"itemId": itemId, "cartId" : cartId}, httpOptions).pipe(first()).subscribe(
-      resp => { console.log(resp); },
-      error => { console.log("Error in addToCart endpoint"); }
+    this.http.post<Cart>(`${environment.apiUrl}/cart/${cartId}/add`, itemId, httpOptions).pipe(first()).subscribe(
+      resp => { this.accountService.currentAccountCart = resp; },
+      error => { console.log("Error in addToCart endpoint", error); }
     );
   }
 
-  public removeFromCart(itemId) {
-
-    this.http.post<any>(`${environment.apiUrl}/cart/remove`, itemId).pipe(first()).subscribe(
-      resp => { },
-      error => { console.log("Error in removeFromCart endpoint"); }
+  public async removeFromCart(itemId, cartId) {
+    let asyncResult = await this.http.post<Cart>(`${environment.apiUrl}/cart/${cartId}/remove`, itemId, httpOptions).toPromise().then(
+      resp => { this.accountService.currentAccountCart = resp; },
+      err => { console.log( err ) }
     );
+    console.log("Call is done");
   }
 
   public redeemCart() {
     this.http.get<any>(`${environment.apiUrl}/cart/redeem`).pipe(first()).subscribe(
-      resp => { },
+      resp => {},
       error => { console.log("Error in redeemCart endpoint"); }
     );
   }

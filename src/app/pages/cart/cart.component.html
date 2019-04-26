@@ -5,10 +5,11 @@
 <nz-table
   #rowSelectionTable
   nzShowSizeChanger
-  [nzData]="listOfAllData"
+  [nzData]="cart.items"
   (nzCurrentPageDataChange)="currentPageDataChange($event)"
   [nzFooter]="footerTemplate"
-  [nzPaginationPosition]="'top'">
+  [nzPaginationPosition]="'top'"
+  [nzLoading]="isLoading">
   <thead>
     <tr>
       <th
@@ -23,13 +24,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of rowSelectionTable.data">
-      <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]"
-        (nzCheckedChange)="refreshStatus()"></td>
-      <td>{{ data.id }}</td>
-      <td>{{ data.price }}</td>
-      <td>{{ data.name }}</td>
-      <td nzWidth="70px"><i nz-icon nzType="delete"></i></td>
+    <tr *ngFor="let item of cart.items">
+      <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[item.id]" (nzCheckedChange)="refreshStatus()"></td>
+      <td>{{ item.id }}</td>
+      <td>{{ item.price }}</td>
+      <td>{{ item.name }}</td>
+      <td nzWidth="70px"><i nz-icon nzType="delete" class="delete" (click)="deleteOne(item.id)"></i></td>
     </tr>
   </tbody>
 </nz-table>
@@ -38,11 +38,15 @@
 
   <p style="align-items: center">
       <tbody>
-        <tr><strong>Cart Count:</strong> 6 items</tr>
-        <tr><strong>Cart Total:</strong> 100 points</tr>
+        <tr><strong>Cart Count:</strong> {{cart.items.length}} items</tr>
+        <tr><strong>Cart Total:</strong> {{cart.total}} points</tr>
       </tbody>
   </p>
 
-    <button *ngIf="isIndeterminate" nz-button nzType="danger" nzBlock><i nz-icon type="delete"></i>Delete Selected</button>
-    <button *ngIf="!isIndeterminate" nz-button nzType="default" nzBlock><i nz-icon type="shopping"></i>Complete Checkout</button>
+    <button *ngIf="isIndeterminate" nz-button nzType="danger" (click)="deleteMany()" nzBlock><i nz-icon type="delete"></i>Delete Selected</button>
+    <button *ngIf="!isIndeterminate" nz-button nzType="primary" nzBlock><i nz-icon type="shopping"></i>Complete Checkout</button>
+</ng-template>
+
+<ng-template #loadingTemplate>
+  <i nz-icon [nzType]="'loading'"></i>
 </ng-template>

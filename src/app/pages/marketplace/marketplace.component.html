@@ -75,7 +75,8 @@
                 nzSrc="https://ya-webdesign.com/images/shopping-cart-free-png-avatar-12.png"></nz-avatar>
             </ng-template>
             <ng-template #actionCart>
-              <i nz-icon type="shopping-cart" (click)="addToCart(item)"></i>
+              <i nz-icon type="shopping-cart" (click)="addToCart(item)" *ngIf="!item.meta.checked"></i>
+              <i nz-icon nzType="shopping" (click)="removeFromCart(item)" *ngIf="item.meta.checked" nzTheme="twotone"></i>
             </ng-template>
             <ng-template #actionDetails>
               <i nz-icon type="ellipsis" (click)="openModal(rewardItemModalTitle, rewardItemModalContent, rewardItemModalFooter)"></i>

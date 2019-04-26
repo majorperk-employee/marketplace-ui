@@ -4,6 +4,7 @@ import { Account } from '@app/models/account';
 import { environment } from '@environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { Cart } from '@app/models/market';
 
 @Injectable({
   providedIn: 'root'
@@ -24,26 +25,15 @@ export class AccountService {
   set currentAccount(user: Account) {
     this.account = user;
   }
+
+  get currentAccountCart(): Cart {
+    return this.account.cart;
+  }
+  set currentAccountCart(cart: Cart) {
+    this.account.cart = cart;
+  }
 }
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-
-export const temp: Account = {
-  id: 1,
-  cart: [],
-  username: "sergeihanka",
-  password: "password",
-  firstName: "Sergei",
-  lastName: "Hanka",
-  tier: "Gold",
-  address: "141 E 4th St",
-  city: "Saint Paul",
-  state: "MN",
-  email: "sergei@hanka.com",
-  zip: 55101,
-  points: 30000,
-  totaldays: 50,
-  ontimedays: 27
-}

@@ -4,6 +4,8 @@ import { InfoModalComponent } from '@app/components/info/info.modal';
 import { RewardItem } from '@app/models/market';
 import { Subscription } from 'rxjs';
 import { ShoppingService } from '@app/service/shopping.service';
+import { AccountService } from '@app/service/account.service';
+import { Account } from '@app/models/account';
 
 @Component({
   selector: 'app-marketplace',
@@ -13,6 +15,7 @@ import { ShoppingService } from '@app/service/shopping.service';
 export class MarketplaceComponent implements OnInit, OnDestroy {
 
   loading = true;
+  account: Account;
 
   search: string = "";
   sort: number = 1;
@@ -30,11 +33,13 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
 
   rewardItemsSubscription: Subscription;
   paramSubscription: Subscription;
-  
+
   categories: any[] = [];
-  constructor(private route: ActivatedRoute, private infoModal: InfoModalComponent, private shoppingService: ShoppingService) { }
+  constructor(private route: ActivatedRoute, private infoModal: InfoModalComponent, private shoppingService: ShoppingService, private accountService: AccountService) { }
 
   ngOnInit() {
+
+    this.account = this.accountService.currentAccount;
 
     this.rewardItemsSubscription = this.route.data.subscribe(data => {
       this.allRewards = data.items;
@@ -49,7 +54,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     })
 
     this.categories = categories;
-    
+
     this.loadData(this.pageIndex);
 
     this.loading = false;
@@ -94,7 +99,13 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     this.marketItems = this.applySort(this.sort, new Array(viewSize).fill({}).map((_, index) => {
       let idx = startIndex + index;
       if (idx < list.length) {
-        return list[idx];
+        let displayItem = list[idx]
+        
+        this.account.cart.items.forEach(item => {
+          if (item.id == displayItem.id) { displayItem.meta.checked = true;}
+        });
+
+        return displayItem;
       }
     }));
   }
@@ -158,12 +169,32 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   }
 
   addToCart(item: RewardItem) {
-    this.shoppingService.addToCart(item.id, 1);
-    console.log(item.id + " ordered");
+
+    this.shoppingService.addToCart(item.id, this.account.cart.id);
+    
+    // REFRESH ACCOUNT
+    this.account = this.accountService.currentAccount;
+    
+    item.meta.checked = true;
+
+  }
+
+  removeFromCart(item: RewardItem) {
+
+    let removeBody = [item.id];
+
+    this.shoppingService.removeFromCart(removeBody, this.account.cart.id);
+    
+    // REFRESH ACCOUNT
+    this.account = this.accountService.currentAccount;
+
+    console.log(this.account);
+    
+    item.meta.checked = false;
   }
 
   openModal(tplTitle: TemplateRef<{}>, tplContent: TemplateRef<{}>, tplFooter: TemplateRef<{}>) {
-    this.infoModal.createTemplatedModal(tplTitle,tplContent,tplFooter);
+    this.infoModal.createTemplatedModal(tplTitle, tplContent, tplFooter);
   }
 
   closeModal() {
