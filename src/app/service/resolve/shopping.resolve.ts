@@ -34,7 +34,7 @@ export class CartItemsResolve implements Resolve<RewardItem[]> {
     constructor(private shoppingService: ShoppingService, private accountService: AccountService) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RewardItem[]> | Observable<never> {
-        return this.shoppingService.getCart(this.accountService.currentAccount.cart.id).pipe(
+        return this.shoppingService.getCart(this.accountService.currentAccount.id).pipe(
             take(1),
             switchMap(items => {
                 if (items) {

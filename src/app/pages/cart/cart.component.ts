@@ -70,7 +70,7 @@ export class CartComponent implements OnInit, OnDestroy {
       }
     }
 
-    this.shoppingService.removeFromCart(deleteReqBody, this.account.cart.id).then(
+    this.shoppingService.removeFromCart(deleteReqBody, this.account.id).then(
       resp => { this.refreshCart(); },
       err => { console.error("Could not display cart. Please refresh.")}
     );
@@ -79,15 +79,14 @@ export class CartComponent implements OnInit, OnDestroy {
 
   deleteOne(itemId:number) {
 
-    this.shoppingService.removeFromCart([itemId], this.account.cart.id).then(
+    this.shoppingService.removeFromCart([itemId], this.account.id).then(
       resp => { this.refreshCart(); },
       err => { console.error("Could not display cart. Please refresh.")}
     );
     
   }
 
-  checkout(itemId:number) {
-
+  checkout() {
     this.shoppingService.redeemCart(this.account.id).then(
       resp => { this.refreshCart(); },
       err => { console.error("Could not display cart. Please refresh.")}

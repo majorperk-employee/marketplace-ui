@@ -170,7 +170,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
 
   addToCart(item: RewardItem) {
 
-    this.shoppingService.addToCart(item.id, this.account.cart.id);
+    this.shoppingService.addToCart(item.id, this.account.id);
     
     // REFRESH ACCOUNT
     this.account = this.accountService.currentAccount;
@@ -183,7 +183,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
 
     let removeBody = [item.id];
 
-    this.shoppingService.removeFromCart(removeBody, this.account.cart.id);
+    this.shoppingService.removeFromCart(removeBody, this.account.id);
     
     // REFRESH ACCOUNT
     this.account = this.accountService.currentAccount;

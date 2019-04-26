@@ -32,15 +32,15 @@ export class ShoppingService {
 
   }
 
-  addToCart(itemId, cartId) {
-    this.http.post<Cart>(`${environment.apiUrl}/cart/${cartId}/add`, itemId, httpOptions).pipe(first()).subscribe(
+  addToCart(itemId, userId) {
+    this.http.post<Cart>(`${environment.apiUrl}/cart/${userId}/add`, itemId, httpOptions).pipe(first()).subscribe(
       resp => { this.accountService.currentAccountCart = resp; },
       error => { console.error("Unable to add to cart. Please refresh.", error); }
     );
   }
 
-  public async removeFromCart(itemIds, cartId) {
-    let asyncResult = await this.http.post<Cart>(`${environment.apiUrl}/cart/${cartId}/remove`, itemIds, httpOptions).toPromise().then(
+  public async removeFromCart(itemIds, userId) {
+    let asyncResult = await this.http.post<Cart>(`${environment.apiUrl}/cart/${userId}/remove`, itemIds, httpOptions).toPromise().then(
       resp => { this.accountService.currentAccountCart = resp; },
       err => { console.error("Unable to remove from cart. Please refresh", err ) }
     );
