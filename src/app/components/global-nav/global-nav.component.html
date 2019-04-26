@@ -47,7 +47,7 @@
 
         <ul nz-menu nzSelectable style="margin-top: 15px;">
           <li (click)="routeTo('marketplace')" nz-menu-item>
-            <i nz-icon nzType="wallet"></i>{{user.points}} points
+            <i nz-icon nzType="wallet"></i>{{user.points| number}} points
           </li>
           <li nz-menu-divider></li>
           <li (click)="routeTo('cart')" nz-menu-item>

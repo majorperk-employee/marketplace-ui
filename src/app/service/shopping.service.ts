@@ -35,22 +35,21 @@ export class ShoppingService {
   addToCart(itemId, cartId) {
     this.http.post<Cart>(`${environment.apiUrl}/cart/${cartId}/add`, itemId, httpOptions).pipe(first()).subscribe(
       resp => { this.accountService.currentAccountCart = resp; },
-      error => { console.log("Error in addToCart endpoint", error); }
+      error => { console.error("Unable to add to cart. Please refresh.", error); }
     );
   }
 
-  public async removeFromCart(itemId, cartId) {
-    let asyncResult = await this.http.post<Cart>(`${environment.apiUrl}/cart/${cartId}/remove`, itemId, httpOptions).toPromise().then(
+  public async removeFromCart(itemIds, cartId) {
+    let asyncResult = await this.http.post<Cart>(`${environment.apiUrl}/cart/${cartId}/remove`, itemIds, httpOptions).toPromise().then(
       resp => { this.accountService.currentAccountCart = resp; },
-      err => { console.log( err ) }
+      err => { console.error("Unable to remove from cart. Please refresh", err ) }
     );
-    console.log("Call is done");
   }
 
-  public redeemCart() {
-    this.http.get<any>(`${environment.apiUrl}/cart/redeem`).pipe(first()).subscribe(
-      resp => {},
-      error => { console.log("Error in redeemCart endpoint"); }
+  public async redeemCart(userId) {
+    this.http.post<any>(`${environment.apiUrl}/checkout?userId=${userId}`, httpOptions).toPromise().then(
+      resp => { this.accountService.currentAccountCart = resp; },
+      err => { console.error("Unable to complete purchase. Please refresh.", err ) }
     );
   }
 }

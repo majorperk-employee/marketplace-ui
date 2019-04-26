@@ -35,7 +35,7 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartItemsSubscription = this.route.data.subscribe(data => {
       this.cart = data.items;
       this.cartItems = this.cart.items;
-      this.cartTotal = this.cart.total;
+      this.cartTotal = this.cart.cost;
       this.account = data.account;
     });
     this.isLoading = false;
@@ -45,7 +45,7 @@ export class CartComponent implements OnInit, OnDestroy {
     this.listOfDisplayData = $event;
     this.refreshStatus();
   }
-
+  
   refreshStatus(): void {
     this.isAllDisplayDataChecked = this.listOfDisplayData.every(item => this.mapOfCheckedId[item.id]);
     this.isIndeterminate = this.listOfDisplayData.some(item => this.mapOfCheckedId[item.id]);
@@ -72,7 +72,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
     this.shoppingService.removeFromCart(deleteReqBody, this.account.cart.id).then(
       resp => { this.refreshCart(); },
-      err => { console.error("Could not get cart. Please refresh.")}
+      err => { console.error("Could not display cart. Please refresh.")}
     );
     
   }
@@ -81,81 +81,29 @@ export class CartComponent implements OnInit, OnDestroy {
 
     this.shoppingService.removeFromCart([itemId], this.account.cart.id).then(
       resp => { this.refreshCart(); },
-      err => { console.error("Could not get cart. Please refresh.")}
+      err => { console.error("Could not display cart. Please refresh.")}
     );
     
   }
 
-  getCart(): RewardItem[] {
-    return cart;
+  checkout(itemId:number) {
+
+    this.shoppingService.redeemCart(this.account.id).then(
+      resp => { this.refreshCart(); },
+      err => { console.error("Could not display cart. Please refresh.")}
+    );
+    
+  }
+
+  get validCart(): boolean {
+    return (!this.isIndeterminate && this.cart.items.length > 0 && !this.insufficientFunds) ? true : false;
+  }
+
+  get insufficientFunds(): boolean {
+    return (this.account.points < this.cart.cost) ? true : false;
   }
 
   ngOnDestroy(){
     this.cartItemsSubscription.unsubscribe();
   }
 }
-
-
-const cart: RewardItem[] =
-  [
-    {
-      id: 1,
-      name: "Cart Item One",
-      price: 500,
-      type: "Gift Card",
-      description: "Cart Item Gift Card",
-      tags: ["Food", "Technology", "Gift Card"],
-      imageURL: "",
-      meta: { purchaseCount: 10, cartCount: 10 }
-    },
-    {
-      id: 2,
-      name: "Cart Item One",
-      price: 500,
-      type: "Gift Card",
-      description: "Cart Item Gift Card",
-      tags: ["Food", "Technology", "Gift Card"],
-      imageURL: "",
-      meta: { purchaseCount: 10, cartCount: 10 }
-    },
-    {
-      id: 3,
-      name: "Cart Item One",
-      price: 500,
-      type: "Gift Card",
-      description: "Cart Item Gift Card",
-      tags: ["Food", "Technology", "Gift Card"],
-      imageURL: "",
-      meta: { purchaseCount: 10, cartCount: 10 }
-    },
-    {
-      id: 4,
-      name: "Cart Item One",
-      price: 500,
-      type: "Gift Card",
-      description: "Cart Item Gift Card",
-      tags: ["Food", "Technology", "Gift Card"],
-      imageURL: "",
-      meta: { purchaseCount: 10, cartCount: 10 }
-    },
-    {
-      id: 5,
-      name: "Cart Item One",
-      price: 500,
-      type: "Gift Card",
-      description: "Cart Item Gift Card",
-      tags: ["Food", "Technology", "Gift Card"],
-      imageURL: "",
-      meta: { purchaseCount: 10, cartCount: 10 }
-    },
-    {
-      id: 6,
-      name: "Cart Item One",
-      price: 500,
-      type: "Gift Card",
-      description: "Cart Item Gift Card",
-      tags: ["Food", "Technology", "Gift Card"],
-      imageURL: "",
-      meta: { purchaseCount: 10, cartCount: 10 }
-    }
-  ]

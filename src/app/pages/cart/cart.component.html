@@ -1,52 +1,75 @@
 <app-global-nav></app-global-nav>
 
-<nz-page-header nzTitle="Shopping Cart"></nz-page-header>
+<section style="margin: 0 5% 0 5%">
+  <nz-page-header nzTitle="Shopping Cart"></nz-page-header>
 
-<nz-table
-  #rowSelectionTable
-  nzShowSizeChanger
-  [nzData]="cart.items"
-  (nzCurrentPageDataChange)="currentPageDataChange($event)"
-  [nzFooter]="footerTemplate"
-  [nzPaginationPosition]="'top'"
-  [nzLoading]="isLoading">
-  <thead>
-    <tr>
-      <th
-        nzShowCheckbox
-        [(nzChecked)]="isAllDisplayDataChecked"
-        [nzIndeterminate]="isIndeterminate"
-        (nzCheckedChange)="checkAll($event)"></th>
-      <th>Id</th>
-      <th>Price</th>
-      <th>Name</th>
-      <th nzWidth="70px">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of cart.items">
-      <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[item.id]" (nzCheckedChange)="refreshStatus()"></td>
-      <td>{{ item.id }}</td>
-      <td>{{ item.price }}</td>
-      <td>{{ item.name }}</td>
-      <td nzWidth="70px"><i nz-icon nzType="delete" class="delete" (click)="deleteOne(item.id)"></i></td>
-    </tr>
-  </tbody>
-</nz-table>
+  <nz-table
+    #rowSelectionTable
+    nzShowSizeChanger
+    [nzData]="cart.items"
+    (nzCurrentPageDataChange)="currentPageDataChange($event)"
+    [nzFooter]="footerTemplate"
+    [nzPaginationPosition]="'top'"
+    [nzLoading]="isLoading"
+    [nzNoResult]="emptyCartTemplate">
+    <thead>
+      <tr>
+        <th
+          nzShowCheckbox
+          [(nzChecked)]="isAllDisplayDataChecked"
+          [nzIndeterminate]="isIndeterminate"
+          (nzCheckedChange)="checkAll($event)"></th>
+        <th>Id</th>
+        <th>Price</th>
+        <th>Name</th>
+        <th nzWidth="70px">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cart.items">
+        <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[item.id]"
+          (nzCheckedChange)="refreshStatus()"></td>
+        <td>{{ item.id }}</td>
+        <td>{{ item.price }}</td>
+        <td>{{ item.name }}</td>
+        <td nzWidth="70px"><i nz-icon nzType="delete" class="delete"
+            (click)="deleteOne(item.id)"></i></td>
+      </tr>
+    </tbody>
+  </nz-table>
+</section>
 
 <ng-template #footerTemplate>
 
-  <p style="align-items: center">
+    <p style="align-items: center">
       <tbody>
         <tr><strong>Cart Count:</strong> {{cart.items.length}} items</tr>
-        <tr><strong>Cart Total:</strong> {{cart.total}} points</tr>
+        <tr><strong>Cart Total:</strong> {{cart.cost | number}} points</tr>
       </tbody>
-  </p>
+    </p>
 
-    <button *ngIf="isIndeterminate" nz-button nzType="danger" (click)="deleteMany()" nzBlock><i nz-icon type="delete"></i>Delete Selected</button>
-    <button *ngIf="!isIndeterminate" nz-button nzType="primary" nzBlock><i nz-icon type="shopping"></i>Complete Checkout</button>
-</ng-template>
+    <button *ngIf="isIndeterminate" nz-button nzType="danger"
+      (click)="deleteMany()" nzBlock><i nz-icon type="delete"></i>Delete
+      Selected</button>
+    <button *ngIf="validCart" nz-button nzType="primary" nzBlock><i
+        nz-icon type="shopping"></i>Complete Checkout</button>
+    <button *ngIf="insufficientFunds" nz-button nzType="default" nzBlock><i nz-icon nzType="warning" nzTheme="outline"></i>Insufficient Funds</button>
+  </ng-template>
 
-<ng-template #loadingTemplate>
-  <i nz-icon [nzType]="'loading'"></i>
-</ng-template>
+  <ng-template #loadingTemplate>
+    <i nz-icon [nzType]="'loading'"></i>
+  </ng-template>
+
+  <ng-template #emptyCartTemplate>
+    <nz-empty
+      [nzNotFoundImage]="''"
+      [nzNotFoundContent]="contentTpl"
+      [nzNotFoundFooter]="footerTpl">
+      <ng-template #contentTpl>
+        <span>Empty Cart</span>
+      </ng-template>
+      <ng-template #footerTpl>
+        <!-- <button nz-button nzType="primary" (click)="onClick()">Find some stuff!</button> -->
+      </ng-template>
+    </nz-empty>
+  </ng-template>

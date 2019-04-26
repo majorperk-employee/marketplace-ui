@@ -26,5 +26,5 @@ export interface Meta {
 export class Cart {
     id: number;
     items: RewardItem[];
-    total: number;
+    cost: number;
 }
