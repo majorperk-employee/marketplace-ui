@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Cart, RewardItem } from '@app/models/market';
+import { Cart, RewardItem, Brand } from '@app/models/market';
 import { environment } from '@environments/environment';
 import { first } from 'rxjs/operators';
 import { AccountService } from './account.service';
@@ -17,7 +17,7 @@ export class ShoppingService {
   constructor(private http: HttpClient, private accountService: AccountService) { }
 
   getRewards() {
-    return this.http.get<RewardItem[]>(`${environment.apiUrl}/rewards/all`, httpOptions);
+    return this.http.get<Brand[]>(`${environment.apiUrl}/brands/all`, httpOptions);
   }
 
   getCart(id: number) {

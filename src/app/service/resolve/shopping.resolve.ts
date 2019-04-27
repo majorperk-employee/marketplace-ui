@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
-import { RewardItem } from "@app/models/market";
+import { Brand, RewardItem } from "@app/models/market";
 import { EMPTY, Observable, of } from "rxjs";
 import { switchMap, take } from 'rxjs/operators';
 import { ShoppingService } from "../shopping.service";
@@ -9,17 +9,18 @@ import { AccountService } from '../account.service';
 @Injectable({
     providedIn: 'root',
 })
-export class RewardItemsResolve implements Resolve<RewardItem[]> {
+export class BrandsResolve implements Resolve<Brand[]> {
     constructor(private shoppingService: ShoppingService) { }
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RewardItem[]> | Observable<never> {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Brand[]> | Observable<never> {
         return this.shoppingService.getRewards().pipe(
             take(1),
             switchMap(items => {
                 if (items) {
+                    console.log(items);
                     return of(items);
                 } else {
-                    console.log("Error getting reward items.");
+                    console.log("Error getting brands list.");
                     return EMPTY;
                 }
             })

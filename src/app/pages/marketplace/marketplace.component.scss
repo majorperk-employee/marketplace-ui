@@ -1,6 +1,17 @@
-.marketImage {
-    margin: 0 auto 0 auto;
-    height: 200px;
-    max-width: 200px; 
-    padding: 10px;
+.market-img-lg {
+    margin: 10px auto 0 auto;
+    height: 170px;
+    max-width:100%;
+    padding: 20px;
+}
+
+.market-img-sm {
+    margin: 10px auto 0 auto;
+    height: 140px;
+    max-width:100%;
+    padding: 20px;
+}
+
+[card-market] {
+    width: 250px;
 }

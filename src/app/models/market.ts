@@ -1,3 +1,13 @@
+export class Brand {
+    id: number;
+    brandKey: string;
+    brandName: string;
+    status: string;
+    shortDescription: string;
+    imageUrls: Object;
+    meta: Meta;
+}
+
 export class RewardItem {
     id: number;
     name: string;

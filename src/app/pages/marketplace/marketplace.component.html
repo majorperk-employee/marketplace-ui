@@ -57,26 +57,23 @@
         <ng-template #item let-item>
           <nz-list-item *ngIf="item">
             <nz-card
+              style="display: flex;"
               [nzCover]="coverTemplate"
               [nzActions]="[actionCart, actionDetails]"
               style="width:250px">
               <nz-card-meta
-                nzTitle="{{item.price}} points"
+                nzTitle="{{item.brandName}}"
                 [nzAvatar]="avatarTemplate"></nz-card-meta>
               <div style="height: 40px; overflow: hidden;">
-                <p>{{item.name}}</p>
+                <h6>{{item.brandKey}}</h6>
               </div>
             </nz-card>
             <ng-template #coverTemplate>
-              <img alt="no image :(" [src]="item.imageURL" class="marketImage">
-            </ng-template>
-            <ng-template #avatarTemplate>
-              <nz-avatar
-                nzSrc="https://ya-webdesign.com/images/shopping-cart-free-png-avatar-12.png"></nz-avatar>
+              <img alt="no image :(" [src]="item.imageUrls['1200w-326ppi']" class="market-img-lg"  [ngClass.lt-md]="{'market-img-lg':false, 'market-img-sm':true}">
             </ng-template>
             <ng-template #actionCart>
-              <i nz-icon type="shopping-cart" (click)="addToCart(item)" *ngIf="!item.meta.checked"></i>
-              <i nz-icon nzType="shopping" (click)="removeFromCart(item)" *ngIf="item.meta.checked" nzTheme="twotone"></i>
+              <i nz-icon type="shopping-cart" (click)="addToCart(item)" *ngIf="!inCart(item)"></i>
+              <i nz-icon nzType="shopping" (click)="removeFromCart(item)" *ngIf="inCart(item)" nzTheme="twotone"></i>
             </ng-template>
             <ng-template #actionDetails>
               <i nz-icon type="ellipsis" (click)="openModal(rewardItemModalTitle, rewardItemModalContent, rewardItemModalFooter)"></i>
@@ -84,6 +81,8 @@
           </nz-list-item>
         </ng-template>
       </nz-list>
+      
+      <nz-back-top></nz-back-top>
 
     </nz-content>
   </nz-layout>
@@ -97,9 +96,15 @@
   <ng-template #pagination>
     <div nz-row nzType="flex" nzJustify="space-around" nzAlign="middle"
       style="margin: 20px;">
-      <nz-pagination [(nzPageIndex)]="pageIndex" [nzPageSize]="pageSize"
-        [nzTotal]="itemCount" (nzPageIndexChange)="loadData($event)"
-        nzHideOnSinglePage></nz-pagination>
+      <nz-pagination 
+        [(nzPageIndex)]="pageIndex"
+        [nzPageSize]="pageSize"
+        [nzTotal]="itemCount"
+        [nzSize]="'small'"
+        (nzPageIndexChange)="loadData($event)"
+        
+        nzHideOnSinglePage>
+      </nz-pagination>
     </div>
   </ng-template>
 
