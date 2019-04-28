@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { InfoModalComponent } from '@app/components/info/info.modal';
 import { Account } from '@app/models/account';
 import { Subscription } from 'rxjs';
+import { Tier } from "../../models/market";
 
 @Component({
   selector: 'app-dashboard',
@@ -19,16 +20,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   name: string;
 
   userTier: string;
-  userNextTier: string = "GOLD";
+  userNextTier: string;
 
   userPoints: number;
   totalDays: number;
   onTimePercent: number;
 
-  totalDaysTarget = 100;
+  totalDaysTarget: number;
   totalDaysCompletionPercent: number;
 
-  onTimePercentTarget = 100;
+  onTimePercentTarget: number;
   onTimePercentCompletionPercent: number;
 
   array = ["Welcome to MajorPerk!", "KPIs, rewards, resources, and more!"];
@@ -55,14 +56,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.name = account.firstName + " " + account.lastName;
 
       this.userPoints = account.points;
+      this.totalDaysTarget = account.tier.totalDaysGoal;
       
-      this.totalDays = account.totaldays;
-      this.totalDaysCompletionPercent = Math.round(account.totaldays / this.totalDaysTarget * 100) > 100 ? 100 : Math.round(account.totaldays / this.totalDaysTarget * 100);
+      this.totalDaysCompletionPercent = (this.totalDaysTarget < account.totaldays) ? 100 : Math.round(account.totaldays / this.totalDaysTarget * 100);
 
-      this.onTimePercent = Math.round(account.ontimedays / account.totaldays * 100);
-      this.onTimePercentCompletionPercent = (this.onTimePercent / this.onTimePercentTarget * 100);
+      this.userTier = account.tier.currentTier;
+      this.userNextTier = account.tier.nextTier;
+      this.onTimePercentCompletionPercent = account.tier.onTimePercentGoal * 100;
 
-      this.userTier = account.tier;
       this.pointsDisplay = this.generatePointsDisplay(this.userPoints,this.userPoints,this.userPoints);
       this.statsModel = this.generateStatsModal(account.totaldays,account.ontimedays,this.onTimePercent);
     });
