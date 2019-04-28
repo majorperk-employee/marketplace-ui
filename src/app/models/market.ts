@@ -50,6 +50,14 @@ export class Cart {
     cost: number;
 }
 
+export class Tier {
+    id: number;
+    currentTier: string;
+    nextTier: string;
+    onTimePercentGoal: number;
+    totalDaysGoal: number;
+}
+
 export class Purchase {
     id: number;
     items: RewardItem[];
