@@ -1,4 +1,4 @@
-import { RewardItem, Cart } from "./market";
+import { RewardItem, Cart, Tier } from "./market";
 
 export class Account {
   id: number;
@@ -7,7 +7,7 @@ export class Account {
   password: string;
   firstName: string;
   lastName: string;
-  tier: string;
+  tier: Tier;
   address: string;
   city: string;
   state: string;
