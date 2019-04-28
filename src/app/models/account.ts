@@ -1,4 +1,4 @@
-import { RewardItem, Cart } from "./market";
+import { Cart } from "./market";
 
 export class Account {
   id: number;
