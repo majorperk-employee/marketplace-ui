@@ -205,8 +205,6 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     // REFRESH ACCOUNT
     this.account = this.accountService.currentAccount;
 
-    console.log(this.account);
-
     item.meta.checked = false;
   }
 

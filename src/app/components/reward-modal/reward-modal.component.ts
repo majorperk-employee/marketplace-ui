@@ -32,7 +32,6 @@ export class RewardModalComponent implements OnInit, OnDestroy {
 
     this.itemSubscription = this.shoppingService.getReward(this.id).pipe(first()).subscribe(
       (resp: Brand) => {
-        console.log(resp);
         if (resp.items) { resp.items.forEach(item => item.meta = new Meta(this.inCart(item.id))) };
         this.brand = resp; 
         this.loading = false;
@@ -61,8 +60,6 @@ export class RewardModalComponent implements OnInit, OnDestroy {
 
     // REFRESH ACCOUNT
     this.account = this.accountService.currentAccount;
-
-    console.log(this.account);
 
     item.meta.checked = false;
   }

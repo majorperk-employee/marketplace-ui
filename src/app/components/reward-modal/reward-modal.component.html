@@ -34,6 +34,6 @@
 </div>
 
 <ng-template #extraTemplate>
-  <a *ngIf="!currentItem.meta.checked" (click)="addToCart(currentItem)">Add To Cart</a>
+  <a *ngIf="!currentItem.meta.checked && currentItem.faceValue > 0" (click)="addToCart(currentItem)">Add To Cart</a>
   <i nz-icon nzType="shopping" (click)="removeFromCart(currentItem)" nzTheme="twotone" [nzTwotoneColor]="'#8b0000'" style="cursor: pointer" *ngIf="currentItem.meta.checked"></i>
 </ng-template>

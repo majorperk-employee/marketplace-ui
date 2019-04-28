@@ -47,9 +47,11 @@ export class ShoppingService {
   }
 
   public async redeemCart(userId) {
-    this.http.post<any>(`${environment.apiUrl}/purchase/checkout?userId=${userId}`, httpOptions).toPromise().then(
+    let cart = this.accountService.currentAccountCart;
+    let asyncResult = await this.http.post<any>(`${environment.apiUrl}/purchase/checkout?userId=${userId}`, httpOptions).toPromise().then(
       resp => { this.accountService.currentAccountCart = resp; },
       err => { console.error("Unable to complete purchase. Please refresh.", err ) }
     );
+
   }
 }

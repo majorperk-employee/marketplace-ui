@@ -37,25 +37,6 @@ export class InfoModalComponent {
     });
   }
 
-  createTplModal(tplTitle: TemplateRef<{}>, tplContent: TemplateRef<{}>, tplFooter: TemplateRef<{}>): void {
-    this.tplModal = this.modalService.create({
-      nzTitle: tplTitle,
-      nzContent: tplContent,
-      nzFooter: tplFooter,
-      nzMaskClosable: false,
-      nzClosable: false,
-      nzOnOk: () => console.log('Click ok')
-    });
-  }
-
-  destroyTplModal(): void {
-    this.tplModalButtonLoading = true;
-    setTimeout(() => {
-      this.tplModalButtonLoading = false;
-      this.tplModal.destroy();
-    }, 1000);
-  }
-
   createRewardModal(brand: Brand): void {
     let itemId = brand.id;
     const modal = this.modalService.create({
@@ -69,6 +50,26 @@ export class InfoModalComponent {
         shape: 'primary',
         onClick: () => modal.destroy()
       }]
+    });
+  }
+
+  showConfirm(): void {
+    this.modalService.confirm({
+      nzTitle: '<i>Complete ?</i>',
+      nzContent: '',
+      nzOnOk: () => console.log('OK')
+    });
+  }
+
+  showDeleteConfirm(): void {
+    this.modalService.confirm({
+      nzTitle: 'Remove these items from cart?',
+      nzContent: '',
+      nzOkText: 'Yes',
+      nzOkType: 'danger',
+      nzOnOk: () => console.log('OK'), 
+      nzCancelText: 'No',
+      nzOnCancel: () => console.log('Cancel')
     });
   }
 

@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Account } from '@app/models/account';
 import { ShoppingService } from '@app/service/shopping.service';
 import { AccountService } from '@app/service/account.service';
+import { GLOBAL,MEMORY } from '@app/constants'
 
 @Component({
   selector: 'app-cart',
@@ -12,8 +13,10 @@ import { AccountService } from '@app/service/account.service';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit, OnDestroy {
+  
+  point_multiplier = MEMORY.pointRatio;
+  
   isLoading: boolean = true;
-
 
   account: Account;
   cart: Cart;
@@ -34,7 +37,6 @@ export class CartComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.cartItemsSubscription = this.route.data.subscribe(data => {
       this.cart = data.items;
-      this.cartItems = this.cart.items;
       this.cartTotal = this.cart.cost;
       this.account = data.account;
     });
