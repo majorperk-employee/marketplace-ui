@@ -1,0 +1,39 @@
+<div *ngIf="loading">
+  <nz-spin nzTip="Fetching Details ...">
+  </nz-spin>
+</div>
+
+<div *ngIf="error">
+    <nz-alert
+    nzType="warning"
+    nzCloseable
+    nzMessage="Could not load item. Please try again later."
+    (nzOnClose)="destroyModal()"></nz-alert>
+</div>
+
+<div *ngIf="!loading && !error">
+
+  <div [innerHTML]="brand.shortDescription"></div>
+  <nz-table #options [nzData]="brand.items" nzSize="small" [nzPageSize]="3"
+    [nzPaginationPosition]="'top'">
+    <tbody>
+      <tr *ngFor="let data of options.data" (click)="setItem(data)">
+        <td><i nz-icon nzType="shopping" *ngIf="data.meta.checked"></i></td>
+        <td>${{data.faceValue | number}}</td>
+        <td>{{ data.faceValue * 50}} points</td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <nz-divider></nz-divider>
+
+  <nz-card nzType="inner" nzTitle="{{currentItem.rewardName}}"
+    [nzExtra]="extraTemplate" *ngIf="currentItem">
+    <div [innerHTML]="currentItem.redemptionInstructions"></div>
+  </nz-card>
+
+</div>
+
+<ng-template #extraTemplate>
+  <a *ngIf="!currentItem.meta.checked" (click)="addToCart(currentItem)">Add To Cart</a>
+  <i nz-icon nzType="shopping" (click)="removeFromCart(currentItem)" nzTheme="twotone" [nzTwotoneColor]="'#8b0000'" style="cursor: pointer" *ngIf="currentItem.meta.checked"></i>
+</ng-template>
