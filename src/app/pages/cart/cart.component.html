@@ -29,7 +29,7 @@
     <tbody>
       <tr *ngFor="let item of cart.items">
         <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[item.id]"
-          (nzCheckedChange)="refreshStatus();log(item)"></td>
+          (nzCheckedChange)="refreshStatus();"></td>
           <td>{{ item.id }}</td>
           <td>${{ item.faceValue }}</td>
         <td>{{ item.faceValue * point_multiplier}} points</td>
@@ -53,7 +53,7 @@
     <button *ngIf="isIndeterminate" nz-button nzType="danger"
       (click)="deleteMany()" nzBlock><i nz-icon type="delete"></i>Delete
       Selected</button>
-    <button *ngIf="validCart" nz-button nzType="primary" (click)="checkout()" nzBlock><i
+    <button *ngIf="validCart" nz-button nzType="primary" (click)="showConfirm()"  [(nzLoading)]="checkoutIsLoading" nzBlock><i
         nz-icon type="shopping"></i>Complete Checkout</button>
     <button *ngIf="insufficientFunds" nz-button nzType="default" nzBlock disabled><i nz-icon nzType="warning" nzTheme="outline"></i>Insufficient Funds</button>
   </ng-template>

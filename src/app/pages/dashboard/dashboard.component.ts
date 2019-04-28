@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { InfoModalComponent } from '@app/components/info/info.modal';
 import { Account } from '@app/models/account';
 import { Subscription } from 'rxjs';
-import { Tier } from "../../models/market";
 
 @Component({
   selector: 'app-dashboard',

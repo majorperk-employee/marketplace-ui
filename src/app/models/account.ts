@@ -1,4 +1,4 @@
-import { RewardItem, Cart, Tier } from "./market";
+import { RewardItem, Cart } from "./market";
 
 export class Account {
   id: number;
@@ -16,7 +16,7 @@ export class Account {
   points: number;
   totaldays: number;
   ontimedays: number;
-  
+  phone?: string;
   daystreak?: number;
   picture?: string;
   job?: string;
@@ -25,4 +25,12 @@ export class Account {
 export class Auth {
   id: number;
   points: number;
+}
+
+export class Tier {
+  id: number;
+  currentTier: string;
+  nextTier: string;
+  onTimePercentGoal: number;
+  totalDaysGoal: number;
 }
