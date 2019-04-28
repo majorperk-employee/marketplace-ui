@@ -1,7 +1,9 @@
+//meta.checked is used to signify in cart.
+
 import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { InfoModalComponent } from '@app/components/info/info.modal';
-import { RewardItem, Brand } from '@app/models/market';
+import { RewardItem, Brand, Meta } from '@app/models/market';
 import { Subscription } from 'rxjs';
 import { ShoppingService } from '@app/service/shopping.service';
 import { AccountService } from '@app/service/account.service';
@@ -103,11 +105,11 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       let idx = startIndex + index;
       if (idx < list.length) {
         let displayItem = list[idx]
-
-        this.account.cart.items.forEach(item => {
-          if (item.id == displayItem.id) { displayItem.meta.checked = true; }
-        });
-
+        let checked = false;
+        if (displayItem.items) {
+          displayItem.items.forEach(item => { if (item.id == displayItem.id){checked = true;return;}})
+        }
+        displayItem.meta = new Meta(checked);
         return displayItem;
       }
     }));
@@ -173,8 +175,14 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     return tagged;
   }
 
-  inCart(item: Brand) {
-    return false;
+  inCart(itemId: number): boolean {
+    let incart = false;
+    this.account.cart.items.forEach((item: RewardItem) => {
+      if (item.id == itemId) {
+        incart = true;
+      }
+    });
+    return incart;
   }
 
   addToCart(item: RewardItem) {
@@ -202,12 +210,8 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     item.meta.checked = false;
   }
 
-  openModal(tplTitle: TemplateRef<{}>, tplContent: TemplateRef<{}>, tplFooter: TemplateRef<{}>) {
-    this.infoModal.createTemplatedModal(tplTitle, tplContent, tplFooter);
-  }
-
-  closeModal() {
-    this.infoModal.destroyTemplatedModal();
+  showModal(brand: Brand) {
+    this.infoModal.createRewardModal(brand);
   }
 
 }

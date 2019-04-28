@@ -17,7 +17,6 @@ export class BrandsResolve implements Resolve<Brand[]> {
             take(1),
             switchMap(items => {
                 if (items) {
-                    console.log(items);
                     return of(items);
                 } else {
                     console.log("Error getting brands list.");

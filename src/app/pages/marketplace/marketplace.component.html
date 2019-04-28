@@ -72,11 +72,11 @@
               <img alt="no image :(" [src]="item.imageUrls['1200w-326ppi']" class="market-img-lg"  [ngClass.lt-md]="{'market-img-lg':false, 'market-img-sm':true}">
             </ng-template>
             <ng-template #actionCart>
-              <i nz-icon type="shopping-cart" (click)="addToCart(item)" *ngIf="!inCart(item)"></i>
-              <i nz-icon nzType="shopping" (click)="removeFromCart(item)" *ngIf="inCart(item)" nzTheme="twotone"></i>
+              <i nz-icon type="shopping-cart" (click)="showModal(item)" *ngIf="!item.meta.checked"></i>
+              <i nz-icon nzType="shopping" (click)="showModal(item)" *ngIf="item.meta.checked" nzTheme="twotone"></i>
             </ng-template>
             <ng-template #actionDetails>
-              <i nz-icon type="ellipsis" (click)="openModal(rewardItemModalTitle, rewardItemModalContent, rewardItemModalFooter)"></i>
+              <i nz-icon type="ellipsis" (click)="showModal(item)"></i>
             </ng-template>
           </nz-list-item>
         </ng-template>
@@ -109,19 +109,3 @@
   </ng-template>
 
 </nz-layout>
-
-<!-- REWARD ITEM -->
-
-<ng-template #rewardItemModalTitle>
-  <span>Statistics</span>
-</ng-template>
-
-<ng-template #rewardItemModalContent>
-  <p>Item Info</p>
-</ng-template>
-
-<ng-template #rewardItemModalFooter>
-  <button nz-button nzType="primary" (click)="closeModal()">
-    Nice!
-  </button>
-</ng-template>

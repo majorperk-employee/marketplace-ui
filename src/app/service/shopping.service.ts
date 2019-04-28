@@ -20,6 +20,10 @@ export class ShoppingService {
     return this.http.get<Brand[]>(`${environment.apiUrl}/brands/all`, httpOptions);
   }
 
+  getReward(id: number) {
+    return this.http.get<Brand>(`${environment.apiUrl}/brands/getById/${id}`, httpOptions);
+  }
+
   getCart(id: number) {
     return this.http.get<RewardItem[]>(`${environment.apiUrl}/cart/${id}`, httpOptions);
   }

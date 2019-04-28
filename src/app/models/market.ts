@@ -1,3 +1,4 @@
+//meta.checked is used to signify in/not in cart.
 export class Brand {
     id: number;
     brandKey: string;
@@ -5,9 +6,11 @@ export class Brand {
     status: string;
     shortDescription: string;
     imageUrls: Object;
-    meta: Meta;
+    meta = new Meta(false);
+    items?: RewardItem[];
 }
 
+//meta.checked is used to signify in/not in cart.
 export class RewardItem {
     id: number;
     name: string;
@@ -16,21 +19,29 @@ export class RewardItem {
     description: string;
     tags: string[];
     imageURL: string;
-    meta: Meta;
+    meta = new Meta(false);
 }
 
-export interface OrderItem {
+export class OrderItem {
     id: number;
     name: string;
     price: number;
     date: string;
 }
 
-export interface Meta { 
+//meta.checked is used to signify to delete/not delete.
+export class Meta { 
     purchaseCount?: number; 
     cartCount?: number;
-    checked?: boolean;
+    checked: boolean;
     purchaseDate?: string;
+
+    constructor(checked: boolean, purchaseCount?: number, cartCount?: number, purchaseDate?: string) {
+        this.purchaseCount = purchaseCount;
+        this.cartCount = cartCount;
+        this.checked = checked;
+        this.purchaseDate = purchaseDate;
+    }
 }
 
 export class Cart {
