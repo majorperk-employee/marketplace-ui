@@ -1,7 +1,9 @@
+//meta.checked is used to signify in cart.
+
 import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { InfoModalComponent } from '@app/components/info/info.modal';
-import { RewardItem } from '@app/models/market';
+import { RewardItem, Brand, Meta } from '@app/models/market';
 import { Subscription } from 'rxjs';
 import { ShoppingService } from '@app/service/shopping.service';
 import { AccountService } from '@app/service/account.service';
@@ -27,11 +29,11 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   pageSize: number = 20;
 
   pageIndex = 1;
-  allRewards: RewardItem[];
-  marketItems: RewardItem[] = [];
+  allRewards: Brand[];
+  marketItems: Brand[] = [];
 
 
-  rewardItemsSubscription: Subscription;
+  brandsSubscription: Subscription;
   paramSubscription: Subscription;
 
   categories: any[] = [];
@@ -41,7 +43,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
 
     this.account = this.accountService.currentAccount;
 
-    this.rewardItemsSubscription = this.route.data.subscribe(data => {
+    this.brandsSubscription = this.route.data.subscribe(data => {
       this.allRewards = data.items;
       this.marketItems = data.items;
     });
@@ -61,10 +63,10 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.rewardItemsSubscription.unsubscribe();
+    this.brandsSubscription.unsubscribe();
   }
 
-  applyFilter(): RewardItem[] {
+  applyFilter(): Brand[] {
 
     let filtered = this.allRewards.filter(item => {
       if (this.search != "" && this.tags.length > 0) {
@@ -90,6 +92,9 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   }
 
   loadData(pi: number) {
+
+    this.loading = true;
+
     let startIndex = (pi - 1) * this.pageSize;
 
     let list = this.applyFilter();
@@ -100,14 +105,16 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       let idx = startIndex + index;
       if (idx < list.length) {
         let displayItem = list[idx]
-        
-        this.account.cart.items.forEach(item => {
-          if (item.id == displayItem.id) { displayItem.meta.checked = true;}
-        });
-
+        let checked = false;
+        if (displayItem.items) {
+          displayItem.items.forEach(item => { if (item.id == displayItem.id){checked = true;return;}})
+        }
+        displayItem.meta = new Meta(checked);
         return displayItem;
       }
     }));
+
+    this.loading = false;
   }
 
   onChange() {
@@ -143,14 +150,14 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   applySort(sort: number, list: any[]) {
     switch (sort) {
       case 1:
-        return list.sort((a, b) => { return a.name.localeCompare(b.name) });
+        return list.sort((a, b) => { return a.brandName.localeCompare(b.brandName) });
       case 2:
         return list.sort((a, b) => { return a.price - b.price });
     }
   }
 
-  applySearch(item: RewardItem): boolean {
-    if (item.name.toLowerCase().includes(this.search.toLowerCase())) {
+  applySearch(item: Brand): boolean {
+    if (item.brandName.toLowerCase().includes(this.search.toLowerCase())) {
       return true;
     };
     return false;
@@ -168,13 +175,23 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     return tagged;
   }
 
+  inCart(itemId: number): boolean {
+    let incart = false;
+    this.account.cart.items.forEach((item: RewardItem) => {
+      if (item.id == itemId) {
+        incart = true;
+      }
+    });
+    return incart;
+  }
+
   addToCart(item: RewardItem) {
 
     this.shoppingService.addToCart(item.id, this.account.id);
-    
+
     // REFRESH ACCOUNT
     this.account = this.accountService.currentAccount;
-    
+
     item.meta.checked = true;
 
   }
@@ -184,21 +201,15 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     let removeBody = [item.id];
 
     this.shoppingService.removeFromCart(removeBody, this.account.id);
-    
+
     // REFRESH ACCOUNT
     this.account = this.accountService.currentAccount;
 
-    console.log(this.account);
-    
     item.meta.checked = false;
   }
 
-  openModal(tplTitle: TemplateRef<{}>, tplContent: TemplateRef<{}>, tplFooter: TemplateRef<{}>) {
-    this.infoModal.createTemplatedModal(tplTitle, tplContent, tplFooter);
-  }
-
-  closeModal() {
-    this.infoModal.destroyTemplatedModal();
+  showModal(brand: Brand) {
+    this.infoModal.createRewardModal(brand);
   }
 
 }

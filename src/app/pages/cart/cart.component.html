@@ -20,6 +20,7 @@
           [nzIndeterminate]="isIndeterminate"
           (nzCheckedChange)="checkAll($event)"></th>
         <th>Id</th>
+        <th>Value</th>
         <th>Price</th>
         <th>Name</th>
         <th nzWidth="70px">Actions</th>
@@ -28,10 +29,11 @@
     <tbody>
       <tr *ngFor="let item of cart.items">
         <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[item.id]"
-          (nzCheckedChange)="refreshStatus()"></td>
-        <td>{{ item.id }}</td>
-        <td>{{ item.price }}</td>
-        <td>{{ item.name }}</td>
+          (nzCheckedChange)="refreshStatus();log(item)"></td>
+          <td>{{ item.id }}</td>
+          <td>${{ item.faceValue }}</td>
+        <td>{{ item.faceValue * point_multiplier}} points</td>
+        <td>{{ item.rewardName }}</td>
         <td nzWidth="70px"><i nz-icon nzType="delete" class="delete"
             (click)="deleteOne(item.id)"></i></td>
       </tr>
@@ -53,7 +55,7 @@
       Selected</button>
     <button *ngIf="validCart" nz-button nzType="primary" (click)="checkout()" nzBlock><i
         nz-icon type="shopping"></i>Complete Checkout</button>
-    <button *ngIf="insufficientFunds" nz-button nzType="default" nzBlock><i nz-icon nzType="warning" nzTheme="outline"></i>Insufficient Funds</button>
+    <button *ngIf="insufficientFunds" nz-button nzType="default" nzBlock disabled><i nz-icon nzType="warning" nzTheme="outline"></i>Insufficient Funds</button>
   </ng-template>
 
   <ng-template #loadingTemplate>
