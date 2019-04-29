@@ -12,13 +12,7 @@
     [nzZeroTrigger]="zeroTrigger">
     <ul nz-menu [nzMode]="'inline'" style="height:100%"
       [nzInlineCollapsed]="false">
-      <li nz-submenu [nzOpen]="true" *ngFor="let item of categories">
-        <span title><i nz-icon type="user"></i>{{item.name}}</span>
-        <ul *ngFor="let tag of item.tags">
-          <li nz-menu-item [nzSelected]="false"><div nz-col nzSpan="8"><label
-                nz-checkbox nzValue="{{tag}}" (click)="selected(tag)">{{tag}}</label></div></li>
-        </ul>
-      </li>
+      <li nz-menu-item *ngFor="let item of categories"><div nz-col nzSpan="8"><label nz-checkbox (click)="selected(item.name)">{{item.name}}</label></div></li>
     </ul>
   </nz-sider>
 
@@ -59,7 +53,7 @@
             <nz-card
               style="display: flex;"
               [nzCover]="coverTemplate"
-              [nzActions]="[actionCart, actionDetails]"
+              [nzActions]="[actionDetails]"
               style="width:250px">
               <nz-card-meta
                 nzTitle="{{item.brandName}}"
@@ -69,11 +63,15 @@
               </div>
             </nz-card>
             <ng-template #coverTemplate>
-              <img alt="no image :(" [src]="item.imageUrls['1200w-326ppi']" class="market-img-lg"  [ngClass.lt-md]="{'market-img-lg':false, 'market-img-sm':true}">
+              <img alt="no image :(" [src]="item.imageUrls['1200w-326ppi']"
+                class="market-img-lg" [ngClass.lt-md]="{'market-img-lg':false,
+                'market-img-sm':true}">
             </ng-template>
             <ng-template #actionCart>
-              <i nz-icon type="shopping-cart" (click)="showModal(item)" *ngIf="!item.meta.checked"></i>
-              <i nz-icon nzType="shopping" (click)="showModal(item)" *ngIf="item.meta.checked" nzTheme="twotone"></i>
+              <i nz-icon type="shopping-cart" (click)="showModal(item)"
+                *ngIf="!item.meta.checked"></i>
+              <i nz-icon nzType="shopping" (click)="showModal(item)"
+                *ngIf="item.meta.checked" nzTheme="twotone"></i>
             </ng-template>
             <ng-template #actionDetails>
               <i nz-icon type="ellipsis" (click)="showModal(item)"></i>
@@ -81,7 +79,7 @@
           </nz-list-item>
         </ng-template>
       </nz-list>
-      
+
       <nz-back-top></nz-back-top>
 
     </nz-content>
@@ -96,13 +94,13 @@
   <ng-template #pagination>
     <div nz-row nzType="flex" nzJustify="space-around" nzAlign="middle"
       style="margin: 20px;">
-      <nz-pagination 
+      <nz-pagination
         [(nzPageIndex)]="pageIndex"
         [nzPageSize]="pageSize"
         [nzTotal]="itemCount"
         [nzSize]="'small'"
         (nzPageIndexChange)="loadData($event)"
-        
+
         nzHideOnSinglePage>
       </nz-pagination>
     </div>

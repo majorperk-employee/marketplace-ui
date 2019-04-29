@@ -16,12 +16,13 @@ import { Account } from '@app/models/account';
 })
 export class MarketplaceComponent implements OnInit, OnDestroy {
 
+  filters = {tags: [], search: []};
+
   loading = true;
   account: Account;
 
   search: string = "";
   sort: number = 1;
-  tags: string[] = [];
 
   isCollapsed = false;
 
@@ -66,31 +67,6 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     this.brandsSubscription.unsubscribe();
   }
 
-  applyFilter(): Brand[] {
-
-    let filtered = this.allRewards.filter(item => {
-      if (this.search != "" && this.tags.length > 0) {
-        if (this.applySearch(item) || this.applyTags(item)) {
-          return item;
-        }
-      } else if (this.tags.length < 1 && this.search != "") {
-        if (this.applySearch(item)) {
-          return item;
-        }
-      } else if (this.tags.length > 0 && this.search == "") {
-        if (this.applyTags(item)) {
-          return item;
-        }
-      } else {
-        return item;
-      }
-    });
-
-    this.itemCount = filtered.length;
-
-    return filtered;
-  }
-
   loadData(pi: number) {
 
     this.loading = true;
@@ -104,12 +80,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     this.marketItems = this.applySort(this.sort, new Array(viewSize).fill({}).map((_, index) => {
       let idx = startIndex + index;
       if (idx < list.length) {
-        let displayItem = list[idx]
-        let checked = false;
-        if (displayItem.items) {
-          displayItem.items.forEach(item => { if (item.id == displayItem.id){checked = true;return;}})
-        }
-        displayItem.meta = new Meta(checked);
+        let displayItem = list[idx];
         return displayItem;
       }
     }));
@@ -117,34 +88,48 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     this.loading = false;
   }
 
+  applyFilter(): Brand[] {
+    const filterFunc = (item: Brand) =>
+      (this.filters.search.length ? this.filters.search.some(name => item.brandName.toLowerCase().indexOf(name.toLowerCase()) !== -1) : true) &&
+      (this.filters.tags.length ? this.filters.tags.some(tag => item.brandName.toLowerCase().indexOf(tag.toLowerCase()) !== -1) : true)
+
+    let list = this.allRewards.filter((item: Brand) => filterFunc(item));
+
+    if (list.length < 0) { list = this.allRewards };
+
+    this.itemCount = list.length;
+
+    return list;
+  }
+
   onChange() {
+    this.loading = true;
+    this.filters.search = [this.search];
     this.applyFilter();
     this.pageIndex = 1;
     this.loadData(1);
+    this.loading = false;
   }
 
   selected(tag) {
-    if (this.tags.indexOf(tag) > -1) {
-      this.removeTag(tag);
-    } else {
-      this.addTag(tag);
-    }
-  }
-
-  addTag(tag: string) {
-    this.tags.push(tag);
-    this.applyFilter();
-    this.pageIndex = 1;
-    this.loadData(1);
-  }
-
-  removeTag(removeTag: string) {
-    this.tags = this.tags.filter(function (tag) {
-      return tag != removeTag;
+    this.loading = true;
+    let add = true;
+    this.filters.search = this.filters.search.filter(function (tagInList) {
+      if (tag != tagInList) {
+        console.log("1");
+        return tagInList;
+      } else {
+        console.log("1")
+        add = false;
+      }
     });
+
+    if (add) { this.filters.search.push(tag) };
+
     this.applyFilter();
     this.pageIndex = 1;
     this.loadData(1);
+    this.loading = false;
   }
 
   applySort(sort: number, list: any[]) {
@@ -154,25 +139,6 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       case 2:
         return list.sort((a, b) => { return a.price - b.price });
     }
-  }
-
-  applySearch(item: Brand): boolean {
-    if (item.brandName.toLowerCase().includes(this.search.toLowerCase())) {
-      return true;
-    };
-    return false;
-  }
-
-  applyTags(item): boolean {
-    let tagged: boolean = false;
-    if (item.tags) {
-      this.tags.forEach(tag => {
-        if (item.tags.indexOf(tag) > -1) {
-          tagged = true;
-        }
-      });
-    }
-    return tagged;
   }
 
   inCart(itemId: number): boolean {
@@ -217,32 +183,26 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
 let categories = [
   {
     icon: "icon",
-    name: "Gift Cards",
-    tags: ["Dining Out", "Convenience Store", "Gas"]
+    name: "Auto"
   },
   {
     icon: "icon",
-    name: "Food and Drink",
-    tags: ["Coffee", "Fast-Casual", "Fast Food", "Restaurant"]
+    name: "Sport"
   },
   {
     icon: "icon",
-    name: "Fitness",
-    tags: ["Lifetime Fitness", "Anytime Fitness", "YMCA"]
+    name: "Travel"
   },
   {
     icon: "icon",
-    name: "Travel",
-    tags: ["Delta SkyMiles", "Airline Voucher"]
+    name: "Sport"
   },
   {
     icon: "icon",
-    name: "Electronics",
-    tags: ["Apple", "Samsung", "Phone", "Tablet", "Smart Devices"]
+    name: "Food"
   },
   {
     icon: "icon",
-    name: "Transportation",
-    tags: ["Metro", "Bus", "Uber", "Lyft"]
+    name: "Clothing"
   }
 ]

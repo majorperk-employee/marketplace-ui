@@ -19,7 +19,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
 
     this.account = this.accountService.currentAccount;
-    console.log(this.account);
 
     this.validateForm = this.fb.group({
       email: [this.account.email, [Validators.email, Validators.required]],
@@ -47,7 +46,7 @@ export class ProfileComponent implements OnInit {
     updateAccount.phone = this.validateForm.value['phone'];
     updateAccount.address = this.validateForm.value['password'];
 
-    setTimeout(() => { this.isLoading = false; console.log(updateAccount); this.confirm() }, 1000);
+    setTimeout(() => { this.isLoading = false; this.confirm() }, 1000);
   }
 
   confirm(): void {

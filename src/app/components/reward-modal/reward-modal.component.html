@@ -17,7 +17,7 @@
   <nz-table #options [nzData]="brand.items" nzSize="small" [nzPageSize]="3"
     [nzPaginationPosition]="'top'">
     <tbody>
-      <tr *ngFor="let data of options.data" (click)="setItem(data)">
+      <tr *ngFor="let data of options.data" (click)="setItem(data)" style="cursor: pointer">
         <td><i nz-icon nzType="shopping" *ngIf="data.meta.checked"></i></td>
         <td>${{data.faceValue | number}}</td>
         <td>{{ data.faceValue * 50}} points</td>
@@ -35,5 +35,5 @@
 
 <ng-template #extraTemplate>
   <a *ngIf="!currentItem.meta.checked && currentItem.faceValue > 0" (click)="addToCart(currentItem)">Add To Cart</a>
-  <i nz-icon nzType="shopping" (click)="removeFromCart(currentItem)" nzTheme="twotone" [nzTwotoneColor]="'#8b0000'" style="cursor: pointer" *ngIf="currentItem.meta.checked"></i>
+  <i nz-icon nzType="minus-circle" (click)="removeFromCart(currentItem)" style="cursor: pointer" *ngIf="currentItem.meta.checked" nzTheme="outline"></i>
 </ng-template>
