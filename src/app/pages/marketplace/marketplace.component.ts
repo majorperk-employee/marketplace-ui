@@ -16,7 +16,7 @@ import { Account } from '@app/models/account';
 })
 export class MarketplaceComponent implements OnInit, OnDestroy {
 
-  filters = {tags: [], search: []};
+  filters = {tags: [], search: [""]};
 
   loading = true;
   account: Account;
@@ -97,13 +97,13 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
 
   applyFilter(): Brand[] {
 
-    const filterFunc = (item: Brand) =>
-      (this.filters.search.length ? this.filters.search.some(name => item.brandName.toLowerCase().indexOf(name.toLowerCase()) !== -1) : true) &&
-      (this.filters.tags.length ? this.filters.tags.some((tag: Category) => tag.brandIds.indexOf(item.brandKey) !== -1) : true)
-
+    const filterFunc = (item: Brand) => 
+    (this.filters.search[0].length ? this.filters.search.some(name => item.brandName.toLowerCase().indexOf(name.toLowerCase()) !== -1) : true) &&
+    (this.filters.tags.length ? this.filters.tags.some((tag: Category) => tag.brandIds.indexOf(item.brandKey) !== -1) : true)
+      
     let list = this.allRewards.filter((item: Brand) => filterFunc(item));
 
-    if (this.filters.search[0] != "" && this.filters.tags.length == 0) { list = this.allRewards };
+    if (this.filters.search[0] == "" && this.filters.tags.length == 0) { list = this.allRewards };
 
     this.itemCount = list.length;
 
