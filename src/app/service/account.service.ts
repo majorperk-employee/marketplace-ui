@@ -16,7 +16,7 @@ export class AccountService {
   account: Account;
 
   getAccount(username: string) {
-    return this.http.get<Account>(`${environment.apiUrl}/accounts/getByUsername?username=${username}`, httpOptions);
+    return this.http.get<Account>(`${environment.apiUrl}/accounts/username/${username}`, httpOptions);
   }
 
   getAuth(id:number) {

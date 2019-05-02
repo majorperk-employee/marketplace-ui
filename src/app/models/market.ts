@@ -22,13 +22,6 @@ export class RewardItem {
     meta = new Meta(false);
 }
 
-export class OrderItem {
-    id: number;
-    name: string;
-    price: number;
-    date: string;
-}
-
 //meta.checked is used to signify to delete/not delete.
 export class Meta { 
     purchaseCount?: number; 
@@ -55,4 +48,10 @@ export class Purchase {
     items: RewardItem[];
     cost: number;
     createdAt: string;
+}
+
+export class Category {
+    id: number;
+    name: string;
+    brandIds: string[];
 }

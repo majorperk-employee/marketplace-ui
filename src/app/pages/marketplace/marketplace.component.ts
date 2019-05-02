@@ -3,7 +3,7 @@
 import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { InfoModalComponent } from '@app/components/info/info.modal';
-import { RewardItem, Brand, Meta } from '@app/models/market';
+import { RewardItem, Brand, Meta, Category } from '@app/models/market';
 import { Subscription } from 'rxjs';
 import { ShoppingService } from '@app/service/shopping.service';
 import { AccountService } from '@app/service/account.service';
@@ -34,15 +34,20 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   marketItems: Brand[] = [];
 
 
+  categoriesSubscription: Subscription;
   brandsSubscription: Subscription;
   paramSubscription: Subscription;
 
-  categories: any[] = [];
+  categories: Category[] = [];
   constructor(private route: ActivatedRoute, private infoModal: InfoModalComponent, private shoppingService: ShoppingService, private accountService: AccountService) { }
 
   ngOnInit() {
 
     this.account = this.accountService.currentAccount;
+
+    this.categoriesSubscription = this.route.data.subscribe(data => {
+      this.categories = data.categories;
+    });
 
     this.brandsSubscription = this.route.data.subscribe(data => {
       this.allRewards = data.items;
@@ -56,7 +61,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       }
     })
 
-    this.categories = categories;
+    // this.categories = categories;
 
     this.loadData(this.pageIndex);
 
@@ -64,6 +69,8 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.categoriesSubscription.unsubscribe();
+    this.paramSubscription.unsubscribe();
     this.brandsSubscription.unsubscribe();
   }
 
@@ -89,13 +96,14 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   }
 
   applyFilter(): Brand[] {
+
     const filterFunc = (item: Brand) =>
       (this.filters.search.length ? this.filters.search.some(name => item.brandName.toLowerCase().indexOf(name.toLowerCase()) !== -1) : true) &&
-      (this.filters.tags.length ? this.filters.tags.some(tag => item.brandName.toLowerCase().indexOf(tag.toLowerCase()) !== -1) : true)
+      (this.filters.tags.length ? this.filters.tags.some((tag: Category) => tag.brandIds.indexOf(item.brandKey) !== -1) : true)
 
     let list = this.allRewards.filter((item: Brand) => filterFunc(item));
 
-    if (list.length < 0) { list = this.allRewards };
+    if (this.filters.search[0] != "" && this.filters.tags.length == 0) { list = this.allRewards };
 
     this.itemCount = list.length;
 
@@ -111,20 +119,25 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     this.loading = false;
   }
 
-  selected(tag) {
+  public selected(tag) {
+    console.log("before: ", this.filters.tags);
     this.loading = true;
-    let add = true;
-    this.filters.search = this.filters.search.filter(function (tagInList) {
-      if (tag != tagInList) {
-        console.log("1");
-        return tagInList;
-      } else {
-        console.log("1")
-        add = false;
-      }
-    });
+    let found = false;
+    let list = this.filters.tags;
 
-    if (add) { this.filters.search.push(tag) };
+    
+    for( var i = 0; i < list.length; i++){ 
+      if ( list[i].id === tag.id) {
+        found = true;
+        list.splice(i, 1); 
+      }
+   }
+
+   if (!found) { list.push(tag) };
+      
+    this.filters.tags = list;
+
+    console.log("after: ", this.filters.tags);
 
     this.applyFilter();
     this.pageIndex = 1;

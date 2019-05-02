@@ -35,9 +35,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   userSubscription: Subscription;
 
+
+  surveys;
+
   constructor(private route: ActivatedRoute, private infoModal: InfoModalComponent) { }
 
   ngOnInit() {
+    this.surveys = surveys
     this.getAccount();
 
     this.data = marketLinks;
@@ -71,8 +75,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private generatePointsDisplay(pts: number,Ypts: number,Ppts: number) {
     return [
       { title: "Available Points", value: pts},
-      { title: "Earned Yesterday", value: Ypts},
-      { title: "Earned this Period", value: Ppts}
+      // { title: "Earned Yesterday", value: Ypts},
+      // { title: "Earned this Period", value: Ppts}
     ]
   }
 
@@ -93,6 +97,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
 }
+
+let surveys =
+  {
+    question: "How much have you enjoyed work this week?",
+    scale: "[1] = Not at all, [5] = I loved it!"
+  }
 
 let marketLinks = [
   {

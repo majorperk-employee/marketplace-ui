@@ -6,13 +6,16 @@
 
   <nz-sider
     nzCollapsible
-    [nzWidth]="250"
+    [nzWidth]="200"
     [nzBreakpoint]="'md'"
     [nzCollapsedWidth]="0"
     [nzZeroTrigger]="zeroTrigger">
     <ul nz-menu [nzMode]="'inline'" style="height:100%"
       [nzInlineCollapsed]="false">
-      <li nz-menu-item *ngFor="let item of categories"><div nz-col nzSpan="8"><label nz-checkbox (click)="selected(item.name)">{{item.name}}</label></div></li>
+      <li nz-menu-item *ngFor="let item of categories">
+        <div nz-col nzSpan="8"><label nz-checkbox (click)="selected(item)">{{item.name}}</label>
+        </div>
+      </li>
     </ul>
   </nz-sider>
 

@@ -51,11 +51,26 @@
           </ng-template>
         </nz-list>
 
+        <!-- SURVEY -->
+
+        <nz-card class="dashboard-module" nzTitle="Surveys!" fxShow="true" fxHide.lt-md="”true”">
+          <h3>{{ surveys.question }}</h3>
+          <nz-radio-group [(ngModel)]="radioValue" style="padding:35px;">
+            <label nz-radio [ngStyle]="style" nzValue="1">1</label>
+            <label nz-radio [ngStyle]="style" nzValue="2">2</label>
+            <label nz-radio [ngStyle]="style" nzValue="3">3</label>
+            <label nz-radio [ngStyle]="style" nzValue="4">4</label>
+            <label nz-radio [ngStyle]="style" nzValue="5">5</label>
+          </nz-radio-group>
+          <p>{{surveys.scale}}</p>
+        </nz-card>
+
         <!-- ANNOUNCEMENTS -->
 
         <nz-card class="dashboard-module" nzTitle="Announcements" fxShow="true"
           fxHide.lt-md="”true”">
-          <nz-carousel [nzEffect]="fade" [nzEnableSwipe]="true" [nzDotRender]="dotsTemplate">
+          <nz-carousel [nzEffect]="fade" [nzEnableSwipe]="true"
+            [nzDotRender]="dotsTemplate">
             <div nz-carousel-content *ngFor="let index of array">
               <h3>{{ index }}</h3>
               <div class="dot-container"></div>
@@ -134,7 +149,8 @@
 </ng-template>
 
 <ng-template #userStatsModalContent>
-  <nz-table nzSize="small" [nzTitle]="name" [nzData]="statsModel" nzHideOnSinglePage>
+  <nz-table nzSize="small" [nzTitle]="name" [nzData]="statsModel"
+    nzHideOnSinglePage>
     <thead>
       <tr>
         <th>Achievement</th>
