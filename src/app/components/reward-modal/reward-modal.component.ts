@@ -27,13 +27,14 @@ export class RewardModalComponent implements OnInit, OnDestroy {
   constructor(private modal: NzModalRef, private shoppingService: ShoppingService, private accountService: AccountService) { }
 
   ngOnInit() {
-
+  
     this.account = this.accountService.currentAccount;
 
     this.itemSubscription = this.shoppingService.getReward(this.id).pipe(first()).subscribe(
       (resp: Brand) => {
         if (resp.items) { resp.items.forEach(item => item.meta = new Meta(this.inCart(item.id))) };
         this.brand = resp; 
+        console.log(this.brand);
         this.loading = false;
       },
       error => { this.loading = false; this.error = true; }
