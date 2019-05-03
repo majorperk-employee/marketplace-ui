@@ -33,7 +33,6 @@
           <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton"
             style="margin-left: 36px;">
             <input type="text" nz-input placeholder="search items ..."
-              [nzSize]="large"
               [(ngModel)]="search" (ngModelChange)="onChange();" />
           </nz-input-group>
           <ng-template #suffixIconButton>
@@ -48,8 +47,7 @@
         [nzRenderItem]="item"
         [nzGrid]="{ gutter: 12, xs:12, sm: 12, md: 12, lg: 8, xl: 6, xxl: 4 }"
         [nzLoadMore]=""
-        [nzPagination]="pagination"
-        [nzItemLayout]="vertical">
+        [nzPagination]="pagination">
 
         <ng-template #item let-item>
           <nz-list-item *ngIf="item">
