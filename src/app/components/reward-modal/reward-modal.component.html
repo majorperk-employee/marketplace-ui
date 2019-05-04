@@ -21,7 +21,7 @@
         style="cursor: pointer">
         <td>
           <!-- <button > -->
-          <i nz-icon nz-popover (click)="setItem(data)" nzTitle="info"
+          <i nz-icon nz-popover (click)="setItem(data)" nzTitle="Redemption Details"
             nzTrigger="click"
             [nzContent]="contentTemplate" nzType="info-circle"
             nzTheme="outline"></i>
@@ -34,11 +34,12 @@
 
         <!-- VARIABLE VALUE -->
         <td *ngIf="!data.faceValue"> Custom value. </td>
-        <td *ngIf="!data.faceValue"> {{customPrice  * 50 | number}} points</td>
+        <td *ngIf="!data.faceValue"> {{customPrice * 50 | number}} points</td>
         <td>
           <nz-tooltip *ngIf="!data.faceValue" nzTrigger="focus"
             nzPlacement="topLeft"
-            nzOverlayClassName="numeric-input" [nzTitle]="'Enter desired value.'">
+            nzOverlayClassName="numeric-input" [nzTitle]="'Enter desired
+            value.'">
             <nz-input-number
               [(ngModel)]="customPrice"
               [nzMin]="data.minValue"
@@ -46,15 +47,13 @@
               [nzStep]="5"
               [nzFormatter]="formatterDollar"
               [nzParser]="parserDollar"></nz-input-number>
-            <!-- <input type="text" nz-input placeholder="Please set a value ..." [nzSize]="large" /> -->
           </nz-tooltip>
         </td>
 
         <td>
-          <a *ngIf="!data.meta.checked && (data.faceValue> 0 || customPrice > 0)"
+          <a *ngIf="!data.meta.checked && (data.faceValue> 0 || customPrice >
+            0)"
             (click)="addToCart(data)">Add To Cart</a>
-            <!-- <a *ngIf="!data.meta.checked && customValue > 0" -->
-                <!-- (click)="addToCart(data)">Add To Cart</a> -->
           <i nz-icon nzType="minus-circle" (click)="removeFromCart(data)"
             style="cursor: pointer" *ngIf="data.meta.checked"
             nzTheme="outline"></i>
@@ -64,24 +63,11 @@
   </nz-table>
   <nz-divider></nz-divider>
 
-  <!-- <button nz-button nz-popover [nzTitle]="{{currentItem.rewardName}}" [nzContent]="contentTemplate">
-      Render Template
-    </button> -->
   <ng-template #contentTemplate>
     <div style="width:200px;">
       <div [innerHTML]="currentItem.redemptionInstructions"></div>
     </div>
   </ng-template>
-  <!-- <ng-template #contentTemplate>
-    <nz-card nzType="inner" nzTitle="{{currentItem.rewardName}}" *ngIf="currentItem && currentItem.faceValue" >
-      <div [innerHTML]="currentItem.redemptionInstructions"></div>
-    </nz-card>
-  </ng-template> -->
-  <!-- <nz-card nzType="inner" nzTitle="{{currentItem.rewardName}}"
-    [nzExtra]="extraTemplate" >
-    
-    <div [innerHTML]="currentItem.redemptionInstructions"></div>
-  </nz-card> -->
 </div>
 
 <ng-template #extraTemplate>
