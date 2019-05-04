@@ -36,6 +36,13 @@ export class ShoppingService {
     return this.http.get<any>(`${environment.apiUrl}/purchase/${id}`, httpOptions);
   }
 
+  addCustomToCart(item: RewardItem, userId) {
+    this.http.post<Cart>(`${environment.apiUrl}/cart/${userId}/add`, item, httpOptions).pipe(first()).subscribe(
+      resp => { this.accountService.currentAccountCart = resp; },
+      error => { console.error("Unable to add to cart. Please refresh.", error); }
+    );
+  }
+
   addToCart(itemId, userId) {
     this.http.post<Cart>(`${environment.apiUrl}/cart/${userId}/add`, itemId, httpOptions).pipe(first()).subscribe(
       resp => { this.accountService.currentAccountCart = resp; },

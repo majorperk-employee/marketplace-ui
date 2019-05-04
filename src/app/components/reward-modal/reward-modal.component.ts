@@ -24,6 +24,12 @@ export class RewardModalComponent implements OnInit, OnDestroy {
   error: boolean = false;
   itemSubscription: Subscription;
 
+  customPrice: number = 0;
+  formatterPercent = (value: number) => `${value} %`;
+  parserPercent = (value: string) => value.replace(' %', '');
+  formatterDollar = (value: number) => `$ ${value}`;
+  parserDollar = (value: string) => value.replace('$ ', '');
+
   constructor(private modal: NzModalRef, private shoppingService: ShoppingService, private accountService: AccountService) { }
 
   ngOnInit() {
@@ -53,6 +59,21 @@ export class RewardModalComponent implements OnInit, OnDestroy {
 
   }
 
+  addCustomToCart(item: RewardItem) {
+
+    let addItem = item;
+    addItem.price = this.customPrice;
+
+    this.shoppingService.addCustomToCart(addItem, this.account.id);
+
+    // REFRESH ACCOUNT
+    this.account = this.accountService.currentAccount;
+
+    item.meta.checked = true;
+
+    this.customPrice = 0;
+  }
+
   removeFromCart(item: RewardItem) {
 
     let removeBody = [item.id];
@@ -80,10 +101,12 @@ export class RewardModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.customPrice = 0;
     this.destroyModal()
   }
 
   destroyModal(): void {
+    this.customPrice = 0;
     this.currentItem = null;
     this.itemSubscription.unsubscribe();
     this.modal.destroy();

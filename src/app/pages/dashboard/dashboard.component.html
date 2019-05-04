@@ -57,8 +57,8 @@
               <nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 12 }">
                 <nz-card style="margin: 3px; text-align: center">
                   <nz-statistic [nzValue]="15 | number"
-                    [nzTitle]="'Earned Yesterday'" [nzPrefix]="yestPrefixTempl"></nz-statistic>
-                  <ng-template #yestPrefixTempl><i nz-icon nzType="rise" nzTheme="outline"></i></ng-template>
+                    [nzTitle]="'Earned Yesterday'" [nzSuffix]="totalSuffixTempl"></nz-statistic>
+                    <ng-template #totalSuffixTempl>points</ng-template>
                 </nz-card>
               </nz-col>
             </nz-row>
