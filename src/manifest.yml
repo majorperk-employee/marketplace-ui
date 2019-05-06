@@ -1,0 +1,5 @@
+---
+applications:
+- name: MajorPerk
+  memory: 512M
+  buildpack: staticfile_buildpack

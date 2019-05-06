@@ -4,7 +4,7 @@
 </div>
 
 <div *ngIf="error">
-    <nz-alert
+  <nz-alert
     nzType="warning"
     nzCloseable
     nzMessage="Could not load item. Please try again later."
@@ -17,23 +17,62 @@
   <nz-table #options [nzData]="brand.items" nzSize="small" [nzPageSize]="3"
     [nzPaginationPosition]="'top'">
     <tbody>
-      <tr *ngFor="let data of options.data" (click)="setItem(data)" style="cursor: pointer">
+      <tr *ngFor="let data of options.data" (click)="setItem(data)"
+        style="cursor: pointer">
+        <td>
+          <!-- <button > -->
+          <i nz-icon nz-popover (click)="setItem(data)" nzTitle="Redemption Details"
+            nzTrigger="click"
+            [nzContent]="contentTemplate" nzType="info-circle"
+            nzTheme="outline"></i>
+          <!-- </button> -->
+        </td>
         <td><i nz-icon nzType="shopping" *ngIf="data.meta.checked"></i></td>
-        <td>${{data.faceValue | number}}</td>
-        <td>{{ data.faceValue * 50}} points</td>
+        <!-- PREDEFINED VALUE -->
+        <td *ngIf="data.faceValue">${{data.faceValue | number}}</td>
+        <td *ngIf="data.faceValue">{{ data.faceValue * 50}} points</td>
+
+        <!-- VARIABLE VALUE -->
+        <td *ngIf="!data.faceValue"> Custom value. </td>
+        <td *ngIf="!data.faceValue"> {{customPrice * 50 | number}} points</td>
+        <td>
+          <nz-tooltip *ngIf="!data.faceValue" nzTrigger="focus"
+            nzPlacement="topLeft"
+            nzOverlayClassName="numeric-input" [nzTitle]="'Enter desired
+            value.'">
+            <nz-input-number
+              [(ngModel)]="customPrice"
+              [nzMin]="data.minValue"
+              [nzMax]="data.maxValue"
+              [nzStep]="5"
+              [nzFormatter]="formatterDollar"
+              [nzParser]="parserDollar"></nz-input-number>
+          </nz-tooltip>
+        </td>
+
+        <td>
+          <a *ngIf="!data.meta.checked && (data.faceValue> 0 || customPrice >
+            0)"
+            (click)="addToCart(data)">Add To Cart</a>
+          <i nz-icon nzType="minus-circle" (click)="removeFromCart(data)"
+            style="cursor: pointer" *ngIf="data.meta.checked"
+            nzTheme="outline"></i>
+        </td>
       </tr>
     </tbody>
   </nz-table>
   <nz-divider></nz-divider>
 
-  <nz-card nzType="inner" nzTitle="{{currentItem.rewardName}}"
-    [nzExtra]="extraTemplate" *ngIf="currentItem">
-    <div [innerHTML]="currentItem.redemptionInstructions"></div>
-  </nz-card>
-
+  <ng-template #contentTemplate>
+    <div style="width:200px;">
+      <div [innerHTML]="currentItem.redemptionInstructions"></div>
+    </div>
+  </ng-template>
 </div>
 
 <ng-template #extraTemplate>
-  <a *ngIf="!currentItem.meta.checked && currentItem.faceValue > 0" (click)="addToCart(currentItem)">Add To Cart</a>
-  <i nz-icon nzType="minus-circle" (click)="removeFromCart(currentItem)" style="cursor: pointer" *ngIf="currentItem.meta.checked" nzTheme="outline"></i>
+  <a *ngIf="!currentItem.meta.checked && currentItem.faceValue> 0"
+    (click)="addToCart(currentItem)">Add To Cart</a>
+  <i nz-icon nzType="minus-circle" (click)="removeFromCart(currentItem)"
+    style="cursor: pointer" *ngIf="currentItem.meta.checked" nzTheme="outline"></i>
 </ng-template>

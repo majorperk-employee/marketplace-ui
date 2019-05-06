@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://192.168.0.11:8080'
+  // apiUrl: 'http://192.168.0.11:8080'
+  apiUrl: 'http://majorperk-employee-service.us-east-1.elasticbeanstalk.com'
 };
 
 /*
