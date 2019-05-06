@@ -6,7 +6,7 @@ import { first } from 'rxjs/operators';
 import { AccountService } from './account.service';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' })
 };
 @Injectable({
   providedIn: 'root'
@@ -36,14 +36,14 @@ export class ShoppingService {
     return this.http.get<any>(`${environment.apiUrl}/purchase/${id}`, httpOptions);
   }
 
-  addCustomToCart(item: RewardItem, userId) {
-    this.http.post<Cart>(`${environment.apiUrl}/cart/${userId}/add`, item, httpOptions).pipe(first()).subscribe(
+  addCustomToCart(itemId: number, price: number, userId: number) {
+    this.http.post<Cart>(`${environment.apiUrl}/cart/${userId}/add/${itemId}`, price, httpOptions).pipe(first()).subscribe(
       resp => { this.accountService.currentAccountCart = resp; },
       error => { console.error("Unable to add to cart. Please refresh.", error); }
     );
   }
 
-  addToCart(itemId, userId) {
+  addToCart(itemId: number, userId: number) {
     this.http.post<Cart>(`${environment.apiUrl}/cart/${userId}/add`, itemId, httpOptions).pipe(first()).subscribe(
       resp => { this.accountService.currentAccountCart = resp; },
       error => { console.error("Unable to add to cart. Please refresh.", error); }

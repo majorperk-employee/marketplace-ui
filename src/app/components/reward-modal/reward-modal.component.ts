@@ -64,7 +64,7 @@ export class RewardModalComponent implements OnInit, OnDestroy {
     let addItem = item;
     addItem.price = this.customPrice;
 
-    this.shoppingService.addCustomToCart(addItem, this.account.id);
+    this.shoppingService.addCustomToCart(item.id, this.customPrice, this.account.id);
 
     // REFRESH ACCOUNT
     this.account = this.accountService.currentAccount;

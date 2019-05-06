@@ -1,4 +1,4 @@
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import en from '@angular/common/locales/en';
 import { NgModule } from '@angular/core';
@@ -12,12 +12,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GlobalNavComponent } from './components/global-nav/global-nav.component';
 import { InfoModalComponent } from './components/info/info.modal';
+import { RewardModalComponent } from './components/reward-modal/reward-modal.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { MarketplaceComponent } from './pages/marketplace/marketplace.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { RewardModalComponent } from './components/reward-modal/reward-modal.component';
+import { RouterModule } from '@angular/router';
 
 registerLocaleData(en);
 
@@ -41,9 +42,9 @@ registerLocaleData(en);
     HttpClientModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }, InfoModalComponent],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, InfoModalComponent],
   entryComponents: [RewardModalComponent],
   bootstrap: [AppComponent]
 })

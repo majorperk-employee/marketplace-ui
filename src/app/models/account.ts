@@ -34,3 +34,11 @@ export class Tier {
   onTimePercentGoal: number;
   totalDaysGoal: number;
 }
+
+export class Survey {
+  period: number;
+  duration: string;
+  question: string;
+  options: any[];
+  scale: string;
+}

@@ -48,7 +48,7 @@
           <div style="padding: 3px;">
             <nz-row [nzGutter]="16">
               <nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 12 }">
-                  <nz-card style="margin: 3px; text-align: center">
+                <nz-card style="margin: 3px; text-align: center">
                   <nz-statistic [nzValue]="userPoints | number"
                     [nzTitle]="'Total'" [nzPrefix]="totalPrefixTempl"></nz-statistic>
                   <ng-template #totalPrefixTempl><i nz-icon type="wallet"></i></ng-template>
@@ -57,31 +57,35 @@
               <nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 12 }">
                 <nz-card style="margin: 3px; text-align: center">
                   <nz-statistic [nzValue]="15 | number"
-                    [nzTitle]="'Earned Yesterday'" [nzSuffix]="totalSuffixTempl"></nz-statistic>
-                    <ng-template #totalSuffixTempl>points</ng-template>
+                    [nzTitle]="'Earned Yesterday'"
+                    [nzSuffix]="totalSuffixTempl"></nz-statistic>
+                  <ng-template #totalSuffixTempl>points</ng-template>
                 </nz-card>
               </nz-col>
             </nz-row>
           </div>
-
-          <!-- <nz-statistic [nzValue]="userPoints | number" [nzTitle]="'Total'" [nzPrefix]="prefixTpl"></nz-statistic> -->
-          <!-- <ng-template #prefixTpl><i nz-icon type="wallet"></i></ng-template> -->
-          <!-- <h1>{{userPoints}} points</h1> -->
         </nz-card>
 
         <!-- SURVEY -->
 
         <nz-card class="dashboard-module" nzTitle="Surveys!" fxShow="true"
           fxHide.lt-md="”true”">
-          <h3>{{ surveys.question }}</h3>
-          <nz-radio-group style="padding:35px;">
-            <label nz-radio nzValue="1">1</label>
-            <label nz-radio nzValue="2">2</label>
-            <label nz-radio nzValue="3">3</label>
-            <label nz-radio nzValue="4">4</label>
-            <label nz-radio nzValue="5">5</label>
-          </nz-radio-group>
-          <p>{{surveys.scale}}</p>
+          <nz-carousel [nzEffect]="'fade'">
+            <div nz-carousel-content *ngFor="let question of surveys" style="height: 250px">
+              <nz-card>
+                <h3>{{ question.question }}</h3>
+                <p>{{question.scale}}</p>
+                <nz-radio-group style="padding:35px;">
+                  <label nz-radio nzValue="1">1</label>
+                  <label nz-radio nzValue="2">2</label>
+                  <label nz-radio nzValue="3">3</label>
+                  <label nz-radio nzValue="4">4</label>
+                  <label nz-radio nzValue="5">5</label>
+                </nz-radio-group>
+                <button nz-button nzType="primary" next>Submit</button>
+              </nz-card>
+            </div>
+          </nz-carousel>
         </nz-card>
 
         <!-- ANNOUNCEMENTS -->
