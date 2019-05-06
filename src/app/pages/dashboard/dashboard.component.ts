@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   pointsDisplay: any;
   statsModel: any;
 
+  id: number;
   name: string;
 
   userTier: string;
@@ -36,13 +37,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
 
 
-  surveys;
-  surveyIndex = 0;
+  done: boolean = false;
+  survey: Survey;
+  surveyResponse: number;
+  surveyIndex: number = 0;
 
   constructor(private route: ActivatedRoute, private infoModal: InfoModalComponent) { }
 
   ngOnInit() {
-    this.surveys = surveys
+    this.survey = surveys[this.surveyIndex];
     this.getAccount();
 
     this.data = marketLinks;
@@ -56,6 +59,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private getAccount() {
     this.userSubscription = this.route.data.subscribe(data => {
       let account: Account = data.account;
+
+      this.id = account.id;
 
       this.name = account.firstName + " " + account.lastName;
 
@@ -97,6 +102,34 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.infoModal.destroyTemplatedModal();
   }
 
+  submitSurvey(q: string) {
+    if (this.surveyResponse != 0) {
+      let resp: submittedSurvey = {
+        user: this.id,
+        question: q,
+        response: this.surveyResponse
+      }
+
+      if (surveys[this.surveyIndex + 1]) {
+        this.survey = surveys[this.surveyIndex + 1]
+        this.surveyIndex += 1
+      } else {
+        this.survey = {
+          question: "Surveys complete.",
+          options: [],
+          scale: "Check back for additional surveys and more opportunities for free points!"
+        };
+        this.done = true;
+      }
+    }
+  }
+
+}
+
+interface submittedSurvey {
+  user: number;
+  question: string;
+  response: number;
 }
 
 let surveys: Survey[] =
@@ -105,21 +138,21 @@ let surveys: Survey[] =
       period: 0,
       duration: "After First Day",
       question: "Did you feel comfortable in your new work environment?",
-      options: [1,2,3,4,5],
+      options: [1, 2, 3, 4, 5],
       scale: "[1] Not at all. [5] Very much so."
     },
     {
       period: 0,
       duration: "After First Day",
       question: "Did you find your first day of training worthwhile?",
-      options: [1,2,3,4,5],
+      options: [1, 2, 3, 4, 5],
       scale: "[1] Not at all. [5] Very much so."
     },
     {
       period: 0,
       duration: "After First Day",
       question: "Were people friendly?",
-      options: [1,2,3,4,5],
+      options: [1, 2, 3, 4, 5],
       scale: "[1] Not at all. [5] Very much so."
     },
 
@@ -127,21 +160,21 @@ let surveys: Survey[] =
       period: 1,
       duration: "After first week",
       question: "Do you feel you’re being well trained?",
-      options: [1,2,3,4,5],
+      options: [1, 2, 3, 4, 5],
       scale: "[1] Not at all. [5] Very much so."
     },
     {
       period: 1,
       duration: "After first week",
       question: "Would you recommend S&P as a place to work?",
-      options: [1,2,3,4,5],
+      options: [1, 2, 3, 4, 5],
       scale: "[1] Not at all. [5] Very much so."
     },
     {
       period: 1,
       duration: "After first week",
       question: "Do you feel comfortable approaching your manager and having an honest discussion about your job and your opportunities for advancement?",
-      options: [1,2,3,4,5],
+      options: [1, 2, 3, 4, 5],
       scale: "[1] Not at all. [5] Very much so."
     },
 
@@ -149,21 +182,21 @@ let surveys: Survey[] =
       period: 2,
       duration: "After second week",
       question: "Do you see a path to advance your career at S&P?",
-      options: [1,2,3,4,5],
+      options: [1, 2, 3, 4, 5],
       scale: "[1] Not at all. [5] Very much so."
     },
     {
       period: 2,
       duration: "After second week",
       question: "Are you learning and developing new skills?",
-      options: [1,2,3,4,5],
+      options: [1, 2, 3, 4, 5],
       scale: "[1] Not at all. [5] Very much so."
     },
     {
       period: 2,
       duration: "After second week",
       question: "Does your manager provide you with the support you need to complete your work?",
-      options: [1,2,3,4,5],
+      options: [1, 2, 3, 4, 5],
       scale: "[1] Not at all. [5] Very much so."
     },
 
@@ -171,21 +204,21 @@ let surveys: Survey[] =
       period: 3,
       duration: "After first month",
       question: "How would you rate your first month at S&P?",
-      options: [1,2,3,4,5],
+      options: [1, 2, 3, 4, 5],
       scale: "[1] Awful. [5] Fantastic."
     },
     {
       period: 3,
       duration: "After first month",
       question: "Can you have well-informed and constructive conversations with your manager about growth opportunities and pay?",
-      options: [1,2,3,4,5],
+      options: [1, 2, 3, 4, 5],
       scale: "[1] Not at all. [5] Very much so."
     },
     {
       period: 3,
       duration: "After first month",
       question: "Do you find your work challenging?",
-      options: [1,2,3,4,5],
+      options: [1, 2, 3, 4, 5],
       scale: "[1] Not at all. [5] Very much so."
     },
 
@@ -193,28 +226,28 @@ let surveys: Survey[] =
       period: 4,
       duration: "After second month",
       question: "If you were offered the same job at another call center, how likely is it that you would stay with S&P?",
-      options: [1,2,3,4,5],
+      options: [1, 2, 3, 4, 5],
       scale: "[1] Very Unlikely. [5] Very likely."
     },
     {
       period: 4,
       duration: "After second month",
       question: "Do you believe you are fairly rewarded in terms of pay and opportunities for advancement at S&P?",
-      options: [1,2,3,4,5],
+      options: [1, 2, 3, 4, 5],
       scale: "[1] Not at all. [5] Very much so."
     },
     {
       period: 4,
       duration: "After second month",
       question: "How would you rate the S&P culture?",
-      options: [1,2,3,4,5],
+      options: [1, 2, 3, 4, 5],
       scale: "[1] Awful. [5] Fantastic."
     },
     {
       period: 4,
       duration: "After second month",
       question: "Would you recommend S&P as a place to work? ",
-      options: [1,2,3,4,5],
+      options: [1, 2, 3, 4, 5],
       scale: "[1] Not at all. [5] Very much so."
     },
 
@@ -222,34 +255,34 @@ let surveys: Survey[] =
       period: 5,
       duration: "After third month",
       question: "Are you inspired by the purpose and mission of S&P?",
-      options: [1,2,3,4,5],
+      options: [1, 2, 3, 4, 5],
       scale: "[1] Not at all. [5] Very much so."
     },
     {
       period: 5,
       duration: "After third month",
       question: "Does your manager provide you with the support you need to complete your work?",
-      options: [1,2,3,4,5],
+      options: [1, 2, 3, 4, 5],
       scale: "[1] Not at all. [5] Very much so."
     },
     {
       period: 5,
       duration: "After third month",
       question: "Do you feel S&P gives you opportunity for professional growth?",
-      options: [1,2,3,4,5],
+      options: [1, 2, 3, 4, 5],
       scale: "[1] Not at all. [5] Very much so."
     },
     {
       period: 5,
       duration: "After third month",
       question: "How valued do you feel at S&P?",
-      options: [1,2,3,4,5],
+      options: [1, 2, 3, 4, 5],
       scale: "[1] Not at all. [5] Very much."
     },
 
-    
 
-    
+
+
   ]
 
 let marketLinks = [

@@ -36,8 +36,8 @@ export class Tier {
 }
 
 export class Survey {
-  period: number;
-  duration: string;
+  period?: number;
+  duration?: string;
   question: string;
   options: any[];
   scale: string;
