@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
+import { Account, Auth } from '@app/models/account';
 import { EMPTY, Observable, of } from "rxjs";
 import { switchMap, take } from 'rxjs/operators';
 import { AccountService } from '../account.service';
-import { Account, Auth } from '@app/models/account';
 
 @Injectable({
     providedIn: 'root',

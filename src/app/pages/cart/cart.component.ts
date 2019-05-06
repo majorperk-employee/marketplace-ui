@@ -93,7 +93,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   checkout() {
       this.shoppingService.redeemCart(this.account.id).then(
-        resp => { this.refreshCart(); },
+        resp => { this.refreshCart(); this.accountService.refreshPoints(this.account.id); },
         err => { console.error("Could not display cart. Please refresh.") }
       );
   }
