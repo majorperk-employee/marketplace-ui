@@ -44,7 +44,7 @@ registerLocaleData(en);
     FlexLayoutModule,
     ReactiveFormsModule,
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, InfoModalComponent],
+  providers: [{ provide: NZ_I18N, useValue: en_US }, {provide: LocationStrategy, useClass: HashLocationStrategy}, InfoModalComponent],
   entryComponents: [RewardModalComponent],
   bootstrap: [AppComponent]
 })

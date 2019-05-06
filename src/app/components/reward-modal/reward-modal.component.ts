@@ -40,7 +40,6 @@ export class RewardModalComponent implements OnInit, OnDestroy {
       (resp: Brand) => {
         if (resp.items) { resp.items.forEach(item => item.meta = new Meta(this.inCart(item.id))) };
         this.brand = resp; 
-        console.log(this.brand);
         this.loading = false;
       },
       error => { this.loading = false; this.error = true; }

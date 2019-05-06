@@ -44,7 +44,7 @@ export class ShoppingService {
   }
 
   addToCart(itemId: number, userId: number) {
-    this.http.post<Cart>(`${environment.apiUrl}/cart/${userId}/add`, itemId, httpOptions).pipe(first()).subscribe(
+    this.http.post<Cart>(`${environment.apiUrl}/cart/${userId}/add/${itemId}`, httpOptions).pipe(first()).subscribe(
       resp => { this.accountService.currentAccountCart = resp; },
       error => { console.error("Unable to add to cart. Please refresh.", error); }
     );
