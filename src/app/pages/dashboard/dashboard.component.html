@@ -68,24 +68,20 @@
 
         <!-- SURVEY -->
 
-        <nz-card class="dashboard-module" nzTitle="Surveys!" fxShow="true"
-          fxHide.lt-md="”true”">
-          <nz-carousel [nzEffect]="'fade'">
-            <div nz-carousel-content *ngFor="let question of surveys" style="height: 250px">
-              <nz-card>
-                <h3>{{ question.question }}</h3>
-                <p>{{question.scale}}</p>
-                <nz-radio-group style="padding:35px;">
-                  <label nz-radio nzValue="1">1</label>
-                  <label nz-radio nzValue="2">2</label>
-                  <label nz-radio nzValue="3">3</label>
-                  <label nz-radio nzValue="4">4</label>
-                  <label nz-radio nzValue="5">5</label>
-                </nz-radio-group>
-                <button nz-button nzType="primary" next>Submit</button>
-              </nz-card>
-            </div>
-          </nz-carousel>
+        <nz-card class="dashboard-module" nzTitle="Surveys">
+          <nz-card style="text-align: center">
+            <h3>{{ survey.question }}</h3>
+            <p>{{survey.scale}}</p>
+            <nz-radio-group style="padding:35px;" [(ngModel)]="surveyResponse">
+              <label nz-radio *ngFor="let option of survey.options"
+                nzValue="{{option}}">{{option}}</label>
+            </nz-radio-group>
+            <br>
+            <button nz-button *ngIf="!done" nzType="primary"
+              (click)="submitSurvey(question)">Submit</button>
+          </nz-card>
+          <!-- </div>
+          </nz-carousel> -->
         </nz-card>
 
         <!-- ANNOUNCEMENTS -->
