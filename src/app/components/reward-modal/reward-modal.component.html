@@ -21,7 +21,8 @@
         style="cursor: pointer">
         <td>
           <!-- <button > -->
-          <i nz-icon nz-popover (click)="setItem(data)" nzTitle="Redemption Details"
+          <i nz-icon nz-popover (click)="setItem(data)" nzTitle="Redemption
+            Details"
             nzTrigger="click"
             [nzContent]="contentTemplate" nzType="info-circle"
             nzTheme="outline"></i>
@@ -30,34 +31,33 @@
         <td><i nz-icon nzType="shopping" *ngIf="data.meta.checked"></i></td>
         <!-- PREDEFINED VALUE -->
         <td *ngIf="data.faceValue">${{data.faceValue | number}}</td>
-        <td *ngIf="data.faceValue">{{ data.faceValue * 50}} points</td>
-
+        <td *ngIf="data.faceValue">{{ data.faceValue * multiplier}} points</td>
         <!-- VARIABLE VALUE -->
-        <td *ngIf="!data.faceValue"> Custom value. </td>
-        <td *ngIf="!data.faceValue"> {{customPrice * 50 | number}} points</td>
-        <td>
-          <nz-tooltip *ngIf="!data.faceValue" nzTrigger="focus"
-            nzPlacement="topLeft"
-            nzOverlayClassName="numeric-input" [nzTitle]="'Enter desired
-            value.'">
+        <td *ngIf="!data.faceValue">
+          <span nz-tooltip nzTitle="Enter custom value."
+            [nzMouseEnterDelay]="'0.25'">
             <nz-input-number
               [(ngModel)]="customPrice"
               [nzMin]="data.minValue"
               [nzMax]="data.maxValue"
               [nzStep]="5"
               [nzFormatter]="formatterDollar"
-              [nzParser]="parserDollar"></nz-input-number>
-          </nz-tooltip>
+              [nzParser]="parserDollar">
+            </nz-input-number>
+          </span>
+        </td>
+
+        <td *ngIf="!data.faceValue"> {{customPrice * multiplier | number}}
+          points
         </td>
 
         <td>
-          <a *ngIf="!data.meta.checked && (data.faceValue> 0 || customPrice >
-            0)"
-            (click)="addToCart(data)">Add To Cart</a>
+          <a *ngIf="!data.meta.checked" (click)="addToCart(data, data.faceValue)">Add To Cart</a>
           <i nz-icon nzType="minus-circle" (click)="removeFromCart(data)"
             style="cursor: pointer" *ngIf="data.meta.checked"
             nzTheme="outline"></i>
         </td>
+
       </tr>
     </tbody>
   </nz-table>

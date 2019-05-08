@@ -10,7 +10,7 @@ import { AccountResolve } from './service/resolve/account.resolve';
 
 const routes: Routes = [
   {path: '', resolve: { account: AccountResolve }, children: [
-    {path: 'dashboard', component: DashboardComponent,   },
+    {path: 'dashboard', component: DashboardComponent },
     {path: 'marketplace', component: MarketplaceComponent, resolve: { categories: CategoriesResolve, items: BrandsResolve}},
     {path: 'marketplace/:filter', component: MarketplaceComponent, resolve: { categories: CategoriesResolve, items: BrandsResolve}},
     {path: 'cart', component: CartComponent, resolve: { items: CartItemsResolve } },

@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   data: any[] = [];
   resources: any[] = [];
   pointsDisplay: any;
+  goalsModel: any;
   statsModel: any;
 
   id: number;
@@ -65,34 +66,37 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.name = account.firstName + " " + account.lastName;
 
       this.userPoints = account.points;
+      
       this.totalDaysTarget = account.tier.totalDaysGoal;
-
       this.totalDaysCompletionPercent = (this.totalDaysTarget < account.totaldays) ? 100 : Math.round(account.totaldays / this.totalDaysTarget * 100);
+
+      this.onTimePercent = (account.ontimedays / account.totaldays)
+      this.onTimePercentTarget = account.tier.onTimePercentGoal;
+      this.onTimePercentCompletionPercent = (this.onTimePercentTarget < this.onTimePercent) ? 100 : Math.round(this.onTimePercent / this.onTimePercentTarget * 100);
 
       this.userTier = account.tier.currentTier;
       this.userNextTier = account.tier.nextTier;
-      this.onTimePercentCompletionPercent = account.tier.onTimePercentGoal * 100;
 
-      this.pointsDisplay = this.generatePointsDisplay(this.userPoints, this.userPoints, this.userPoints);
-      this.statsModel = this.generateStatsModal(account.totaldays, account.ontimedays, this.onTimePercent);
+      this.statsModel = this.generateStatsModal(account.totaldays);
+
+      this.goalsModel = this.generateGoalsModal(account.totaldays, this.onTimePercent);
     });
   }
 
-  private generatePointsDisplay(pts: number, Ypts: number, Ppts: number) {
+  private generateGoalsModal(tdw: number, otp: number) {
     return [
-      { title: "Available Points", value: pts },
-      // { title: "Earned Yesterday", value: Ypts},
-      // { title: "Earned this Period", value: Ppts}
+      { name: "Total Days Worked", value: tdw, needed: this.totalDaysTarget, complete: tdw > this.totalDaysTarget },
+      { name: "On Time Percentage", value: otp, needed: this.onTimePercentTarget, complete: otp > this.onTimePercentTarget }
     ]
   }
 
-  private generateStatsModal(tdw: number, tdot: number, otp: number) {
+  private generateStatsModal(tdot: number) {
     return [
-      { name: "Total Days On Time", value: tdot, needed: null, complete: false },
-      { name: "Total Days Worked", value: tdw, needed: this.totalDaysTarget, complete: false },
-      { name: "On Time Percentage", value: otp, needed: this.onTimePercentTarget, complete: false }
+      { name: "Total Days On Time", value: tdot},
     ]
   }
+
+
 
   openModal(tplTitle: TemplateRef<{}>, tplContent: TemplateRef<{}>, tplFooter: TemplateRef<{}>) {
     this.infoModal.createTemplatedModal(tplTitle, tplContent, tplFooter);

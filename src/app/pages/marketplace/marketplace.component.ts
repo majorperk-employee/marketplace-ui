@@ -120,7 +120,6 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   }
 
   public selected(tag) {
-    console.log("before: ", this.filters.tags);
     this.loading = true;
     let found = false;
     let list = this.filters.tags;
@@ -136,8 +135,6 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
    if (!found) { list.push(tag) };
       
     this.filters.tags = list;
-
-    console.log("after: ", this.filters.tags);
 
     this.applyFilter();
     this.pageIndex = 1;

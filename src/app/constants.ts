@@ -11,7 +11,6 @@ export const MEMORY = {
     users: "users",
     version: "version",
     rewardCodes: "codes",
-    pointRatio: 50, //One dollar translates to this many points.
     currentVersion: 1.22,
     sqlListSeparator: ':'
 }

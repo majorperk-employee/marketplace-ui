@@ -52,6 +52,7 @@
                 <tr>
                   <th>Id</th>
                   <th>Name</th>
+                  <th>Value</th>
                   <th>Price</th>
                   <th>Status</th>
                 </tr>
@@ -60,9 +61,10 @@
                 <tr *ngFor="let data of innerTable.data">
                   <td>{{ data.id }}</td>
                   <td>{{ data.rewardName }}</td>
+                  <td>$ {{ data.faceValue }}</td>
                   <td>{{ data.price }}</td>
                   <td>
-                    <nz-badge [nzStatus]="'default'" [nzText]="'Complete'"></nz-badge>
+                    <nz-badge [nzStatus]="'default'" [nzText]="'Order Processed'"></nz-badge>
                   </td>
                 </tr>
               </tbody>

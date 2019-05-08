@@ -15,7 +15,7 @@ import { NzModalService } from 'ng-zorro-antd';
 })
 export class CartComponent implements OnInit, OnDestroy {
 
-  point_multiplier = MEMORY.pointRatio;
+  point_multiplier: number;
 
   isLoading: boolean = true;
 
@@ -42,6 +42,7 @@ export class CartComponent implements OnInit, OnDestroy {
       this.cart = data.items;
       this.cartTotal = this.cart.cost;
       this.account = data.account;
+      this.point_multiplier = this.account.tier.multiplier;
     });
     this.isLoading = false;
   }
@@ -115,7 +116,7 @@ export class CartComponent implements OnInit, OnDestroy {
       nzTitle: '<i>Are you sure?</i>',
       nzContent: `<p><b>${this.cart.cost}</b> points will be removed from your account. You will receive a confirmation email shortly.</p>`,
       nzOkText: 'I want my rewards!',
-      nzOnOk: () => { this.checkoutIsLoading = true; setTimeout(() => { console.log("here"); this.checkout(); this.destroyTplModal(); this.checkoutIsLoading = false; }, 3000);},
+      nzOnOk: () => { this.checkoutIsLoading = true; setTimeout(() => { this.checkout(); this.destroyTplModal(); this.checkoutIsLoading = false; }, 3000);},
       nzOnCancel: () => {this.destroyTplModal()}
     });
   }

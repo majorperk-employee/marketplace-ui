@@ -1,4 +1,4 @@
-import { registerLocaleData, HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import en from '@angular/common/locales/en';
 import { NgModule } from '@angular/core';
@@ -18,7 +18,6 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { MarketplaceComponent } from './pages/marketplace/marketplace.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { RouterModule } from '@angular/router';
 
 registerLocaleData(en);
 

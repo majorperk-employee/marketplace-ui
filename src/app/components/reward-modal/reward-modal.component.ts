@@ -16,6 +16,7 @@ export class RewardModalComponent implements OnInit, OnDestroy {
   @Input() id: number;
 
   account: Account;
+  multiplier: number;
   cart: Cart;
   brand: Brand;
   currentItem: RewardItem;
@@ -25,8 +26,6 @@ export class RewardModalComponent implements OnInit, OnDestroy {
   itemSubscription: Subscription;
 
   customPrice: number = 0;
-  formatterPercent = (value: number) => `${value} %`;
-  parserPercent = (value: string) => value.replace(' %', '');
   formatterDollar = (value: number) => `$ ${value}`;
   parserDollar = (value: string) => value.replace('$ ', '');
 
@@ -35,6 +34,8 @@ export class RewardModalComponent implements OnInit, OnDestroy {
   ngOnInit() {
   
     this.account = this.accountService.currentAccount;
+
+    this.multiplier = this.account.tier.multiplier;
 
     this.itemSubscription = this.shoppingService.getReward(this.id).pipe(first()).subscribe(
       (resp: Brand) => {
@@ -47,30 +48,19 @@ export class RewardModalComponent implements OnInit, OnDestroy {
 
   }
 
-  addToCart(item: RewardItem) {
-
-    this.shoppingService.addToCart(item.id, this.account.id);
-
-    // REFRESH ACCOUNT
-    this.account = this.accountService.currentAccount;
-
-    item.meta.checked = true;
-
-  }
-
-  addCustomToCart(item: RewardItem) {
-
-    let addItem = item;
-    addItem.price = this.customPrice;
-
-    this.shoppingService.addCustomToCart(item.id, this.customPrice, this.account.id);
+  addToCart(item: RewardItem, faceValue: any) {
+    if (faceValue != null) {
+      this.shoppingService.addToCart(item.id, this.account.id);
+      item.meta.checked = true;
+    } else if (this.customPrice != 0) {
+      this.shoppingService.addCustomToCart(item.id, this.account.id, this.customPrice);
+      this.customPrice = 0;
+      item.meta.checked = true;
+    }
 
     // REFRESH ACCOUNT
     this.account = this.accountService.currentAccount;
 
-    item.meta.checked = true;
-
-    this.customPrice = 0;
   }
 
   removeFromCart(item: RewardItem) {

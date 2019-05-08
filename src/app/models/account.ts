@@ -33,6 +33,7 @@ export class Tier {
   nextTier: string;
   onTimePercentGoal: number;
   totalDaysGoal: number;
+  multiplier: number;
 }
 
 export class Survey {
