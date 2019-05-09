@@ -32,7 +32,7 @@ export class RewardModalComponent implements OnInit, OnDestroy {
   constructor(private modal: NzModalRef, private shoppingService: ShoppingService, private accountService: AccountService) { }
 
   ngOnInit() {
-  
+
     this.account = this.accountService.currentAccount;
 
     this.multiplier = this.account.tier.multiplier;
@@ -40,7 +40,7 @@ export class RewardModalComponent implements OnInit, OnDestroy {
     this.itemSubscription = this.shoppingService.getReward(this.id).pipe(first()).subscribe(
       (resp: Brand) => {
         if (resp.items) { resp.items.forEach(item => item.meta = new Meta(this.inCart(item.id))) };
-        this.brand = resp; 
+        this.brand = resp;
         this.loading = false;
       },
       error => { this.loading = false; this.error = true; }
@@ -49,14 +49,12 @@ export class RewardModalComponent implements OnInit, OnDestroy {
   }
 
   addToCart(item: RewardItem, faceValue: any) {
-    if (faceValue != null) {
-      this.shoppingService.addToCart(item.id, this.account.id);
-      item.meta.checked = true;
-    } else if (this.customPrice != 0) {
-      this.shoppingService.addCustomToCart(item.id, this.account.id, this.customPrice);
-      this.customPrice = 0;
-      item.meta.checked = true;
-    }
+
+    let price = faceValue != null ? faceValue : this.customPrice;
+
+    this.shoppingService.addToCart(item.id, this.account.id, price);
+    item.meta.checked = true;
+    this.customPrice = 0;
 
     // REFRESH ACCOUNT
     this.account = this.accountService.currentAccount;

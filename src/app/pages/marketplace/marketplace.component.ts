@@ -161,58 +161,8 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     return incart;
   }
 
-  addToCart(item: RewardItem) {
-
-    this.shoppingService.addToCart(item.id, this.account.id);
-
-    // REFRESH ACCOUNT
-    this.account = this.accountService.currentAccount;
-
-    item.meta.checked = true;
-
-  }
-
-  removeFromCart(item: RewardItem) {
-
-    let removeBody = [item.id];
-
-    this.shoppingService.removeFromCart(removeBody, this.account.id);
-
-    // REFRESH ACCOUNT
-    this.account = this.accountService.currentAccount;
-
-    item.meta.checked = false;
-  }
-
   showModal(brand: Brand) {
     this.infoModal.createRewardModal(brand);
   }
 
 }
-
-let categories = [
-  {
-    icon: "icon",
-    name: "Auto"
-  },
-  {
-    icon: "icon",
-    name: "Sport"
-  },
-  {
-    icon: "icon",
-    name: "Travel"
-  },
-  {
-    icon: "icon",
-    name: "Sport"
-  },
-  {
-    icon: "icon",
-    name: "Food"
-  },
-  {
-    icon: "icon",
-    name: "Clothing"
-  }
-]
