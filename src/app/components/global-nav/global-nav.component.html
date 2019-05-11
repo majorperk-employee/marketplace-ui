@@ -59,7 +59,11 @@
           <li (click)="routeTo('profile')" nz-menu-item>
             <i nz-icon nzType="setting"></i>Profile
           </li>
-          <li (click)="routeTo('cart')" nz-menu-item>
+          <li nz-menu-divider></li>
+          <li (click)="routeTo('manager')" nz-menu-item>
+              <i nz-icon nzType="audit"></i>Manager Console
+            </li>
+          <li (click)="routeTo('login')" nz-menu-item>
             <i nz-icon nzType="logout"></i>Sign Out
           </li>
         </ul>
