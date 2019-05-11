@@ -12,7 +12,7 @@ export class AccountResolve implements Resolve<Account> {
     constructor(private accountService: AccountService) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Account> | Observable<never> {
-        return this.accountService.getAccount("troycrema").pipe(
+        return this.accountService.getAccountByID(100001).pipe(
             take(1),
             switchMap(account => {
                 if (account) {

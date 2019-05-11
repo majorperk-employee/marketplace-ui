@@ -13,8 +13,12 @@ export class AccountService {
 
   account: Account;
 
-  getAccount(username: string) {
+  getAccountByUserName(username: string) {
     return this.http.get<Account>(`${environment.apiUrl}/accounts/username/${username}`, httpOptions);
+  }
+
+  getAccountByID(id: number) {
+    return this.http.get<Account>(`${environment.apiUrl}/accounts/id/${id}`, httpOptions);
   }
 
   getAuth(id:number) {

@@ -71,7 +71,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.totalDaysTarget = account.tier.totalDaysGoal;
       this.totalDaysCompletionPercent = (this.totalDaysTarget < this.totalDays) ? 100 : +Math.round(this.totalDays / this.totalDaysTarget * 100).toFixed(2);
 
-      this.absenteeism = 1- account.sandPMetrics.abstenteeism
+      this.absenteeism = 1 - account.sandPMetrics.abstenteeism;
       this.absenteeismTarget = account.tier.absenteeismGoal;
       this.absenteeismCompletionPercent = (this.absenteeismTarget < this.absenteeism) ? 100 : +Math.round(this.absenteeism / this.absenteeismTarget * 100).toFixed(2);
 
@@ -87,7 +87,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private generateGoalsModal(tdw: number, otp: number) {
     return [
       { name: "Total Days Worked", value: tdw, needed: this.totalDaysTarget, complete: tdw > this.totalDaysTarget },
-      { name: "On Time Percentage", value: otp, needed: this.absenteeismTarget, complete: otp > this.absenteeismTarget }
+      { name: "On Time Percentage", value: +otp.toFixed(2), needed: this.absenteeismTarget, complete: otp > this.absenteeismTarget }
     ]
   }
 
