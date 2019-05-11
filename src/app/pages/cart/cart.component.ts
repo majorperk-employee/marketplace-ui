@@ -15,7 +15,7 @@ import { NzModalService } from 'ng-zorro-antd';
 })
 export class CartComponent implements OnInit, OnDestroy {
 
-  point_multiplier: number;
+  point_multiplier: number = 50;
 
   isLoading: boolean = true;
 
@@ -42,7 +42,7 @@ export class CartComponent implements OnInit, OnDestroy {
       this.cart = data.items;
       this.cartTotal = this.cart.cost;
       this.account = data.account;
-      this.point_multiplier = this.account.tier.multiplier;
+      // this.point_multiplier = this.account.tier.multiplier;
     });
     this.isLoading = false;
   }

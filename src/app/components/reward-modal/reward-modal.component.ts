@@ -16,7 +16,7 @@ export class RewardModalComponent implements OnInit, OnDestroy {
   @Input() id: number;
 
   account: Account;
-  multiplier: number;
+  multiplier: number = 50;
   cart: Cart;
   brand: Brand;
   currentItem: RewardItem;
@@ -35,7 +35,7 @@ export class RewardModalComponent implements OnInit, OnDestroy {
 
     this.account = this.accountService.currentAccount;
 
-    this.multiplier = this.account.tier.multiplier;
+    // this.multiplier = this.account.tier.multiplier;
 
     this.itemSubscription = this.shoppingService.getReward(this.id).pipe(first()).subscribe(
       (resp: Brand) => {
