@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
       nickname: ["coming soon ..."],
       phoneNumberPrefix: ['+1'],
       phoneNumber: [null],
-      address: [this.account.address, [Validators.required]],
+      // address: [this.account.address, [Validators.required]],
       agree: [false]
     });
   }
@@ -42,9 +42,9 @@ export class ProfileComponent implements OnInit {
     }
     let updateAccount = this.account;
 
-    updateAccount.address = this.validateForm.value['address'];
+    // updateAccount.address = this.validateForm.value['address'];
     updateAccount.phone = this.validateForm.value['phone'];
-    updateAccount.address = this.validateForm.value['password'];
+    // updateAccount.address = this.validateForm.value['password'];
 
     setTimeout(() => { this.isLoading = false; this.confirm() }, 1000);
   }

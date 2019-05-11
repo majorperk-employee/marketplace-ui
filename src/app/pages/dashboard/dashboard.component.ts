@@ -25,13 +25,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   userPoints: number;
   totalDays: number;
-  onTimePercent: number;
+  absenteeism: number;
 
   totalDaysTarget: number;
   totalDaysCompletionPercent: number;
 
-  onTimePercentTarget: number;
-  onTimePercentCompletionPercent: number;
+  absenteeismTarget: number;
+  absenteeismCompletionPercent: number;
 
   array = ["Welcome to MajorPerk!", "KPIs, rewards, resources, and more!"];
 
@@ -63,30 +63,31 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
       this.id = account.id;
 
-      this.name = account.firstName + " " + account.lastName;
+      this.name = account.sandPMetrics.firstname + " " + account.sandPMetrics.lastname;
 
       this.userPoints = account.points;
       
+      this.totalDays = +(account.sandPMetrics.prod_hours / 8).toFixed(2)
       this.totalDaysTarget = account.tier.totalDaysGoal;
-      this.totalDaysCompletionPercent = (this.totalDaysTarget < account.totaldays) ? 100 : Math.round(account.totaldays / this.totalDaysTarget * 100);
+      this.totalDaysCompletionPercent = (this.totalDaysTarget < this.totalDays) ? 100 : +Math.round(this.totalDays / this.totalDaysTarget * 100).toFixed(2);
 
-      this.onTimePercent = (account.ontimedays / account.totaldays)
-      this.onTimePercentTarget = account.tier.onTimePercentGoal;
-      this.onTimePercentCompletionPercent = (this.onTimePercentTarget < this.onTimePercent) ? 100 : Math.round(this.onTimePercent / this.onTimePercentTarget * 100);
+      this.absenteeism = (account.sandPMetrics.abstenteeism / this.totalDays)
+      this.absenteeismTarget = account.tier.absenteeismGoal;
+      this.absenteeismCompletionPercent = (this.absenteeismTarget < this.absenteeism) ? 100 : +Math.round(this.absenteeism / this.absenteeismTarget * 100).toFixed(2);
 
       this.userTier = account.tier.currentTier;
       this.userNextTier = account.tier.nextTier;
 
-      this.statsModel = this.generateStatsModal(account.totaldays);
+      this.statsModel = this.generateStatsModal(this.totalDays);
 
-      this.goalsModel = this.generateGoalsModal(account.totaldays, this.onTimePercent);
+      this.goalsModel = this.generateGoalsModal(this.totalDays, this.absenteeism);
     });
   }
 
   private generateGoalsModal(tdw: number, otp: number) {
     return [
       { name: "Total Days Worked", value: tdw, needed: this.totalDaysTarget, complete: tdw > this.totalDaysTarget },
-      { name: "On Time Percentage", value: otp, needed: this.onTimePercentTarget, complete: otp > this.onTimePercentTarget }
+      { name: "On Time Percentage", value: otp, needed: this.absenteeismTarget, complete: otp > this.absenteeismTarget }
     ]
   }
 

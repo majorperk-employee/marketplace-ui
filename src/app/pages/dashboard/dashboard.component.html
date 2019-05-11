@@ -118,7 +118,7 @@
           Total Days Worked
           <nz-progress [nzPercent]="totalDaysCompletionPercent"></nz-progress>
           On Time Percentage
-          <nz-progress [nzPercent]="onTimePercentCompletionPercent"></nz-progress>
+          <nz-progress [nzPercent]="absenteeismCompletionPercent"></nz-progress>
           <button nz-button nzType="default" style="margin-top: 12px" nzBlock
             (click)="openModal(userGoalsModalTitle, userGoalsModalContent,
             userGoalsModalFooter)">
@@ -132,7 +132,7 @@
         <nz-card class="dashboard-module" nzTitle="Statistics">
           <div nz-row nzType="flex" nzJustify="center">
             <nz-progress [nzWidth]="80"
-              nzPercent="{{onTimePercentCompletionPercent}}" nzType="circle"></nz-progress>
+              nzPercent="{{absenteeismCompletionPercent}}" nzType="circle"></nz-progress>
           </div>
           <div nz-row nzType="flex" nzJustify="center" style="margin: 12px">
             <h4>Program Rank</h4>
@@ -140,7 +140,7 @@
           <nz-divider></nz-divider>
           <div nz-row nzType="flex" nzJustify="center">
             <nz-progress [nzWidth]="80"
-              nzPercent="{{onTimePercentCompletionPercent}}" nzType="circle"></nz-progress>
+              nzPercent="{{absenteeismCompletionPercent}}" nzType="circle"></nz-progress>
           </div>
           <div nz-row nzType="flex" nzJustify="center" style="margin: 12px">
             <h4>Company Rank</h4>
