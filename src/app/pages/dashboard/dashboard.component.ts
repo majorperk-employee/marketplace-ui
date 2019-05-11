@@ -71,7 +71,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.totalDaysTarget = account.tier.totalDaysGoal;
       this.totalDaysCompletionPercent = (this.totalDaysTarget < this.totalDays) ? 100 : +Math.round(this.totalDays / this.totalDaysTarget * 100).toFixed(2);
 
-      this.absenteeism = (account.sandPMetrics.abstenteeism / this.totalDays)
+      this.absenteeism = 1- account.sandPMetrics.abstenteeism
       this.absenteeismTarget = account.tier.absenteeismGoal;
       this.absenteeismCompletionPercent = (this.absenteeismTarget < this.absenteeism) ? 100 : +Math.round(this.absenteeism / this.absenteeismTarget * 100).toFixed(2);
 
