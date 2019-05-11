@@ -19,15 +19,18 @@ export class GlobalNavComponent implements OnInit {
   }
 
   routeTo(destination) {
-
-    if (destination = "manager") {
-      window.location.href = `${environment.managerConsoleUrl}`;
+    console.log(destination);
+    if (destination == "manager") {
+      window.location.href = (`${environment.managerConsoleUrl}`);
+      return false;
+    } else if (destination == "login") {
+      window.location.href = (`${environment.loginUrl}`);
+      return false;
+    } else {
+      this.router.navigate([destination]);
+      return false;
     }
 
-    if (destination = "login") {
-      window.location.href = `${environment.loginUrl}`;
-    }
-    this.router.navigate([destination]);
   }
 
   ngOnInit() { }
