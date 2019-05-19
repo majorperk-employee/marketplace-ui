@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { NzModalRef, NzDrawerRef } from 'ng-zorro-antd';
+import { NzModalRef, NzDrawerRef, NzModalService } from 'ng-zorro-antd';
 import { Brand, RewardItem, Cart, Meta } from '@app/models/market';
 import { ShoppingService } from '@app/service/shopping.service';
 import { first } from 'rxjs/operators';
@@ -25,17 +25,18 @@ export class RewardDrawerComponent implements OnInit, OnDestroy {
   maxValue: number;
   dollarValue: number;
   pointsValue: number;
-
+  checkoutDisabled: boolean = false;
   multiplier: number;
 
-  constructor(private drawerRef: NzDrawerRef<string>, private shoppingService: ShoppingService, private accountService: AccountService) { }
+  constructor(private modalService: NzModalService, private drawerRef: NzDrawerRef<string>, private shoppingService: ShoppingService, private accountService: AccountService) { }
 
   ngOnInit() {
 
     this.account = this.accountService.currentAccount;
     this.multiplier = this.account.multiplier;
 
-    this.setPrice(this.points);
+    this.maxValue = Math.floor(this.points/this.multiplier);
+    this.dollarValue = this.maxValue;
 
     this.shoppingService.getReward(this.id).pipe(first()).subscribe(
     (resp) => {
@@ -51,17 +52,26 @@ export class RewardDrawerComponent implements OnInit, OnDestroy {
 
   formatterDollar = (value: number) => {
     let roundedVal = Math.floor(value / 5)*5;
-    this.pointsValue = roundedVal * this.multiplier; 
+    this.pointsValue = roundedVal * this.multiplier;
+    this.checkoutDisabled = this.pointsValue < 5;
     return `$ ${roundedVal}`;
   };
-  
-  parserDollar = (value: string) => value.replace('$ ', '');
 
-  setPrice(userPoints: number) {
-    this.maxPoints = Math.floor(userPoints/this.multiplier)*this.multiplier;
-    this.maxValue = Math.floor(userPoints/this.multiplier);
-    this.dollarValue = this.maxValue;
-    this.pointsValue = this.dollarValue * this.multiplier;
+  showConfirm(): void {
+    if (this.pointsValue < 5 ) {
+      return;
+    }
+    this.modalService.confirm({
+      nzTitle: '<i>Are you sure?</i>',
+      nzContent: `<p><b>${this.pointsValue.toLocaleString()}</b> points will be removed from your account. You will receive a <b>non-refundable</b> instant reward and a confirmation email shortly.</p>`,
+      nzOkText: 'I want my rewards!',
+      nzOnOk: () => { this.loading = true; setTimeout(() => { this.checkout(); this.loading = false; }, 3000);},
+      nzOnCancel: () => {this.modalService.closeAll();}
+    });
+  }
+
+  checkout() {
+    console.log("CHECKOUT");
   }
 
   ngOnDestroy() {
