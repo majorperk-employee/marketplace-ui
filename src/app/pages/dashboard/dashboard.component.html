@@ -1,110 +1,26 @@
-<app-global-nav></app-global-nav>
+<app-global-nav class="dashboard-module"></app-global-nav>
 
-<nz-layout class="layout-fill">
-  <nz-content style="padding:0 50px;">
-    <nz-breadcrumb style="margin:16px 0;">
-      <nz-breadcrumb-item>MajorPerk</nz-breadcrumb-item>
-      <nz-breadcrumb-item>Dashboard</nz-breadcrumb-item>
-    </nz-breadcrumb>
-
-    <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }">
-      <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 6 }" fxShow="true"
-        fxHide.lt-md="”true”">
-
-        <!-- REWARDS -->
-        <nz-card class="dashboard-module" nzTitle="Reward Yourself">
-          <nz-list [nzDataSource]="data" [nzItemLayout]="'vertical'"
-            [nzRenderItem]="item">
-            <ng-template #item let-item>
-              <nz-list-item [nzContent]="item.content">
-                <nz-list-item-meta [nzAvatar]="item.avatar"
-                  [nzTitle]="nzTitle"
-                  [nzDescription]="item.description">
-                  <ng-template #nzTitle>
-                    <a href="{{ item.href }}">
-                      {{item.title}}
-                    </a></ng-template>
-                </nz-list-item-meta>
-              </nz-list-item>
-            </ng-template>
-          </nz-list>
-        </nz-card>
-
-        <!-- GIVE FEEDBACK -->
-
-        <nz-card class="dashboard-module" nzTitle="*Coming soon*">
-          <div class="column-content">Give feedback, recommend a new feature!</div>
-        </nz-card>
-
-      </div>
-
-      <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 12 }">
-
-        <!-- USER POINTS -->
-
-        <nz-card class="dashboard-module" [nzTitle]="'Available Points'">
+<nz-layout>
+  <nz-content style="margin-bottom:64px; margin-top:64px;padding:0 50px;">
 
 
-          <div style="padding: 3px;">
-            <nz-row [nzGutter]="16">
-              <nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 12 }">
-                <nz-card style="margin: 3px; text-align: center">
-                  <nz-statistic [nzValue]="userPoints | number"
-                    [nzTitle]="'Total'" [nzPrefix]="totalPrefixTempl"></nz-statistic>
-                  <ng-template #totalPrefixTempl><i nz-icon type="wallet"></i></ng-template>
-                </nz-card>
-              </nz-col>
-              <nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 12 }">
-                <nz-card style="margin: 3px; text-align: center">
-                  <nz-statistic [nzValue]="15 | number"
-                    [nzTitle]="'Earned Yesterday'"
-                    [nzSuffix]="totalSuffixTempl"></nz-statistic>
-                  <ng-template #totalSuffixTempl>points</ng-template>
-                </nz-card>
-              </nz-col>
-            </nz-row>
-          </div>
-        </nz-card>
+    <div nz-col [nzSm]="{ span: 0 }" [nzMd]="{ span: 4 }">
+    </div>
 
-        <!-- SURVEY -->
+    <div nz-col [nzSm]="{ span: 18 }" [nzMd]="{ span: 16 }">
 
-        <nz-card class="dashboard-module" nzTitle="Surveys">
-          <nz-card style="text-align: center">
-            <h3>{{ survey.question }}</h3>
-            <p>{{survey.scale}}</p>
-            <nz-radio-group style="padding:35px;" [(ngModel)]="surveyResponse">
-              <label nz-radio *ngFor="let option of survey.options"
-                nzValue="{{option}}">{{option}}</label>
-            </nz-radio-group>
-            <br>
-            <button nz-button *ngIf="!done" nzType="primary"
-              (click)="submitSurvey(question)">Submit</button>
-          </nz-card>
-          <!-- </div>
-          </nz-carousel> -->
-        </nz-card>
+      <nz-breadcrumb style="margin:16px 0;">
+        <nz-breadcrumb-item>Welcome, {{firstname}}!</nz-breadcrumb-item>
+      </nz-breadcrumb>
 
-        <!-- ANNOUNCEMENTS -->
+      <!-- USER POINTS -->
 
-        <nz-card class="dashboard-module" nzTitle="Announcements" fxShow="true"
-          fxHide.lt-md="”true”">
-          <nz-carousel [nzEnableSwipe]="true">
-            <div nz-carousel-content *ngFor="let index of array">
-              <h3>{{ index }}</h3>
-              <div class="dot-container"></div>
-            </div>
-          </nz-carousel>
-        </nz-card>
-      </div>
-
-      <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 6 }">
-
-        <!-- USER TIER -->
-
-        <nz-card class="dashboard-module" nzTitle="Your Tier">
+      <nz-card class="dashboard-module" [nzBordered]="false">
+        <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="10" [nzXl]="12"
+          [nzXXl]="12">
           <div nz-row nzType="flex" nzJustify="center">
             <div>
-              <h1>{{userTier}}</h1>
+              <p style="font-size: 36px; margin: 6px"> {{userTier}} </p>
             </div>
           </div>
           <div nz-row nzType="flex" nzJustify="center">
@@ -112,53 +28,186 @@
               Next Tier: {{userNextTier}}
             </div>
           </div>
-
-          <nz-divider></nz-divider>
-
-          Total Days Worked
-          <nz-progress [nzPercent]="totalDaysCompletionPercent"></nz-progress>
-          On Time Percentage
-          <nz-progress [nzPercent]="absenteeismCompletionPercent"></nz-progress>
-          <button nz-button nzType="default" style="margin-top: 12px" nzBlock
-            (click)="openModal(userGoalsModalTitle, userGoalsModalContent,
-            userGoalsModalFooter)">
-            More Info
-          </button>
-
-        </nz-card>
-
-        <!-- STATISTICS -->
-
-        <nz-card class="dashboard-module" nzTitle="Statistics">
           <div nz-row nzType="flex" nzJustify="center">
-            <nz-progress [nzWidth]="80"
-              nzPercent="{{absenteeismCompletionPercent}}" nzType="circle"></nz-progress>
+            <div>
+              <button nz-button class="action-button" style="margin-top: 10px;"
+                (click)="openModal(userGoalsModalTitle, userGoalsModalContent,
+                userGoalsModalFooter)">See
+                Metrics</button>
+            </div>
           </div>
-          <div nz-row nzType="flex" nzJustify="center" style="margin: 12px">
-            <h4>Program Rank</h4>
-          </div>
-          <nz-divider></nz-divider>
-          <div nz-row nzType="flex" nzJustify="center">
-            <nz-progress [nzWidth]="80"
-              nzPercent="{{absenteeismCompletionPercent}}" nzType="circle"></nz-progress>
-          </div>
-          <div nz-row nzType="flex" nzJustify="center" style="margin: 12px">
-            <h4>Company Rank</h4>
-          </div>
+        </div>
 
-        </nz-card>
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="4" [nzXl]="6"
+          [nzXXl]="6" fxHide.lt-sm="true">
+          <div nz-row nzType="flex" nzJustify="center" style="margin: 12px">
+            <nz-progress [nzWidth]="80"
+              nzPercent="{{totalDaysCompletionPercent}}" nzType="circle"
+              nzStrokeColor="#001528"></nz-progress>
+          </div>
+          <div nz-row nzType="flex" nzJustify="center" style="margin: 14px">
+            <p style="font-size: 12px; margin: 6px;">Total Days Worked</p>
+          </div>
+        </div>
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="4" [nzXl]="6"
+          [nzXXl]="6" fxHide.lt-sm="true">
+          <div nz-row nzType="flex" nzJustify="center" style="margin: 12px">
+            <nz-progress [nzWidth]="80"
+              nzPercent="{{absenteeismCompletionPercent}}" nzType="circle"
+              nzStrokeColor="orange"></nz-progress>
+          </div>
+          <div nz-row nzType="flex" nzJustify="center" style="margin: 14px">
+            <p style="font-size: 12px; margin: 6px;">Absenteeism</p></div>
+        </div>
+      </nz-card>
 
+      <nz-breadcrumb style="margin:16px 0;">
+        <nz-breadcrumb-item>Spend Points</nz-breadcrumb-item>
+      </nz-breadcrumb>
+
+      <nz-card class="dashboard-module" [nzBordered]="false">
+        <div>
+          <div nz-row [nzGutter]="6">
+            <div nz-col [nzSm]="{ span: 24 }" [nzMd]="{ span: 6 }">
+              <nz-card style="align-content: center;" [nzBordered]="false">
+                <div nz-row nzType="flex" nzJustify="center">
+                  <p>You have</p>
+                </div>
+                <div nz-row nzType="flex" nzJustify="center">
+                  <p style="font-size: 36px">{{userPoints | number}}<span
+                      style="font-size: 16px"> pts</span></p>
+                </div>
+                <div nz-row nzType="flex" nzJustify="center">
+                  <button nz-button nzType="primary" (click)="openRewardLinkComponent()">Reward yourself!</button>
+                </div>
+              </nz-card>
+            </div>
+
+            <div nz-col [nzSm]="{ span: 0 }" [nzMd]="{ span: 18 }"
+              fxHide.lt-sm="”true”">
+              <nz-card style="padding: 0;" [nzBordered]="false">
+                <img class="shadow"
+                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b916708-300w-326ppi.png"
+                  style="width: 140px; margin-bottom: 10px; margin: 6px"> <!-- amazon -->
+                <img class="shadow"
+                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b891734-300w-326ppi.png"
+                  style="width: 140px; margin-bottom: 10px; margin: 6px"> <!-- apple -->
+                <img class="shadow"
+                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b663882-300w-326ppi.png"
+                  style="width: 140px; margin-bottom: 10px; margin: 6px"> <!-- target -->
+                <img class="shadow"
+                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b331538-300w-326ppi.png"
+                  style="width: 140px; margin-bottom: 10px; margin: 6px"> <!-- macys -->
+                <img class="shadow"
+                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b865851-300w-326ppi.png"
+                  style="width: 140px; margin-bottom: 10px; margin: 6px"> <!-- hulu -->
+                <img class="shadow"
+                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b752192-300w-326ppi.png"
+                  style="width: 140px; margin-bottom: 10px; margin: 6px"> <!-- nike -->
+                <img class="shadow"
+                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b942204-300w-326ppi.png"
+                  style="width: 140px; margin-bottom: 10px; margin: 6px"> <!-- starbucks -->
+                <img class="shadow"
+                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b230650-300w-326ppi.png"
+                  style="width: 140px; margin-bottom: 10px; margin: 6px"> <!-- uber -->
+              </nz-card>
+              <p style='padding-left: 15px;'> ... and so many more brands you
+                love!</p>
+            </div>
+
+
+          </div>
+        </div>
+
+      </nz-card>
+
+      <nz-breadcrumb style="margin:16px 0;">
+        <nz-breadcrumb-item>Earn Points</nz-breadcrumb-item>
+      </nz-breadcrumb>
+
+      <div>
+        <div nz-row [nzGutter]="8" nzType="flex" nzJustify="center">
+          <div nz-col [nzXs]="{ span: 18 }" [nzMd]="{ span: 8 }">
+            <nz-card class="dashboard-module"
+              [nzBordered]="false"
+              [nzActions]="[surveyActionSetting]"
+              nzHoverable>
+              <div style="height: 200px;">
+                <p style="font-size: 24px;"><i nz-icon nzType="solution"
+                    nzTheme="outline" class="title-icon"></i>Take Surveys</p>
+                <p>No Surveys available yet. Stay tuned!</p>
+              </div>
+              <ng-template #surveyActionSetting>
+                <button nz-button class="action-button">Let's Go!</button>
+              </ng-template>
+            </nz-card>
+          </div>
+          <div nz-col [nzXs]="{ span: 18 }" [nzMd]="{ span: 8 }">
+            <nz-card class="dashboard-module"
+              [nzBordered]="false"
+              [nzActions]="[referActionSetting]"
+              nzHoverable>
+              <div style="height: 200px;">
+                <p style="font-size: 24px;"><i nz-icon nzType="phone"
+                    nzTheme="outline" class="title-icon"></i>Refer a friend</p>
+                <p>Know a friend that would succeed in this environment? Refer
+                  them, earn points!</p>
+              </div>
+              <ng-template #referActionSetting>
+                <button nz-button class="action-button">Refer</button>
+              </ng-template>
+            </nz-card>
+          </div>
+          <div nz-col [nzXs]="{ span: 18 }" [nzMd]="{ span: 8 }">
+            <nz-card class="dashboard-module"
+              [nzBordered]="false"
+              [nzActions]="[performActionSetting]"
+              nzHoverable>
+              <div style="height: 200px;">
+                <p style="font-size: 24px;"><i nz-icon nzType="star"
+                    nzTheme="outline" class="title-icon"></i>Perform Well</p>
+                <p>See below for ways to maximize the amount of points you
+                  gain
+                  every day.</p>
+              </div>
+              <ng-template #performActionSetting>
+                <button nz-button class="action-button">More Info</button>
+              </ng-template>
+            </nz-card>
+          </div>
+        </div>
       </div>
-    </div>
 
+    </div>
+    <div nz-col [nzSm]="{ span: 6 }" [nzMd]="{ span: 4 }" fxShow="true"
+      style="padding: 12px;">
+
+      <nz-breadcrumb style="margin:16px 0;">
+        <nz-breadcrumb-item style="color: transparent">Tiers</nz-breadcrumb-item>
+      </nz-breadcrumb>
+      <nz-affix [nzOffsetTop]="70">
+        <nz-timeline>
+          <nz-timeline-item *ngFor="let tier of tiers">
+            <p><strong>{{tier.title}}</strong><i nz-icon nzType="info-circle"
+                nzTheme="outline" style="margin-left: 3px;"></i></p>
+            <span class="tier-timeline" z-button nz-popover
+              nzTitle="Requirements"
+              [nzContent]="tier.requirements">Requirements</span>
+            <br />
+            <span class="tier-timeline" z-button nz-popover nzTitle="Benefits"
+              [nzContent]="tier.benefits"> Benefits</span>
+
+          </nz-timeline-item>
+        </nz-timeline>
+      </nz-affix>
+    </div>
   </nz-content>
   <nz-footer style="text-align: center;">Employee Dashboard ©2018 by MajorPerk</nz-footer>
 </nz-layout>
 
-<ng-template #userGoalsModalTitle>
-  <span>{{name}}'s Statistics</span>
-</ng-template>
+<!-- TEMPLATES -->
 
+<!-- STATS -->
 <ng-template #userGoalsModalContent>
 
   <nz-table nzSize="small" [nzTitle]="'Performance'" [nzData]="statsModel"
@@ -191,7 +240,8 @@
         <td>{{ data.name }}</td>
         <td>{{ data.value }}</td>
         <td *ngIf="!data.complete">{{ data.needed }}</td>
-        <td *ngIf="data.complete"><i nz-icon nzType="check" nzTheme="outline"></i><span style="padding-left: 6px;">Done</span></td>
+        <td *ngIf="data.complete"><i nz-icon nzType="check" nzTheme="outline"></i><span
+            style="padding-left: 6px;">Done</span></td>
       </tr>
     </tbody>
   </nz-table>

@@ -14,6 +14,7 @@ export class Account {
   picture: string;
   points: number;
   sandPMetrics: SPMetrics;
+  multiplier: number = 50;
 }
 
 export class Auth {

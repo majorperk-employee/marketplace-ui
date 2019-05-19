@@ -1,74 +1,49 @@
-<nz-header>
+<!-- DASHBOARD LINK -->
+<ul nz-menu [nzSelectable]="false" [nzTheme]="'dark'" [nzMode]="'horizontal'"
+  style="padding:0 12px 0 12px; display: flex; position:fixed; top: 0;
+  width:100%; z-index: 100; box-shadow: 1px 1px rgba(133, 133, 133, 0.534);">
   <div class="logo">
     <img src="../../../assets/img/logo/mini-logo.png">
-    <h4 class="logo-name">Major Perk</h4>
+    <span class="logo-name">Major Perk</span>
   </div>
 
-  <!-- DASHBOARD LINK -->
-  <ul nz-menu [nzSelectable]="false" [nzTheme]="'dark'" [nzMode]="'horizontal'"
-    style="padding-top:
-    12px; display: flex;">
-    <li (click)="routeTo('dashboard')" nz-menu-item fxShow="true"
-      fxHide.lt-sm="”true”">
-      Dashboard
-    </li>
+  <!-- PROFILE -->
 
-    <!-- DASHBOARD BUTTON -->
-    <li (click)="routeTo('dashboard')" nz-menu-item fxShow="true"
-      fxHide.gt-xs="”true”" style="margin: auto">
-      <i nz-icon nzType="dashboard" style="font-size: 24px;"></i>
-    </li>
+  <li style="margin-left: auto; margin-right: 3px">
+    <nz-dropdown *ngIf="user" [nzTrigger]="'click'" [nzPlacement]="'bottomRight'">
+      <span nz-dropdown>
+        <i nz-icon type="user"></i>
+        <span style="margin: auto; cursor: pointer;
+          padding: 4px;">{{user.sandPMetrics.firstname}}
+          {{user.sandPMetrics.lastname}} <span class="userpoints">{{user.points
+            | number}} pts</span></span>
+        <i nz-icon type="down"></i>
+        <!-- <i nz-icon type="user" fxHide.gt-xs="”true”" style=" margin: 3px; font-size: 16px;"></i> -->
+      </span>
+      
 
-    <!-- MARKET LINK -->
-    <li (click)="routeTo('marketplace')" nz-menu-item fxShow="true"
-      fxHide.lt-sm="”true”">
-      Market
-    </li>
-
-    <!-- MARKET BUTTON -->
-    <li (click)="routeTo('marketplace')" nz-menu-item fxShow="true"
-      fxHide.gt-xs="”true”" style="margin: auto">
-      <i nz-icon nzType="appstore" style="font-size: 24px;"></i>
-    </li>
-
-    <!-- PROFILE -->
-    <li style="margin-left: auto">
-      <nz-dropdown *ngIf="user" [nzTrigger]="'click'"
-        [nzPlacement]="'bottomRight'">
-
-        <span nz-dropdown>
-          <i nz-icon type="user" fxShow="true" fxHide.lt-sm="”true”"></i>
-          <span fxHide.lt-sm="”true”" style="margin: auto; cursor: pointer; padding: 4px;">{{user.sandPMetrics.firstname}} {{user.sandPMetrics.lastname}} <span style="color: lightyellow;font-size: 12px">{{user.points | number}} pts</span></span>
-          <i nz-icon type="down" fxShow="true" fxHide.lt-sm="”true”"></i>
-          <i nz-icon type="user" fxShow="true" fxHide.gt-xs="”true”"
-            style="font-size: 24px;"></i>
-        </span>
-
-
-        <ul nz-menu nzSelectable style="margin-top: 15px;">
-          <li (click)="routeTo('marketplace')" nz-menu-item>
-            <i nz-icon nzType="wallet"></i>{{user.points| number}} points
-          </li>
-          <li nz-menu-divider></li>
-          <li (click)="routeTo('cart')" nz-menu-item>
-            <i nz-icon nzType="shopping"></i>Cart
-          </li>
-          <li (click)="routeTo('orders')" nz-menu-item>
-            <i nz-icon nzType="gift"></i>Orders
-          </li>
-          <li (click)="routeTo('profile')" nz-menu-item>
-            <i nz-icon nzType="setting"></i>Profile
-          </li>
-          <li nz-menu-divider></li>
-          <li (click)="routeTo('manager')" nz-menu-item>
-              <i nz-icon nzType="audit"></i>Manager Console
-            </li>
-          <li (click)="routeTo('login')" nz-menu-item>
-            <i nz-icon nzType="logout"></i>Sign Out
-          </li>
-        </ul>
-      </nz-dropdown>
-    </li>
-
-  </ul>
-</nz-header>
+      <ul nz-menu nzSelectable style="margin-top: 15px;">
+        <li (click)="routeTo('marketplace')" nz-menu-item>
+          <i nz-icon nzType="wallet"></i>{{user.points| number}} points
+        </li>
+        <li nz-menu-divider></li>
+        <li (click)="routeTo('cart')" nz-menu-item>
+          <i nz-icon nzType="shopping"></i>Cart
+        </li>
+        <li (click)="routeTo('orders')" nz-menu-item>
+          <i nz-icon nzType="gift"></i>Orders
+        </li>
+        <li (click)="routeTo('profile')" nz-menu-item>
+          <i nz-icon nzType="setting"></i>Profile
+        </li>
+        <li nz-menu-divider></li>
+        <li (click)="routeTo('manager')" nz-menu-item>
+          <i nz-icon nzType="audit"></i>Manager Console
+        </li>
+        <li (click)="routeTo('login')" nz-menu-item>
+          <i nz-icon nzType="logout"></i>Sign Out
+        </li>
+      </ul>
+    </nz-dropdown>
+  </li>
+</ul>

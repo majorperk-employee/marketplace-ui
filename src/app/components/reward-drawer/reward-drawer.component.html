@@ -1,0 +1,44 @@
+<div>
+  <div *ngIf="loading">
+    <nz-spin nzTip="Fetching Details ...">
+    </nz-spin>
+  </div>
+
+  <div *ngIf="!loading" nz-row nzType="flex" nzJustify="center">
+
+    <img class="shadow" src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b077325-200w-326ppi.png">
+    
+    <nz-divider></nz-divider>
+
+    <nz-list nzSplit="false">
+      <nz-list-item [nzContent]="item">
+        <nz-statistic nzValue="{{pointsValue | number}} pts"
+          [nzTitle]="'Available
+          Points'" [nzSuffix]="suffixTemplate"></nz-statistic>
+        <ng-template #suffixTemplate>
+          / {{points | number}} pts
+        </ng-template>
+      </nz-list-item>
+      <nz-list-item>
+        <nz-input-number
+          style="width: 100%"
+          nzSize="large"
+          [(ngModel)]="dollarValue"
+          [nzMin]="0"
+          [nzMax]="maxValue"
+          [nzStep]="5"
+          [nzFormatter]="formatterDollar"
+          [nzParser]="parserDollar"></nz-input-number>
+      </nz-list-item>
+      <nz-list-item>
+        <button class="orange-button" nz-button nzBlock>Purchase!</button>
+      </nz-list-item>
+    </nz-list>
+
+    <nz-divider></nz-divider>
+
+    <span [innerHTML]="shortDescription"></span>
+
+  </div>
+
+</div>

@@ -162,7 +162,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   }
 
   showModal(brand: Brand) {
-    this.infoModal.createRewardModal(brand);
+    this.infoModal.createRewardModal();
   }
 
 }

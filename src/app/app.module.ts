@@ -18,6 +18,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { MarketplaceComponent } from './pages/marketplace/marketplace.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { RewardDrawerComponent } from './components/reward-drawer/reward-drawer.component';
 
 registerLocaleData(en);
 
@@ -31,7 +32,8 @@ registerLocaleData(en);
     ProfileComponent,
     OrdersComponent,
     InfoModalComponent,
-    RewardModalComponent
+    RewardModalComponent,
+    RewardDrawerComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,7 @@ registerLocaleData(en);
     ReactiveFormsModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }, {provide: LocationStrategy, useClass: HashLocationStrategy}, InfoModalComponent],
-  entryComponents: [RewardModalComponent],
+  entryComponents: [RewardModalComponent, RewardDrawerComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

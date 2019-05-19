@@ -6,10 +6,19 @@
         height: 35px;
     }
     .logo-name {
-        color: #fff;
-        font-size: 20px;
+        color: lightgray;
+        font-size: 18px;
         margin: 0 0 0 10px;
         vertical-align: middle;
         display: inline-block;
     }
+}
+
+.userpoints {
+    color:grey;
+    font-size: 12px
+}
+
+.userdata {
+    margin: 0 auto;
 }

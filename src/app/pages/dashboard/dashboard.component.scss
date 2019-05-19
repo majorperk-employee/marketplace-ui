@@ -1,14 +1,10 @@
 .dashboard-module {
     margin: 0 0 8px 0;
+    box-shadow: 
+    0 10px 20px -12px rgba(0, 0, 0, 0.42), 
+    0 3px 20px 0px rgba(0, 0, 0, 0.12), 
+    0 8px 10px -5px rgba(0, 0, 0, 0.2);
 }
-
-[nz-carousel-content] {
-    text-align: center;
-    height: 160px;
-    line-height: 160px;
-    color: #001528;
-    // overflow: wrap;
-  }
 
 .dot-container {
     background-color: #001528; 
@@ -17,4 +13,19 @@
     border-radius: 100px;
     width: 50%; 
     height: 25px;
+}
+
+.title-icon {
+    margin-right: 15px;
+}
+
+.shadow {
+    box-shadow: 1px 1px #d6e3ee;
+    border-radius: 15px;
+}
+
+span.tier-timeline:hover {
+    color: #001528;
+    text-decoration: underline;
+    cursor: pointer;
 }

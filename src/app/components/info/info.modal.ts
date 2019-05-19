@@ -37,19 +37,9 @@ export class InfoModalComponent {
     });
   }
 
-  createRewardModal(brand: Brand): void {
-    let itemId = brand.id;
+  createRewardModal(): void {
     const modal = this.modalService.create({
-      nzTitle: `${brand.brandName}`,
       nzContent: RewardModalComponent,
-      nzComponentParams: {
-        id: itemId,
-      },
-      nzFooter: [{
-        label: 'Thanks!',
-        shape: 'primary',
-        onClick: () => modal.destroy()
-      }]
     });
   }
 
