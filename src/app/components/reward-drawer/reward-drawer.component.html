@@ -1,10 +1,10 @@
 <div>
-  <div *ngIf="loading" style="margin-top: 15px;">
-    <nz-spin nzTip="Fetching Details ...">
+  <div *ngIf="loading" style="margin-top: 25px;">
+    <nz-spin nzTip="Please wait ...">
     </nz-spin>
   </div>
 
-  <div *ngIf="!loading" nz-row nzType="flex" nzJustify="center">
+  <div *ngIf="!loading && !reward" nz-row nzType="flex" nzJustify="center">
 
     <span style="padding:15px"> You have: <b>{{account.points | number}} pts</b></span>
     
@@ -45,6 +45,40 @@
     <nz-divider></nz-divider>
 
     <span [innerHTML]="shortDescription"></span>
+
+  </div>
+  <div *ngIf="!loading && reward" nz-row nzType="flex" nzJustify="center">
+
+    <span style="padding:15px"> You have: <b>{{account.points | number}} pts</b></span>
+    <img class="shadow"
+      src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b077325-200w-326ppi.png">
+    <nz-divider></nz-divider>
+
+
+    <nz-list nzSplit="false" nzSize="small">
+
+      <nz-list-item>
+          <p style="text-align: center; font-size: 20px">
+          Purchase Complete!
+        </p>
+      </nz-list-item>
+      
+      <nz-list-item>
+        <button [disabled]="checkoutDisabled" class="orange-button" nz-button nzBlock (click)="navigate(reward.redemptionLink)">Cash In!</button>
+      </nz-list-item>
+      
+      <nz-list-item>
+        <button [disabled]="checkoutDisabled" nz-button
+        nzBlock (click)="dismissReward()">Thanks!</button>
+      </nz-list-item>
+      
+    </nz-list>
+        
+    <nz-divider></nz-divider>
+    <p style="text-align: center; font-size: 16px; margin: 0;">${{reward.total}} Reward Link Redemption Code</p>
+    <nz-divider></nz-divider>
+        
+    <span [innerHTML]="reward.redemptionInstructions"></span>
 
   </div>
 

@@ -6,6 +6,7 @@ import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { AccountService } from '@app/service/account.service';
 import { Account } from '@app/models/account';
+import { RewardLinkResponse } from '@app/models/tango';
 
 @Component({
   selector: 'app-reward-drawer',
@@ -27,6 +28,8 @@ export class RewardDrawerComponent implements OnInit, OnDestroy {
   pointsValue: number;
   checkoutDisabled: boolean = false;
   multiplier: number;
+
+  reward: RewardLinkResponse;
 
   constructor(private modalService: NzModalService, private drawerRef: NzDrawerRef<string>, private shoppingService: ShoppingService, private accountService: AccountService) { }
 
@@ -69,9 +72,12 @@ export class RewardDrawerComponent implements OnInit, OnDestroy {
   }
 
   checkout() {
-    console.log(this.shoppingService.redeemRewardLink(this.account.id, this.dollarValue).then(
-      resp => { 
-        console.log(resp); 
+    this.shoppingService.redeemRewardLink(this.account.id, this.dollarValue).then(
+      resp => {
+
+        this.reward = resp;
+
+        console.log(resp);
 
         // REFRESH ACCOUNT POINTS
         this.accountService.refreshPoints(this.account.id);
@@ -79,7 +85,15 @@ export class RewardDrawerComponent implements OnInit, OnDestroy {
         this.loading = false; 
       },
       error => { console.error("checkout error", error); this.error = true; this.loading = false; }
-    ));
+    );
+  }
+
+  navigate(url: string) {
+    window.open(url,"_blank");
+  }
+
+  dismissReward(){
+    this.reward = null;
   }
 
   ngOnDestroy() {

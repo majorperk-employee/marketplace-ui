@@ -69,13 +69,12 @@
         <div>
           <div nz-row [nzGutter]="6">
             <div nz-col [nzSm]="{ span: 24 }" [nzMd]="{ span: 6 }">
-              <nz-card style="align-content: center;" [nzBordered]="false">
+              <nz-card style="text-align: center;" [nzBordered]="false">
                 <div nz-row nzType="flex" nzJustify="center">
-                  <p>You have</p>
+                  <p>Your Points</p>
                 </div>
                 <div nz-row nzType="flex" nzJustify="center">
-                  <p style="font-size: 36px">{{account.points | number}}<span
-                      style="font-size: 16px"> pts</span></p>
+                  <p style="font-size: 36px">{{account.points | number}}</p>
                 </div>
                 <div nz-row nzType="flex" nzJustify="center">
                   <button nz-button nzType="primary" (click)="openRewardLinkComponent()">Reward yourself!</button>
@@ -84,35 +83,26 @@
             </div>
 
             <div nz-col [nzSm]="{ span: 0 }" [nzMd]="{ span: 18 }"
-              fxHide.lt-sm="”true”">
+              fxHide.lt-sm="”true”" style="text-align: center">
+              <p style='padding-left: 15px;'> All the brands you love!</p>
               <nz-card style="padding: 0;" [nzBordered]="false">
-                <img class="shadow"
-                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b916708-300w-326ppi.png"
-                  style="width: 140px; margin-bottom: 10px; margin: 6px"> <!-- amazon -->
-                <img class="shadow"
-                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b891734-300w-326ppi.png"
-                  style="width: 140px; margin-bottom: 10px; margin: 6px"> <!-- apple -->
-                <img class="shadow"
-                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b663882-300w-326ppi.png"
-                  style="width: 140px; margin-bottom: 10px; margin: 6px"> <!-- target -->
-                <img class="shadow"
-                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b331538-300w-326ppi.png"
-                  style="width: 140px; margin-bottom: 10px; margin: 6px"> <!-- macys -->
-                <img class="shadow"
-                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b865851-300w-326ppi.png"
-                  style="width: 140px; margin-bottom: 10px; margin: 6px"> <!-- hulu -->
-                <img class="shadow"
-                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b752192-300w-326ppi.png"
-                  style="width: 140px; margin-bottom: 10px; margin: 6px"> <!-- nike -->
-                <img class="shadow"
-                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b942204-300w-326ppi.png"
-                  style="width: 140px; margin-bottom: 10px; margin: 6px"> <!-- starbucks -->
-                <img class="shadow"
-                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b230650-300w-326ppi.png"
-                  style="width: 140px; margin-bottom: 10px; margin: 6px"> <!-- uber -->
+                <img class="shadow-card-mini"
+                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b916708-300w-326ppi.png"> <!-- amazon -->
+                <img class="shadow-card-mini"
+                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b891734-300w-326ppi.png"> <!-- apple -->
+                <img class="shadow-card-mini"
+                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b663882-300w-326ppi.png"> <!-- target -->
+                <img class="shadow-card-mini"
+                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b331538-300w-326ppi.png"> <!-- macys -->
+                <img class="shadow-card-mini"
+                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b865851-300w-326ppi.png"> <!-- hulu -->
+                <img class="shadow-card-mini"
+                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b752192-300w-326ppi.png"> <!-- nike -->
+                <img class="shadow-card-mini"
+                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b942204-300w-326ppi.png"> <!-- starbucks -->
+                <img class="shadow-card-mini"
+                  src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b230650-300w-326ppi.png"> <!-- uber -->
               </nz-card>
-              <p style='padding-left: 15px;'> ... and so many more brands you
-                love!</p>
             </div>
 
 
