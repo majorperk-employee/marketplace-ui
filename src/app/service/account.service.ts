@@ -35,6 +35,7 @@ export class AccountService {
   get currentAccount(): Account {
     return this.account;
   }
+  
   set currentAccount(user: Account) {
     this.account = user;
   }

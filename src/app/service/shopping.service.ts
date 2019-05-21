@@ -4,6 +4,7 @@ import { Cart, RewardItem, Brand, Category } from '@app/models/market';
 import { environment } from '@environments/environment';
 import { first } from 'rxjs/operators';
 import { AccountService } from './account.service';
+import { RewardLinkResponse } from '@app/models/tango';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' })
@@ -43,6 +44,15 @@ export class ShoppingService {
     );
   }
 
+  public async redeemRewardLink(userId, amount) {
+    var response: RewardLinkResponse;
+    let asyncResult = await this.http.post<RewardLinkResponse>(`${environment.apiUrl}/rewardlink/redeem/${userId}`, amount, httpOptions).toPromise().then(
+      resp => { response = resp },
+      err => { response = null; console.error("Unable to complete purchase. Please refresh.", err ) }
+    );
+    return response;
+  }
+
   public async removeFromCart(itemIds, userId) {
     let asyncResult = await this.http.post<Cart>(`${environment.apiUrl}/cart/${userId}/remove`, itemIds, httpOptions).toPromise().then(
       resp => { this.accountService.currentAccountCart = resp; },
@@ -56,6 +66,5 @@ export class ShoppingService {
       resp => { this.accountService.currentAccountCart = resp; },
       err => { console.error("Unable to complete purchase. Please refresh.", err ) }
     );
-
   }
 }

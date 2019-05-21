@@ -1,12 +1,12 @@
 <div>
-  <div *ngIf="loading">
+  <div *ngIf="loading" style="margin-top: 15px;">
     <nz-spin nzTip="Fetching Details ...">
     </nz-spin>
   </div>
 
   <div *ngIf="!loading" nz-row nzType="flex" nzJustify="center">
 
-    <span style="padding:15px"> You have: <b>{{points | number}} pts</b></span>
+    <span style="padding:15px"> You have: <b>{{account.points | number}} pts</b></span>
     
     <img class="shadow"
     src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b077325-200w-326ppi.png">

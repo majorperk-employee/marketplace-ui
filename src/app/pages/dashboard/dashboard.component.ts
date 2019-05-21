@@ -20,6 +20,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   goalsModel: any;
   statsModel: any;
 
+  account: Account;
+
   id: number;
   name: string;
   firstname: string;
@@ -27,7 +29,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   userTier: string;
   userNextTier: string;
 
-  userPoints: number;
   totalDays: number;
   absenteeism: number;
 
@@ -62,14 +63,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private getAccount() {
     this.userSubscription = this.route.data.subscribe(data => {
-      let account: Account = data.account;
+      let account = data.account;
+      
+      this.account = account;
 
       this.id = account.id;
 
       this.name = account.sandPMetrics.firstname + " " + account.sandPMetrics.lastname;
       this.firstname = account.sandPMetrics.firstname;
-
-      this.userPoints = account.points;
 
       this.totalDays = +(account.sandPMetrics.prod_hours / 8).toFixed(2)
       this.totalDaysTarget = account.tier.totalDaysGoal;
@@ -104,7 +105,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   openRewardLinkComponent(): void {
     const drawerRef = this.drawerService.create<RewardDrawerComponent, { points: number }, string>({
       nzContent: RewardDrawerComponent,
-      nzContentParams: {points: this.userPoints}
+      nzContentParams: {points: this.account.points}
     });
 
     drawerRef.afterOpen.subscribe(() => { });
