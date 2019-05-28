@@ -20,6 +20,8 @@ export class ProfileComponent implements OnInit {
 
     this.account = this.accountService.currentAccount;
 
+    console.log(this.account);
+
     this.validateForm = this.fb.group({
       email: [this.account.email, [Validators.email, Validators.required]],
       password: [null],

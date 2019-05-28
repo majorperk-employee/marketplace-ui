@@ -65,5 +65,8 @@ export class OrdersComponent implements OnInit, OnDestroy {
           : -1
     );
   }
-
+  
+  navigate(url: string) {
+    window.open(url,"_blank");
+  }
 }

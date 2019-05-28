@@ -3,8 +3,9 @@
 <section style="margin: 64px 5% 0 5%">
   <nz-page-header nzTitle="Your Orders"></nz-page-header>
 
-  <nz-table #ordersTable [nzData]="ordersFiltered" [nzPageSize]="10" [(nzLoading)]="loading">
-      <thead>
+  <nz-table #ordersTable [nzData]="ordersFiltered" [nzPageSize]="10"
+    [(nzLoading)]="loading">
+    <thead>
       <tr>
         <th nzCustomFilter>
           Transaction Id
@@ -30,6 +31,7 @@
         <th>Points Cost</th>
         <th>Order Total</th>
         <th nzShowSort (nzSortChange)="sort($event)">Timestamp</th>
+        <th>Redeem</th>
       </tr>
     </thead>
     <tbody>
@@ -38,6 +40,9 @@
         <td>{{ data.total * account.tier.multiplier }}</td>
         <td>{{ data.total }} {{data.currencyCode}}</td>
         <td>{{ data.createdAt }}</td>
+        <td>
+          <a (click)="navigate(data.redemptionLink)">View Reward</a>
+        </td>
       </tr>
     </tbody>
   </nz-table>

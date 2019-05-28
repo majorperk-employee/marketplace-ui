@@ -1,5 +1,5 @@
 <app-global-nav></app-global-nav>
-<section style="margin: 0 5% 0 5%">
+<section style="margin: 65px 5% 0 5%">
   <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">E-mail</nz-form-label>
@@ -19,7 +19,8 @@
           <i
             nz-icon
             nz-tooltip
-            nzTitle="What name would you like to see appear at the top of this page?"
+            nzTitle="What name would you like to see appear at the top of this
+            page?"
             type="question-circle"
             theme="outline"></i>
         </span>
@@ -59,19 +60,19 @@
     </nz-form-item>
     <nz-divider></nz-divider>
     <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>Password</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24">
-          <input
-            nz-input
-            type="password"
-            id="password"
-            formControlName="password"
-            (ngModelChange)="updateConfirmValidator()"
-            />
-          <nz-form-explain *ngIf="validateForm.get('password')?.dirty &&
-            validateForm.get('password')?.errors">Please input your password!</nz-form-explain>
-        </nz-form-control>
-      </nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>Password</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input
+          nz-input
+          type="password"
+          id="password"
+          formControlName="password"
+          (ngModelChange)="updateConfirmValidator()"
+          />
+        <nz-form-explain *ngIf="validateForm.get('password')?.dirty &&
+          validateForm.get('password')?.errors">Please input your password!</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="checkPassword" nzRequired>Confirm
         Password</nz-form-label>
