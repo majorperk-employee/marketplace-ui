@@ -19,6 +19,7 @@ import { MarketplaceComponent } from './pages/marketplace/marketplace.component'
 import { OrdersComponent } from './pages/orders/orders.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RewardDrawerComponent } from './components/reward-drawer/reward-drawer.component';
+import {ScrollDispatchModule} from '@angular/cdk/scrolling';
 
 registerLocaleData(en);
 
@@ -44,6 +45,7 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     FlexLayoutModule,
     ReactiveFormsModule,
+    ScrollDispatchModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }, {provide: LocationStrategy, useClass: HashLocationStrategy}, InfoModalComponent],
   entryComponents: [RewardModalComponent, RewardDrawerComponent],

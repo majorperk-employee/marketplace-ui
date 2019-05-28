@@ -1,10 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { AccountService } from '@app/service/account.service';
-import { ShoppingService } from '@app/service/shopping.service';
 import { ActivatedRoute } from '@angular/router';
-import { Purchase, RewardItem } from '@app/models/market';
-import { conditionallyCreateMapObjectLiteral } from '@angular/compiler/src/render3/view/util';
+import { RewardLinkResponse } from '@app/models/tango';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-orders',
@@ -13,25 +10,27 @@ import { conditionallyCreateMapObjectLiteral } from '@angular/compiler/src/rende
 })
 export class OrdersComponent implements OnInit, OnDestroy {
 
+  account;
   loading: boolean = true;
 
   searchValue = '';
   sortName: string | null = null;
-  sortValue: string | null = null;
+  sortValue: string | null = "ascend";
 
-  listOfParentData: Purchase[] = [];
-  filteredData: Purchase[] = [];
+  orders: RewardLinkResponse[] = [];
+  ordersFiltered: RewardLinkResponse[] = [];
   ordersSubscription: Subscription;
 
-  constructor(private route: ActivatedRoute, private shoppingService: ShoppingService) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
     this.ordersSubscription = this.route.data.subscribe((data) => {
-      this.listOfParentData = data.orders;
-      this.filteredData = this.listOfParentData;
+      this.account = data.account;
+      this.orders = this.account.rewardLinks;
+      this.ordersFiltered = this.orders;
     });
-
+    this.sort("descend");
     this.loading = false;
   }
 
@@ -49,11 +48,14 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   search(): void {
-    const filterFunc = (item: Purchase) => {
-      return (item.id.toString().indexOf(this.searchValue.toString()) !== -1);
+    
+    const filterFunc = (item: RewardLinkResponse) => {
+      return (item.referenceOrderID.toString().indexOf(this.searchValue.toString()) !== -1);
     };
-    const data: Purchase[] = this.listOfParentData.filter((item: Purchase) => filterFunc(item));
-    this.filteredData = data.sort((a, b) =>
+    
+    const data: RewardLinkResponse[] = this.orders.filter((item: RewardLinkResponse) => filterFunc(item));
+
+    this.ordersFiltered = data.sort((a, b) =>
       this.sortValue === 'ascend'
         ? <any>new Date(a.createdAt) > <any>new Date(b.createdAt)
           ? 1

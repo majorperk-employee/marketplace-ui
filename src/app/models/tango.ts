@@ -1,11 +1,11 @@
 export class RewardLinkResponse {
-    referenceOrderID: String;
-    utid: String;
-    rewardName: String;
-    status: String;
-    createdAt: String;
-    redemptionLink: String;
-    redemptionInstructions: String;
+    referenceOrderID: string;
+    utid: string;
+    rewardName: string;
+    status: string;
+    createdAt: string;
+    redemptionLink: string;
+    redemptionInstructions: string;
     total: number;
-    currencyCode: String;
+    currencyCode: string;
 }

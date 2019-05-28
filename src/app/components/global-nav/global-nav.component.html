@@ -10,33 +10,30 @@
   <!-- PROFILE -->
 
   <li style="margin-left: auto; margin-right: 3px">
-    <nz-dropdown *ngIf="user" [nzTrigger]="'click'" [nzPlacement]="'bottomRight'">
+    <nz-dropdown *ngIf="user" [nzTrigger]="'click'"
+      [nzPlacement]="'bottomRight'">
       <span nz-dropdown>
-        <i nz-icon type="user"></i>
         <span style="margin: auto; cursor: pointer;
           padding: 4px;">{{user.sandPMetrics.firstname}}
           {{user.sandPMetrics.lastname}} <span class="userpoints">{{user.points
             | number}} pts</span></span>
         <i nz-icon type="down"></i>
-        <!-- <i nz-icon type="user" fxHide.gt-xs="”true”" style=" margin: 3px; font-size: 16px;"></i> -->
       </span>
-      
 
       <ul nz-menu nzSelectable style="margin-top: 15px;">
-        <li (click)="routeTo('marketplace')" nz-menu-item>
+        <li (click)="routeTo('dashboard')" nz-menu-item>
           <i nz-icon nzType="wallet"></i>{{user.points| number}} points
         </li>
-        <li nz-menu-divider></li>
-        <li (click)="routeTo('cart')" nz-menu-item>
-          <i nz-icon nzType="shopping"></i>Cart
-        </li>
+
         <li (click)="routeTo('orders')" nz-menu-item>
           <i nz-icon nzType="gift"></i>Orders
         </li>
+        
+        <li nz-menu-divider></li>
+
         <li (click)="routeTo('profile')" nz-menu-item>
           <i nz-icon nzType="setting"></i>Profile
         </li>
-        <li nz-menu-divider></li>
         <li (click)="routeTo('manager')" nz-menu-item>
           <i nz-icon nzType="audit"></i>Manager Console
         </li>

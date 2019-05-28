@@ -16,11 +16,7 @@ export class AccountResolve implements Resolve<Account> {
             take(1),
             switchMap(account => {
                 if (account) {
-                    console.log("DEFAULTING MULTIPLIER TO 50");
-                    
                     this.accountService.currentAccount = account;
-
-                    this.accountService.currentAccount.multiplier = 50;
                     return of(account);
                 } else {
                     console.log("Error getting reward items.");

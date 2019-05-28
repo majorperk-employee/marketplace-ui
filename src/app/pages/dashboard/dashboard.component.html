@@ -178,8 +178,9 @@
       <nz-affix [nzOffsetTop]="70">
         <nz-timeline>
           <nz-timeline-item *ngFor="let tier of tiers">
-            <p><strong>{{tier.title}}</strong><i nz-icon nzType="info-circle"
-                nzTheme="outline" style="margin-left: 3px;"></i></p>
+            <p><strong>{{tier.title}}</strong>
+              <!-- <i nz-icon nzType="info-circle" nzTheme="outline" style="margin-left: 3px;"></i> -->
+            </p>
             <span class="tier-timeline" z-button nz-popover
               nzTitle="Requirements"
               [nzContent]="tier.requirements">Requirements</span>

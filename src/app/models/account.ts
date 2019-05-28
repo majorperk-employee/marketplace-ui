@@ -1,4 +1,5 @@
 import { Cart } from "./market";
+import { RewardLinkResponse } from './tango';
 
 export class Account {
   id: number;
@@ -15,6 +16,7 @@ export class Account {
   points: number;
   sandPMetrics: SPMetrics;
   multiplier: number = 50;
+  rewardLinks: RewardLinkResponse[];
 }
 
 export class Auth {

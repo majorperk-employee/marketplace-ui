@@ -1,8 +1,12 @@
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AccountService } from '@app/service/account.service';
 import { Account } from '@app/models/account';
+import { AccountService } from '@app/service/account.service';
 import { environment } from '@environments/environment';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { RewardLinkResponse } from '@app/models/tango';
 
 @Component({
   selector: 'app-global-nav',
@@ -13,13 +17,15 @@ export class GlobalNavComponent implements OnInit {
 
   user: Account;
   showNavBar: boolean = false;
+  loadingRewardLinks = false;
+
+  rewardLinks: RewardLinkResponse[];
 
   constructor(private router: Router, private accountService: AccountService) {
     this.user = accountService.currentAccount;
   }
 
   routeTo(destination) {
-    console.log(destination);
     if (destination == "manager") {
       window.location.href = (`${environment.managerConsoleUrl}`);
       return false;
@@ -33,5 +39,18 @@ export class GlobalNavComponent implements OnInit {
 
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.loadingRewardLinks = true;
+    this.loadRewardLinks();
+  }
+
+  loadRewardLinks() {
+    this.rewardLinks = this.user.rewardLinks;
+    this.loadingRewardLinks = false;
+  }
+
+  navigate(link: String) {
+    console.log("Linked to: " + link);
+  }
+
 }

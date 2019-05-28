@@ -13,7 +13,7 @@ const routes: Routes = [
     {path: 'dashboard', component: DashboardComponent },
     {path: 'marketplace', component: MarketplaceComponent, resolve: { categories: CategoriesResolve, items: BrandsResolve}},
     {path: 'marketplace/:filter', component: MarketplaceComponent, resolve: { categories: CategoriesResolve, items: BrandsResolve}},
-    {path: 'cart', component: CartComponent, resolve: { items: CartItemsResolve } },
+    // {path: 'cart', component: CartComponent, resolve: { items: CartItemsResolve } },
     {path: 'profile', component: ProfileComponent },
     {path: 'orders', component: OrdersComponent, resolve: { orders: OrderItemsResolve } },
     {path: '**', redirectTo: 'dashboard' }

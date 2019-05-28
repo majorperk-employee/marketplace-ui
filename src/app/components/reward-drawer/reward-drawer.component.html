@@ -5,14 +5,12 @@
   </div>
 
   <div *ngIf="!loading && !reward" nz-row nzType="flex" nzJustify="center">
-
     <span style="padding:15px"> You have: <b>{{account.points | number}} pts</b></span>
-    
     <img class="shadow"
-    src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b077325-200w-326ppi.png">
+      src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b077325-200w-326ppi.png">
     <nz-divider></nz-divider>
-    
-    
+
+
     <nz-list nzSplit="false" nzSize="small">
 
       <nz-list-item>
@@ -47,38 +45,45 @@
     <span [innerHTML]="shortDescription"></span>
 
   </div>
+
   <div *ngIf="!loading && reward" nz-row nzType="flex" nzJustify="center">
 
     <span style="padding:15px"> You have: <b>{{account.points | number}} pts</b></span>
     <img class="shadow"
       src="https://d30s7yzk2az89n.cloudfront.net/images/brands/b077325-200w-326ppi.png">
-    <nz-divider></nz-divider>
 
+      <nz-divider></nz-divider>
 
     <nz-list nzSplit="false" nzSize="small">
 
       <nz-list-item>
-          <p style="text-align: center; font-size: 20px">
+        <p style="text-align: center; font-size: 20px">
           Purchase Complete!
         </p>
       </nz-list-item>
-      
+
       <nz-list-item>
-        <button [disabled]="checkoutDisabled" class="orange-button" nz-button nzBlock (click)="navigate(reward.redemptionLink)">Cash In!</button>
+        <p style="text-align: center; font-size: 16px; margin: 0;">${{reward.total}}
+          Reward Link Redemption Code</p>
       </nz-list-item>
-      
+
+      <nz-divider></nz-divider>
+
       <nz-list-item>
+        <button [disabled]="checkoutDisabled" class="orange-button" nz-button
+          nzBlock (click)="navigate(reward.redemptionLink)">Redeem Now!</button>
+      </nz-list-item>
+
+      <nz-divider></nz-divider>
+
+      <span [innerHTML]="reward.redemptionInstructions"></span>
+
+      <!-- <nz-list-item>
         <button [disabled]="checkoutDisabled" nz-button
         nzBlock (click)="dismissReward()">Thanks!</button>
-      </nz-list-item>
-      
+      </nz-list-item> -->
     </nz-list>
-        
-    <nz-divider></nz-divider>
-    <p style="text-align: center; font-size: 16px; margin: 0;">${{reward.total}} Reward Link Redemption Code</p>
-    <nz-divider></nz-divider>
-        
-    <span [innerHTML]="reward.redemptionInstructions"></span>
+
 
   </div>
 

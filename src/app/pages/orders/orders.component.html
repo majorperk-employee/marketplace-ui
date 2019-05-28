@@ -1,13 +1,11 @@
 <app-global-nav></app-global-nav>
 
-<section style="margin: 0 5% 0 5%">
+<section style="margin: 64px 5% 0 5%">
   <nz-page-header nzTitle="Your Orders"></nz-page-header>
 
-  <nz-table #nestedTable [nzData]="filteredData" [nzPageSize]="10"
-    [(nzLoading)]="loading">
-    <thead (nzSortChange)="sort($event)" nzSingleSort>
+  <nz-table #ordersTable [nzData]="ordersFiltered" [nzPageSize]="10" [(nzLoading)]="loading">
+      <thead>
       <tr>
-        <th nzShowExpand></th>
         <th nzCustomFilter>
           Transaction Id
           <nz-dropdown nzTrigger="click" nzPlacement="bottomRight"
@@ -29,96 +27,18 @@
             </div>
           </nz-dropdown>
         </th>
+        <th>Points Cost</th>
         <th>Order Total</th>
         <th nzShowSort (nzSortChange)="sort($event)">Timestamp</th>
-        <!-- <th>Action</th> -->
       </tr>
     </thead>
     <tbody>
-      <ng-template ngFor let-data [ngForOf]="nestedTable.data">
-        <tr>
-          <td nzShowExpand [(nzExpand)]="data.expand"></td>
-          <td>{{ data.id }}</td>
-          <td>{{ data.cost }}</td>
-          <td>{{ data.createdAt }}</td>
-          <!-- <td> <a>Publish</a> </td> -->
-        </tr>
-        <tr [nzExpand]="data.expand">
-          <td></td>
-          <td colspan="7">
-            <nz-table #innerTable [nzData]="data.items" nzSize="middle"
-              [nzShowPagination]="false">
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>Name</th>
-                  <th>Value</th>
-                  <th>Price</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let data of innerTable.data">
-                  <td>{{ data.id }}</td>
-                  <td>{{ data.rewardName }}</td>
-                  <td>$ {{ data.faceValue }}</td>
-                  <td>{{ data.price }}</td>
-                  <td>
-                    <nz-badge [nzStatus]="'default'" [nzText]="'Order Processed'"></nz-badge>
-                  </td>
-                </tr>
-              </tbody>
-            </nz-table>
-          </td>
-        </tr>
-      </ng-template>
+      <tr *ngFor="let data of ordersTable.data">
+        <td>{{ data.referenceOrderID }}</td>
+        <td>{{ data.total * account.tier.multiplier }}</td>
+        <td>{{ data.total }} {{data.currencyCode}}</td>
+        <td>{{ data.createdAt }}</td>
+      </tr>
     </tbody>
   </nz-table>
-
 </section>
-
-
-<!-- 
-
-  <nz-table #nzTable
-    [nzData]="listOfDisplayData"
-    [nzPaginationPosition]="'top'">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Price</th>
-        <th>Purchased</th>
-        <th nzCustomFilter>
-          Name
-          <nz-dropdown nzTrigger="click" nzPlacement="bottomRight"
-            [nzClickHide]="false" nzTableFilter #dropdown>
-            <i
-              nz-icon
-              nzType="search"
-              class="ant-table-filter-icon"
-              [class.ant-table-filter-open]="dropdown.nzVisible"
-              nz-dropdown></i>
-            <div class="search-box">
-              <input type="text" nz-input placeholder="Search name"
-                [(ngModel)]="searchValue" />
-              <button nz-button nzSize="small" nzType="primary"
-                (click)="search()"
-                class="search-button">
-                Search
-              </button>
-              <button nz-button nzSize="small" (click)="reset()">Reset</button>
-            </div>
-          </nz-dropdown>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of nzTable.data">
-        <td>{{ data.id }}</td>
-        <td>{{ data.price }}</td>
-        <td>{{ data.meta.purchaseDate }}</td>
-        <td>{{ data.name }}</td>
-      </tr>
-    </tbody>
-  </nz-table>
-</section> -->

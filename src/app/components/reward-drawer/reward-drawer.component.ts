@@ -36,7 +36,7 @@ export class RewardDrawerComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.account = this.accountService.currentAccount;
-    this.multiplier = this.account.multiplier;
+    this.multiplier = this.account.tier.multiplier;
 
     this.maxValue = Math.floor(this.points / this.multiplier);
     this.dollarValue = this.maxValue;
@@ -76,8 +76,6 @@ export class RewardDrawerComponent implements OnInit, OnDestroy {
       resp => {
 
         this.reward = resp;
-
-        console.log(resp);
 
         // REFRESH ACCOUNT POINTS
         this.accountService.refreshPoints(this.account.id);
