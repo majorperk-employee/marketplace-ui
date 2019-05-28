@@ -1,11 +1,10 @@
-import { Component, OnDestroy, OnInit, TemplateRef, Input } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { InfoModalComponent } from '@app/components/info/info.modal';
-import { Account, Survey } from '@app/models/account';
-import { Subscription } from 'rxjs';
-import { RewardModalComponent } from '@app/components/reward-modal/reward-modal.component';
-import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd';
 import { RewardDrawerComponent } from '@app/components/reward-drawer/reward-drawer.component';
+import { Account, Survey } from '@app/models/account';
+import { NzDrawerService } from 'ng-zorro-antd';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',

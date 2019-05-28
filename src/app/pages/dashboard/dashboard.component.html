@@ -31,9 +31,7 @@
           <div nz-row nzType="flex" nzJustify="center">
             <div>
               <button nz-button class="action-button" style="margin-top: 10px;"
-                (click)="openModal(userGoalsModalTitle, userGoalsModalContent,
-                userGoalsModalFooter)">See
-                Metrics</button>
+                (click)="openModal(userGoalsModalTitle, userGoalsModalContent, userGoalsModalFooter)">See Metrics</button>
             </div>
           </div>
         </div>
@@ -237,6 +235,9 @@
     </tbody>
   </nz-table>
 </ng-template>
+
+<ng-template #userGoalsModalTitle>
+  </ng-template>
 
 <ng-template #userGoalsModalFooter>
   <button nz-button nzType="primary" (click)="closeModal()">
