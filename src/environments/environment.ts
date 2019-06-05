@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   // apiUrl: 'http://192.168.0.11:8080'
   apiUrl: 'http://localhost:8080',
-  managerConsoleUrl: "https://reetayn.herokuapp.com/",
+  managerConsoleUrl: "http://reetayn-dashboard.cfapps.io/",
   loginUrl: "http://reetayn.cfapps.io/"
 };
 
